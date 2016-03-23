@@ -23,7 +23,6 @@
             this.currentProgress = new System.Windows.Forms.ProgressBar();
             this.completeProgressText = new System.Windows.Forms.Label();
             this.currentProgressText = new System.Windows.Forms.Label();
-            this.Start = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -31,7 +30,7 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Status});
-            this.statusStrip.Location = new System.Drawing.Point(0, 148);
+            this.statusStrip.Location = new System.Drawing.Point(0, 149);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(460, 22);
             this.statusStrip.TabIndex = 0;
@@ -74,23 +73,11 @@
             this.currentProgressText.TabIndex = 4;
             this.currentProgressText.Text = "Per file process: 0%  |  0.00 kb/s";
             // 
-            // Start
-            // 
-            this.Start.Enabled = false;
-            this.Start.Location = new System.Drawing.Point(12, 12);
-            this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(436, 23);
-            this.Start.TabIndex = 5;
-            this.Start.Text = "Start";
-            this.Start.UseVisualStyleBackColor = true;
-            this.Start.Click += new System.EventHandler(this.Start_Click);
-            // 
             // pForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 170);
-            this.Controls.Add(this.Start);
+            this.ClientSize = new System.Drawing.Size(460, 171);
             this.Controls.Add(this.currentProgressText);
             this.Controls.Add(this.completeProgressText);
             this.Controls.Add(this.currentProgress);
@@ -119,7 +106,6 @@
         public  System.Windows.Forms.ProgressBar            currentProgress;
         public  System.Windows.Forms.Label                  completeProgressText;
         public  System.Windows.Forms.Label                  currentProgressText;
-        public  System.Windows.Forms.Button                 Start;
     }
 }
 

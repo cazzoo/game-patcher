@@ -10,7 +10,7 @@ namespace RFUpdater.Patcher
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new pForm());
+            Application.Run(new loginForm());
         }
     }
 }

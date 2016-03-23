@@ -28,7 +28,7 @@ namespace RFUpdater.Patcher.Source_files
             {Keys.CANNOTSTART,                          "Can't start the game, because the {0} is not accessible."},
             {Keys.NONETWORK,                            "Can't connect to server, please check your network settings and try again."},
             {Keys.CONNECTING,                           "Connecting to the server..."},
-            {Keys.LISTDOWNLOAD,                         "Downloading patchlist..."},
+            {Keys.LISTDOWNLOAD,                         "Downloading modules lists..."},
             {Keys.CHECKFILE,                            "{0} checking..."},
             {Keys.DOWNLOADFILE,                         "{0} downloading... {1}/ {2}"},
             {Keys.COMPLETEPROGRESS,                     "Full progress: {0}%"},

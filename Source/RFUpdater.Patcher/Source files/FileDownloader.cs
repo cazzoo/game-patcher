@@ -19,20 +19,18 @@ namespace RFUpdater.Patcher.Source_files
             if(Globals.OldFiles.Count <= 0)
             {
                 Common.ChangeStatus(Texts.Keys.CHECKCOMPLETE);
-                Common.EnableStart();
                 return;
             }
 
             if (curFile >= Globals.OldFiles.Count)
             {
                 Common.ChangeStatus(Texts.Keys.DOWNLOADCOMPLETE);
-                Common.EnableStart();
                 return;
             }
 
             if (Globals.OldFiles[curFile].Contains("/"))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(Globals.OldFiles[curFile]));
+                Directory.CreateDirectory(Path.GetDirectoryName(Globals.GameBasePath + Globals.OldFiles[curFile]));
             }
 
             WebClient webClient = new WebClient();
@@ -43,7 +41,7 @@ namespace RFUpdater.Patcher.Source_files
 
             stopWatch.Start();
 
-            webClient.DownloadFileAsync(new Uri(Globals.ServerURL + Globals.OldFiles[curFile]), Globals.OldFiles[curFile]);
+            webClient.DownloadFileAsync(new Uri(Globals.ServerURL + Globals.ModulesFolder + Globals.OldFiles[curFile]), Globals.GameBasePath + Globals.OldFiles[curFile]);
         }
 
         private static void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)

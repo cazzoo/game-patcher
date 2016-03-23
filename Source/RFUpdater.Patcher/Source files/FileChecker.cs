@@ -41,7 +41,7 @@ namespace RFUpdater.Patcher.Source_files
 
                 backgroundWorker.ReportProgress((int)State.REPORT_NAME, Path.GetFileName(file.Name));
 
-                if (!File.Exists(file.Name) || Common.GetHash(file.Name) != file.Hash)
+                if (!File.Exists(Globals.GameBasePath + file.Name) || Common.GetHash(Globals.GameBasePath + file.Name) != file.Hash)
                 {
                     Globals.OldFiles.Add(file.Name);
                 }

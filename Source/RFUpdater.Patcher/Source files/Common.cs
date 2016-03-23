@@ -10,7 +10,7 @@ namespace RFUpdater.Patcher.Source_files
     {
         public static void ChangeStatus(Texts.Keys Key, params string[] Arguments)
         {
-            Globals.pForm.Status.Text = Texts.GetText(Key, Arguments);
+            //Globals.pForm.Status.Text = Texts.GetText(Key, Arguments);
         }
 
         public static void UpdateCompleteProgress(long Value)
@@ -49,11 +49,6 @@ namespace RFUpdater.Patcher.Source_files
             }
 
             return Hash;
-        }
-
-        public static void EnableStart()
-        {
-            Globals.pForm.Start.Enabled = true;
         }
 
         public static bool IsGameRunning()

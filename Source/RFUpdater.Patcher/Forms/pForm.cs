@@ -11,19 +11,12 @@ namespace RFUpdater.Patcher
             InitializeComponent();
 
             Globals.pForm = this;
+            Globals.currentForm = this;
         }
 
         private void pForm_Shown(object sender, EventArgs e)
         {
-            if (Common.IsGameRunning())
-                Common.EnableStart();
-            else
-                Networking.CheckNetwork();
-        }
-
-        private void Start_Click(object sender, EventArgs e)
-        {
-            Starter.Start();
+            Networking.CheckNetwork(Globals.NETWORK_DOWNLOAD_FILES);
         }
     }
 }
