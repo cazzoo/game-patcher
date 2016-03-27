@@ -49,7 +49,7 @@ namespace RFUpdater.Patcher.Source_files
                 {
                     if (!match.Success) { continue; }
                     string name = match.Groups["name"].Value;
-                    Globals.Patchlist.Add(name);
+					Globals.Patchlist.Add(System.IO.Path.GetFileNameWithoutExtension(name));
                 }
             }
         }
@@ -89,7 +89,7 @@ namespace RFUpdater.Patcher.Source_files
 
             foreach(object checkedItem in Globals.moduleList.chklist_modules.CheckedItems)
             {
-                Stream stream = webClient.OpenRead(Globals.ServerURL + checkedItem.ToString());
+                Stream stream = webClient.OpenRead(Globals.ServerURL + checkedItem.ToString() + ".txt");
                 StreamReader streamReader = new StreamReader(stream);
 
                 while (!streamReader.EndOfStream)
