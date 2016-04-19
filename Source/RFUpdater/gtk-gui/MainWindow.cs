@@ -27,9 +27,9 @@ public partial class MainWindow
 	
 	private global::Gtk.VBox vbox4;
 	
-	private global::Gtk.Button button6;
+	private global::Gtk.Button btn_deactivate;
 	
-	private global::Gtk.Button button7;
+	private global::Gtk.Button btn_activate;
 	
 	private global::Gtk.VSeparator vseparator2;
 	
@@ -37,13 +37,13 @@ public partial class MainWindow
 	
 	private global::Gtk.TreeView tree_Activated;
 	
-	private global::Gtk.Button button5;
+	private global::Gtk.Button btn_synch_start;
 	
-	private global::Gtk.ProgressBar progressbar1;
+	private global::Gtk.ProgressBar progress_file;
 	
-	private global::Gtk.ProgressBar progressbar2;
+	private global::Gtk.ProgressBar progress_overall;
 	
-	private global::Gtk.Statusbar statusbar4;
+	private global::Gtk.Statusbar status_main;
 
 	protected virtual void Build ()
 	{
@@ -113,28 +113,28 @@ public partial class MainWindow
 		this.vbox4.Homogeneous = true;
 		this.vbox4.Spacing = 2;
 		// Container child vbox4.Gtk.Box+BoxChild
-		this.button6 = new global::Gtk.Button ();
-		this.button6.CanFocus = true;
-		this.button6.Name = "button6";
-		this.button6.UseUnderline = true;
+		this.btn_deactivate = new global::Gtk.Button ();
+		this.btn_deactivate.CanFocus = true;
+		this.btn_deactivate.Name = "btn_deactivate";
+		this.btn_deactivate.UseUnderline = true;
 		global::Gtk.Image w6 = new global::Gtk.Image ();
 		w6.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_left", global::Gtk.IconSize.Menu);
-		this.button6.Image = w6;
-		this.vbox4.Add (this.button6);
-		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.button6]));
+		this.btn_deactivate.Image = w6;
+		this.vbox4.Add (this.btn_deactivate);
+		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btn_deactivate]));
 		w7.Position = 0;
 		w7.Expand = false;
 		w7.Fill = false;
 		// Container child vbox4.Gtk.Box+BoxChild
-		this.button7 = new global::Gtk.Button ();
-		this.button7.CanFocus = true;
-		this.button7.Name = "button7";
-		this.button7.UseUnderline = true;
+		this.btn_activate = new global::Gtk.Button ();
+		this.btn_activate.CanFocus = true;
+		this.btn_activate.Name = "btn_activate";
+		this.btn_activate.UseUnderline = true;
 		global::Gtk.Image w8 = new global::Gtk.Image ();
 		w8.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_right", global::Gtk.IconSize.Menu);
-		this.button7.Image = w8;
-		this.vbox4.Add (this.button7);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.button7]));
+		this.btn_activate.Image = w8;
+		this.vbox4.Add (this.btn_activate);
+		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btn_activate]));
 		w9.Position = 1;
 		w9.Expand = false;
 		w9.Fill = false;
@@ -168,41 +168,41 @@ public partial class MainWindow
 		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox1]));
 		w14.Position = 1;
 		// Container child vbox3.Gtk.Box+BoxChild
-		this.button5 = new global::Gtk.Button ();
-		this.button5.CanFocus = true;
-		this.button5.Name = "button5";
-		this.button5.UseUnderline = true;
-		this.button5.Label = global::Mono.Unix.Catalog.GetString ("Synchronize");
+		this.btn_synch_start = new global::Gtk.Button ();
+		this.btn_synch_start.CanFocus = true;
+		this.btn_synch_start.Name = "btn_synch_start";
+		this.btn_synch_start.UseUnderline = true;
+		this.btn_synch_start.Label = global::Mono.Unix.Catalog.GetString ("Synchronize");
 		global::Gtk.Image w15 = new global::Gtk.Image ();
 		w15.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_refresh", global::Gtk.IconSize.Menu);
-		this.button5.Image = w15;
-		this.vbox3.Add (this.button5);
-		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.button5]));
+		this.btn_synch_start.Image = w15;
+		this.vbox3.Add (this.btn_synch_start);
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.btn_synch_start]));
 		w16.Position = 2;
 		w16.Expand = false;
 		w16.Fill = false;
 		// Container child vbox3.Gtk.Box+BoxChild
-		this.progressbar1 = new global::Gtk.ProgressBar ();
-		this.progressbar1.Name = "progressbar1";
-		this.vbox3.Add (this.progressbar1);
-		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.progressbar1]));
+		this.progress_file = new global::Gtk.ProgressBar ();
+		this.progress_file.Name = "progress_file";
+		this.vbox3.Add (this.progress_file);
+		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.progress_file]));
 		w17.Position = 3;
 		w17.Expand = false;
 		w17.Fill = false;
 		// Container child vbox3.Gtk.Box+BoxChild
-		this.progressbar2 = new global::Gtk.ProgressBar ();
-		this.progressbar2.Name = "progressbar2";
-		this.vbox3.Add (this.progressbar2);
-		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.progressbar2]));
+		this.progress_overall = new global::Gtk.ProgressBar ();
+		this.progress_overall.Name = "progress_overall";
+		this.vbox3.Add (this.progress_overall);
+		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.progress_overall]));
 		w18.Position = 4;
 		w18.Expand = false;
 		w18.Fill = false;
 		// Container child vbox3.Gtk.Box+BoxChild
-		this.statusbar4 = new global::Gtk.Statusbar ();
-		this.statusbar4.Name = "statusbar4";
-		this.statusbar4.Spacing = 6;
-		this.vbox3.Add (this.statusbar4);
-		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.statusbar4]));
+		this.status_main = new global::Gtk.Statusbar ();
+		this.status_main.Name = "status_main";
+		this.status_main.Spacing = 6;
+		this.vbox3.Add (this.status_main);
+		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.status_main]));
 		w19.PackType = ((global::Gtk.PackType)(1));
 		w19.Position = 5;
 		w19.Expand = false;
@@ -215,6 +215,7 @@ public partial class MainWindow
 		this.DefaultHeight = 300;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+		this.preferencesAction.Activated += new global::System.EventHandler (this.openSettingsWindow);
 		this.quitAction.Activated += new global::System.EventHandler (this.QuitApplication);
 	}
 }

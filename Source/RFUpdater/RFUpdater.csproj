@@ -68,6 +68,8 @@
     <Compile Include="gtk-gui\LoginWindow.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="gtk-gui\MainWindow.cs" />
+    <Compile Include="SettingsWindow.cs" />
+    <Compile Include="gtk-gui\SettingsWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

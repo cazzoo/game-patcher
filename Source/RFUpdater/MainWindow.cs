@@ -25,4 +25,10 @@ public partial class MainWindow : Gtk.Window
 	{
 		Application.Quit ();
 	}
+
+	protected void openSettingsWindow (object sender, EventArgs e)
+	{
+		SettingsWindow sw = new SettingsWindow ();
+		sw.Show ();
+	}
 }

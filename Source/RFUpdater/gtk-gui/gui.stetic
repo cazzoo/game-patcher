@@ -162,6 +162,7 @@
         <property name="Label" translatable="yes">Settings</property>
         <property name="ShortLabel" translatable="yes">Settings</property>
         <property name="StockId">gtk-preferences</property>
+        <signal name="Activated" handler="openSettingsWindow" />
       </action>
       <action id="quitAction">
         <property name="Type">Action</property>
@@ -236,7 +237,7 @@
                 <property name="Homogeneous">True</property>
                 <property name="Spacing">2</property>
                 <child>
-                  <widget class="Gtk.Button" id="button6">
+                  <widget class="Gtk.Button" id="btn_deactivate">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
@@ -252,7 +253,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="button7">
+                  <widget class="Gtk.Button" id="btn_activate">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
@@ -311,7 +312,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="button5">
+          <widget class="Gtk.Button" id="btn_synch_start">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextAndIcon</property>
@@ -327,7 +328,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ProgressBar" id="progressbar1">
+          <widget class="Gtk.ProgressBar" id="progress_file">
             <property name="MemberName" />
           </widget>
           <packing>
@@ -338,7 +339,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ProgressBar" id="progressbar2">
+          <widget class="Gtk.ProgressBar" id="progress_overall">
             <property name="MemberName" />
           </widget>
           <packing>
@@ -349,7 +350,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Statusbar" id="statusbar4">
+          <widget class="Gtk.Statusbar" id="status_main">
             <property name="MemberName" />
             <property name="Spacing">6</property>
           </widget>
@@ -362,6 +363,14 @@
           </packing>
         </child>
       </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="SettingsWindow" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">SettingsWindow</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
     </child>
   </widget>
 </stetic-interface>
