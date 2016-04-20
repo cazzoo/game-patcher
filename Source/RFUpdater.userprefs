@@ -5,23 +5,12 @@
     <String>RFUpdater/RFUpdater.csproj</String>
   </StartupItems>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater/MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater/SettingsWindow.cs">
     <Files>
-      <File FileName="RFUpdater/MainWindow.cs" Line="20" Column="3" />
-      <File FileName="RFUpdater/SettingsWindow.cs" Line="2" Column="11" />
-      <File FileName="RFUpdater/Program.cs" Line="14" Column="4" />
+      <File FileName="RFUpdater/MainWindow.cs" Line="19" Column="39" />
+      <File FileName="RFUpdater/SettingsWindow.cs" Line="19" Column="53" />
+      <File FileName="RFUpdater/INIFile.cs" Line="106" Column="30" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="RFUpdater" expanded="True">
-            <Node name="RFUpdater" expanded="True">
-              <Node name="MainWindow.cs" selected="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

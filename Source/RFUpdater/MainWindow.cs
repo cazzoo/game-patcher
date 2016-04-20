@@ -1,34 +1,39 @@
 ﻿using System;
 using Gtk;
 
-public partial class MainWindow : Gtk.Window
+namespace RFUpdater
 {
-	public MainWindow () :
-		base (Gtk.WindowType.Toplevel)
+	public partial class MainWindow : Gtk.Window
 	{
-		this.Build ();
-		Init ();
-	}
+		public static INIFile settings;
 
-	protected void Init()
-	{
-		
-	}
+		public MainWindow () :
+			base (Gtk.WindowType.Toplevel)
+		{
+			this.Build ();
+			Init ();
+		}
 
-	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
-	{
-		Application.Quit ();
-		a.RetVal = true;
-	}
+		protected void Init ()
+		{
+			settings = new INIFile ("RFCUpdater.ini");
+		}
 
-	protected void QuitApplication (object sender, EventArgs e)
-	{
-		Application.Quit ();
-	}
+		protected void OnDeleteEvent (object sender, DeleteEventArgs a)
+		{
+			Application.Quit ();
+			a.RetVal = true;
+		}
 
-	protected void openSettingsWindow (object sender, EventArgs e)
-	{
-		SettingsWindow sw = new SettingsWindow ();
-		sw.Show ();
+		protected void QuitApplication (object sender, EventArgs e)
+		{
+			Application.Quit ();
+		}
+
+		protected void openSettingsWindow (object sender, EventArgs e)
+		{
+			SettingsWindow sw = new SettingsWindow ();
+			sw.Show ();
+		}
 	}
 }
