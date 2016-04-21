@@ -1,15 +1,14 @@
-﻿<Properties>
+﻿<Properties RefactoringSettings.EnableRefactorings="True">
   <StartupItems>
     <String>RFUpdater.Patcher\RFUpdater.Patcher.csproj</String>
     <String>RFUpdater.Lister\RFUpdater.Lister.csproj</String>
     <String>RFUpdater\RFUpdater.csproj</String>
   </StartupItems>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\SettingRow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\MainWindow.cs">
     <Files>
-      <File FileName="RFUpdater\MainWindow.cs" Line="1" Column="1" />
-      <File FileName="RFUpdater\SettingsWindow.cs" Line="15" Column="4" />
-      <File FileName="RFUpdater\SettingRow.cs" Line="44" Column="4" />
+      <File FileName="RFUpdater\MainWindow.cs" Line="24" Column="1" />
+      <File FileName="RFUpdater\Utils\ModuleDefinitionDownloader.cs" Line="26" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

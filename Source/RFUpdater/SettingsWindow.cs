@@ -28,17 +28,25 @@ namespace RFUpdater
 
 		protected void CancelSettings (object sender, EventArgs e)
 		{
+			Common.ChangeStatus (Texts.Keys.APPLICATION, "Settings not saved");
 			this.CloseWindow ();
 		}
 
 		protected void SaveSettings (object sender, EventArgs e)
 		{
+			int NumberPropertiesChanged = 0;
 			foreach (SettingRow SettingRowWidget in vboxListSettings.Children) {
 				if (SettingRowWidget.Changed()) {
+					NumberPropertiesChanged++;
 					MainWindow.settings.SetValue (settingCategory, SettingRowWidget.Label, SettingRowWidget.Value);
 				}
 			}
-			MainWindow.settings.Flush ();
+			if (NumberPropertiesChanged > 0) {
+				MainWindow.settings.Flush ();
+				Common.ChangeStatus (Texts.Keys.APPLICATION, "Settings saved, " + NumberPropertiesChanged + " property(ies) updated");
+			} else {
+				Common.ChangeStatus (Texts.Keys.APPLICATION, "Settings identical, not saved");
+			}
 			this.CloseWindow ();
 		}
 

@@ -220,6 +220,9 @@ namespace RFUpdater
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 			this.preferencesAction.Activated += new global::System.EventHandler (this.openSettingsWindow);
 			this.quitAction.Activated += new global::System.EventHandler (this.QuitApplication);
+			this.btn_deactivate.Clicked += new global::System.EventHandler (this.OnBtnDeactivateClicked);
+			this.btn_activate.Clicked += new global::System.EventHandler (this.OnBtnActivateClicked);
+			this.btn_synch_start.Clicked += new global::System.EventHandler (this.OnBtnSynchStartClicked);
 		}
 	}
 }

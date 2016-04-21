@@ -246,6 +246,7 @@
                     <property name="Icon">stock:stock_left Menu</property>
                     <property name="Label" translatable="yes" />
                     <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnBtnDeactivateClicked" />
                   </widget>
                   <packing>
                     <property name="Position">0</property>
@@ -262,6 +263,7 @@
                     <property name="Icon">stock:stock_right Menu</property>
                     <property name="Label" translatable="yes" />
                     <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnBtnActivateClicked" />
                   </widget>
                   <packing>
                     <property name="Position">1</property>
@@ -321,6 +323,7 @@
             <property name="Icon">stock:stock_refresh Menu</property>
             <property name="Label" translatable="yes">Synchronize</property>
             <property name="UseUnderline">True</property>
+            <signal name="Clicked" handler="OnBtnSynchStartClicked" />
           </widget>
           <packing>
             <property name="Position">2</property>
