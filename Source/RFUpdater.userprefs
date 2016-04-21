@@ -1,15 +1,15 @@
 ﻿<Properties>
   <StartupItems>
-    <String>RFUpdater.Patcher/RFUpdater.Patcher.csproj</String>
-    <String>RFUpdater.Lister/RFUpdater.Lister.csproj</String>
-    <String>RFUpdater/RFUpdater.csproj</String>
+    <String>RFUpdater.Patcher\RFUpdater.Patcher.csproj</String>
+    <String>RFUpdater.Lister\RFUpdater.Lister.csproj</String>
+    <String>RFUpdater\RFUpdater.csproj</String>
   </StartupItems>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater/SettingsWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\SettingRow.cs">
     <Files>
-      <File FileName="RFUpdater/MainWindow.cs" Line="19" Column="39" />
-      <File FileName="RFUpdater/SettingsWindow.cs" Line="18" Column="94" />
-      <File FileName="RFUpdater/INIFile.cs" Line="314" Column="1" />
+      <File FileName="RFUpdater\MainWindow.cs" Line="1" Column="1" />
+      <File FileName="RFUpdater\SettingsWindow.cs" Line="15" Column="4" />
+      <File FileName="RFUpdater\SettingRow.cs" Line="44" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

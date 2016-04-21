@@ -16,7 +16,7 @@ namespace RFUpdater
 
 		protected void Init ()
 		{
-			settings = new INIFile ("RFCUpdater.ini");
+			settings = new INIFile ("RFCUpdater.ini", true, false);
 		}
 
 		protected void OnDeleteEvent (object sender, DeleteEventArgs a)

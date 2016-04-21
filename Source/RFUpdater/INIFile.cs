@@ -310,12 +310,12 @@ namespace RFUpdater
 				// *** Check if the section exists ***
 				Dictionary<string, string> Section;
 				if (!m_Sections.TryGetValue (SectionName, out Section))
-					return null;
+					return new List<string>();
 
 				if (Section != null) {
 					return new List<string>(Section.Keys);
 				} else {
-					return null;
+					return new List<string>();
 				}
 			}
 		}

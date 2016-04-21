@@ -452,7 +452,7 @@
         <property name="Spacing">6</property>
         <child>
           <widget class="Gtk.Label" id="lbl_setting">
-            <property name="MemberName" />
+            <property name="MemberName">Label</property>
             <property name="LabelProp" translatable="yes">label</property>
           </widget>
           <packing>
@@ -464,7 +464,7 @@
         </child>
         <child>
           <widget class="Gtk.Entry" id="in_setting">
-            <property name="MemberName" />
+            <property name="MemberName">Value</property>
             <property name="CanFocus">True</property>
             <property name="IsEditable">True</property>
             <property name="InvisibleChar">•</property>

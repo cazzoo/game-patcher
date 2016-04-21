@@ -32,6 +32,10 @@ namespace RFUpdater
 			set { in_setting.Text = value; }
 		}
 
+		public Boolean Changed() {
+			return Value != DefaultValue;
+		}
+
 		protected void OnBtnSettingClicked (object sender, EventArgs e)
 		{
 			if (Value != DefaultValue) {
