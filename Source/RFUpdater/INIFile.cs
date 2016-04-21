@@ -297,6 +297,29 @@ namespace RFUpdater
 			}
 		}
 
+		// *** Get all the keys of a section ***
+		internal List<string> getKeys (string SectionName)
+		{
+			// *** Lazy loading ***
+			if (m_Lazy) {
+				m_Lazy = false;
+				Refresh ();
+			}
+
+			lock (m_Lock) {
+				// *** Check if the section exists ***
+				Dictionary<string, string> Section;
+				if (!m_Sections.TryGetValue (SectionName, out Section))
+					return null;
+
+				if (Section != null) {
+					return new List<string>(Section.Keys);
+				} else {
+					return null;
+				}
+			}
+		}
+
 		// *** Read a value from local cache ***
 		internal string GetValue (string SectionName, string Key, string DefaultValue)
 		{

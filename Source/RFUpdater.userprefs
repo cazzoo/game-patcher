@@ -8,8 +8,8 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater/SettingsWindow.cs">
     <Files>
       <File FileName="RFUpdater/MainWindow.cs" Line="19" Column="39" />
-      <File FileName="RFUpdater/SettingsWindow.cs" Line="19" Column="53" />
-      <File FileName="RFUpdater/INIFile.cs" Line="106" Column="30" />
+      <File FileName="RFUpdater/SettingsWindow.cs" Line="18" Column="94" />
+      <File FileName="RFUpdater/INIFile.cs" Line="314" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

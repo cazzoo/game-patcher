@@ -14,13 +14,13 @@ namespace RFUpdater
 
 		protected void Init()
 		{
-			INIFile set = new INIFile ("RFCUpdater.ini");
-			set.SetValue("Section", "Key", "Value");
-			string param = set.GetValue ("Section", "Key", "a:");
-			SettingRow row = new SettingRow ();
-			row.Label = "GamePath";
-			row.DefaultValue = param;
-			vboxListSettings.PackStart(row, true, true, 2);
+			foreach (string PropertyName in MainWindow.settings.getKeys("Section")) {
+				string PropertyValue = MainWindow.settings.GetValue ("Section", PropertyName, "default");
+
+				SettingRow SettingRowWidget = new SettingRow (PropertyName, PropertyValue);
+				vboxListSettings.PackEnd(SettingRowWidget, true, true, 6);
+			}
+			vboxListSettings.ShowAll ();
 		}
 
 		protected void CancelSettings (object sender, EventArgs e)

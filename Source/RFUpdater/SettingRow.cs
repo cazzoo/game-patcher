@@ -7,9 +7,11 @@ namespace RFUpdater
 	{
 		string defaultValue;
 
-		public SettingRow ()
+		public SettingRow (string p_Label, string p_DefaultValue)
 		{
 			this.Build ();
+			Label = p_Label;
+			DefaultValue = p_DefaultValue;
 		}
 
 		public string Label {
