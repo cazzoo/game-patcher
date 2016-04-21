@@ -19,7 +19,7 @@ namespace RFUpdater
 		public static int ACTION_DOWNLOAD_DEFINITIONS = 0;
 		public static int ACTION_DOWNLOAD_MODULES = 1;
 
-        public static List<string>  Patchlist   = new List<string>();
+        public static List<string>  ModuleNameList   = new List<string>();
         public static List<File>    Files       = new List<File>();
         public static List<string>  OldFiles    = new List<string>();
 

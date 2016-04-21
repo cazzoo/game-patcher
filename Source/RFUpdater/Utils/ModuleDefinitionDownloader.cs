@@ -48,7 +48,7 @@ namespace RFUpdater.Utils
 				{
 					if (!match.Success) { continue; }
 					string name = match.Groups["name"].Value;
-					Globals.Patchlist.Add(System.IO.Path.GetFileNameWithoutExtension(name));
+					Globals.ModuleNameList.Add(System.IO.Path.GetFileNameWithoutExtension(name));
 				}
 			}
 		}
