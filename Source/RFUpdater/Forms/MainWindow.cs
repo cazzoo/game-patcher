@@ -57,5 +57,11 @@ namespace RFUpdater
 		{
 			Common.ShowMessageBox (Texts.Keys.UNKNOWNERROR, "NOT IMPLEMENTED YET");
 		}
+
+		protected void OnEditModuleActionActivated (object sender, EventArgs e)
+		{
+			ModuleWindow moduleWindow = new ModuleWindow();
+			moduleWindow.Show();
+		}
 	}
 }

@@ -14,6 +14,14 @@ namespace RFUpdater
 		
 		private global::Gtk.Action quitAction;
 		
+		private global::Gtk.Action ManageAction;
+		
+		private global::Gtk.Action CreateModuleAction;
+		
+		private global::Gtk.Action EditModuleAction;
+		
+		private global::Gtk.Action DeleteModuleAction;
+		
 		private global::Gtk.VBox vbox3;
 		
 		private global::Gtk.MenuBar menubar1;
@@ -64,6 +72,18 @@ namespace RFUpdater
 			this.quitAction = new global::Gtk.Action ("quitAction", global::Mono.Unix.Catalog.GetString ("Quit"), null, "gtk-quit");
 			this.quitAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Quit");
 			w1.Add (this.quitAction, null);
+			this.ManageAction = new global::Gtk.Action ("ManageAction", global::Mono.Unix.Catalog.GetString ("Manage"), null, null);
+			this.ManageAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Manage");
+			w1.Add (this.ManageAction, null);
+			this.CreateModuleAction = new global::Gtk.Action ("CreateModuleAction", global::Mono.Unix.Catalog.GetString ("Create module"), null, null);
+			this.CreateModuleAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Create module");
+			w1.Add (this.CreateModuleAction, null);
+			this.EditModuleAction = new global::Gtk.Action ("EditModuleAction", global::Mono.Unix.Catalog.GetString ("Edit module"), null, null);
+			this.EditModuleAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Edit module");
+			w1.Add (this.EditModuleAction, null);
+			this.DeleteModuleAction = new global::Gtk.Action ("DeleteModuleAction", global::Mono.Unix.Catalog.GetString ("Delete module"), null, null);
+			this.DeleteModuleAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Delete module");
+			w1.Add (this.DeleteModuleAction, null);
 			this.UIManager.InsertActionGroup (w1, 0);
 			this.AddAccelGroup (this.UIManager.AccelGroup);
 			this.Name = "RFUpdater.MainWindow";
@@ -74,9 +94,7 @@ namespace RFUpdater
 			this.vbox3.Name = "vbox3";
 			this.vbox3.Spacing = 6;
 			// Container child vbox3.Gtk.Box+BoxChild
-			this.UIManager.AddUiFromString ("<ui><menubar name=\'menubar1\'><menu name=\'FileAction\' action=\'FileAction\'><menuite" +
-			"m name=\'preferencesAction\' action=\'preferencesAction\'/><menuitem name=\'quitActio" +
-			"n\' action=\'quitAction\'/></menu></menubar></ui>");
+			this.UIManager.AddUiFromString (@"<ui><menubar name='menubar1'><menu name='FileAction' action='FileAction'><menuitem name='preferencesAction' action='preferencesAction'/><menuitem name='quitAction' action='quitAction'/></menu><menu name='ManageAction' action='ManageAction'><menuitem name='CreateModuleAction' action='CreateModuleAction'/><menuitem name='EditModuleAction' action='EditModuleAction'/><menuitem name='DeleteModuleAction' action='DeleteModuleAction'/></menu></menubar></ui>");
 			this.menubar1 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar1")));
 			this.menubar1.Name = "menubar1";
 			this.vbox3.Add (this.menubar1);
@@ -220,6 +238,7 @@ namespace RFUpdater
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 			this.preferencesAction.Activated += new global::System.EventHandler (this.openSettingsWindow);
 			this.quitAction.Activated += new global::System.EventHandler (this.QuitApplication);
+			this.EditModuleAction.Activated += new global::System.EventHandler (this.OnEditModuleActionActivated);
 			this.btn_deactivate.Clicked += new global::System.EventHandler (this.OnBtnDeactivateClicked);
 			this.btn_activate.Clicked += new global::System.EventHandler (this.OnBtnActivateClicked);
 			this.btn_synch_start.Clicked += new global::System.EventHandler (this.OnBtnSynchStartClicked);

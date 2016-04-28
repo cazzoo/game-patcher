@@ -6,84 +6,22 @@ namespace RFUpdater
 {
 	public class Module
 	{
-		private string name;
-		private string version;
-		private CRC integrity;
-		private DateTime realeaseDate;
-		private Boolean mandatory;
-		private List<String> files;
-		private List<Module> dependancies;
+		private string Name { get; set; }
+		private string Version { get; set; }
+		private CRC Integrity { get; set; }
+		private DateTime RealeaseDate { get; set; }
+		private Boolean Mandatory { get; set; }
+		private List<String> Files { get; set; }
+		private List<Module> Dependancies { get; set; }
+		private List<Module> Conflicts { get; set; }
 
 		public Module ()
 		{
 		}
 
-		#region "Properties"
-
-		public string Version {
-			get {
-				return version;
-			}
-			set {
-				version = value;
-			}
+		public override string ToString(){
+			return Name;
 		}
-
-		public CRC Integrity {
-			get {
-				return integrity;
-			}
-			set {
-				integrity = value;
-			}
-		}
-
-		public string Name {
-			get {
-				return name;
-			}
-			set {
-				name = value;
-			}
-		}
-
-		public DateTime RealeaseDate {
-			get {
-				return realeaseDate;
-			}
-			set {
-				realeaseDate = value;
-			}
-		}
-
-		public Boolean Mandatory {
-			get {
-				return mandatory;
-			}
-			set {
-				mandatory = value;
-			}
-		}
-
-		public List<String> Files {
-			get {
-				return files;
-			}
-			set {
-				files = value;
-			}
-		}
-
-		public List<Module> Dependancies {
-			get {
-				return dependancies;
-			}
-			set {
-				dependancies = value;
-			}
-		}
-
-		#endregion
 	}
 }
 

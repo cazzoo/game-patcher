@@ -7,10 +7,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Globals.cs">
     <Files>
-      <File FileName="RFUpdater\MainWindow.cs" Line="53" Column="69" />
-      <File FileName="RFUpdater\Utils\ModuleDefinitionDownloader.cs" Line="58" Column="71" />
-      <File FileName="RFUpdater\Utils\ModuleDownloader.cs" Line="44" Column="34" />
-      <File FileName="RFUpdater\Globals.cs" Line="22" Column="51" />
+      <File FileName="RFUpdater\MainWindow.cs" Line="1" Column="1" />
+      <File FileName="RFUpdater\Utils\ModuleDefinitionDownloader.cs" Line="1" Column="1" />
+      <File FileName="RFUpdater\Utils\ModuleDownloader.cs" Line="1" Column="1" />
+      <File FileName="RFUpdater\Globals.cs" Line="31" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
