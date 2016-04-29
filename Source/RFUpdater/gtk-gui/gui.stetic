@@ -774,7 +774,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="button1">
+                  <widget class="Gtk.Button" id="btn_selectDependancies">
                     <property name="MemberName" />
                     <property name="Sensitive">False</property>
                     <property name="CanFocus">True</property>
@@ -825,7 +825,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="button2">
+                  <widget class="Gtk.Button" id="btn_selectConflicts">
                     <property name="MemberName" />
                     <property name="Sensitive">False</property>
                     <property name="CanFocus">True</property>
@@ -854,12 +854,13 @@
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="Gtk.Button" id="button3">
+                  <widget class="Gtk.Button" id="btn_cancel">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">TextOnly</property>
                     <property name="Label" translatable="yes">Cancel</property>
                     <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnBtnCancelClicked" />
                   </widget>
                   <packing>
                     <property name="PackType">End</property>
@@ -870,12 +871,13 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="button4">
+                  <widget class="Gtk.Button" id="btn_validate">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">TextOnly</property>
                     <property name="Label" translatable="yes">Validate</property>
                     <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnButtonValidateClicked" />
                   </widget>
                   <packing>
                     <property name="PackType">End</property>

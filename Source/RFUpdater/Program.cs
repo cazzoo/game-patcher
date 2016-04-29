@@ -3,7 +3,7 @@ using Gtk;
 
 namespace RFUpdater
 {
-	class MainClass
+	class Program
 	{
 		public static void Main (string[] args)
 		{

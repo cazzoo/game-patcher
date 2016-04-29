@@ -50,7 +50,7 @@ namespace RFUpdater
 		
 		private global::Gtk.Label lbl_moduleDependancies;
 		
-		private global::Gtk.Button button1;
+		private global::Gtk.Button btn_selectDependancies;
 		
 		private global::Gtk.HBox hbox9;
 		
@@ -58,13 +58,13 @@ namespace RFUpdater
 		
 		private global::Gtk.Label lbl_moduleConflicts;
 		
-		private global::Gtk.Button button2;
+		private global::Gtk.Button btn_selectConflicts;
 		
 		private global::Gtk.HBox hbox11;
 		
-		private global::Gtk.Button button3;
+		private global::Gtk.Button btn_cancel;
 		
-		private global::Gtk.Button button4;
+		private global::Gtk.Button btn_validate;
 		
 		private global::Gtk.Button btn_newVersion;
 
@@ -102,7 +102,7 @@ namespace RFUpdater
 			this.in_name.Sensitive = false;
 			this.in_name.CanFocus = true;
 			this.in_name.Name = "in_name";
-			this.in_name.IsEditable = false;
+			this.in_name.IsEditable = true;
 			this.in_name.InvisibleChar = '●';
 			this.hbox4.Add (this.in_name);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.in_name]));
@@ -128,7 +128,7 @@ namespace RFUpdater
 			this.in_version.Sensitive = false;
 			this.in_version.CanFocus = true;
 			this.in_version.Name = "in_version";
-			this.in_version.IsEditable = false;
+			this.in_version.IsEditable = true;
 			this.in_version.InvisibleChar = '●';
 			this.hbox5.Add (this.in_version);
 			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.in_version]));
@@ -146,7 +146,7 @@ namespace RFUpdater
 			this.in_realeaseDate.Sensitive = false;
 			this.in_realeaseDate.CanFocus = true;
 			this.in_realeaseDate.Name = "in_realeaseDate";
-			this.in_realeaseDate.IsEditable = false;
+			this.in_realeaseDate.IsEditable = true;
 			this.in_realeaseDate.InvisibleChar = '●';
 			this.hbox6.Add (this.in_realeaseDate);
 			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.in_realeaseDate]));
@@ -262,13 +262,14 @@ namespace RFUpdater
 			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox8 [this.lbl_moduleDependancies]));
 			w20.Position = 1;
 			// Container child hbox8.Gtk.Box+BoxChild
-			this.button1 = new global::Gtk.Button ();
-			this.button1.CanFocus = true;
-			this.button1.Name = "button1";
-			this.button1.UseUnderline = true;
-			this.button1.Label = global::Mono.Unix.Catalog.GetString ("Select dependancies...");
-			this.hbox8.Add (this.button1);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox8 [this.button1]));
+			this.btn_selectDependancies = new global::Gtk.Button ();
+			this.btn_selectDependancies.Sensitive = false;
+			this.btn_selectDependancies.CanFocus = true;
+			this.btn_selectDependancies.Name = "btn_selectDependancies";
+			this.btn_selectDependancies.UseUnderline = true;
+			this.btn_selectDependancies.Label = global::Mono.Unix.Catalog.GetString ("Select dependancies...");
+			this.hbox8.Add (this.btn_selectDependancies);
+			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox8 [this.btn_selectDependancies]));
 			w21.PackType = ((global::Gtk.PackType)(1));
 			w21.Position = 2;
 			w21.Expand = false;
@@ -299,13 +300,14 @@ namespace RFUpdater
 			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.lbl_moduleConflicts]));
 			w24.Position = 1;
 			// Container child hbox9.Gtk.Box+BoxChild
-			this.button2 = new global::Gtk.Button ();
-			this.button2.CanFocus = true;
-			this.button2.Name = "button2";
-			this.button2.UseUnderline = true;
-			this.button2.Label = global::Mono.Unix.Catalog.GetString ("Select conflicts modules...");
-			this.hbox9.Add (this.button2);
-			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.button2]));
+			this.btn_selectConflicts = new global::Gtk.Button ();
+			this.btn_selectConflicts.Sensitive = false;
+			this.btn_selectConflicts.CanFocus = true;
+			this.btn_selectConflicts.Name = "btn_selectConflicts";
+			this.btn_selectConflicts.UseUnderline = true;
+			this.btn_selectConflicts.Label = global::Mono.Unix.Catalog.GetString ("Select conflicts modules...");
+			this.hbox9.Add (this.btn_selectConflicts);
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.btn_selectConflicts]));
 			w25.PackType = ((global::Gtk.PackType)(1));
 			w25.Position = 2;
 			w25.Expand = false;
@@ -320,25 +322,25 @@ namespace RFUpdater
 			this.hbox11.Name = "hbox11";
 			this.hbox11.Spacing = 6;
 			// Container child hbox11.Gtk.Box+BoxChild
-			this.button3 = new global::Gtk.Button ();
-			this.button3.CanFocus = true;
-			this.button3.Name = "button3";
-			this.button3.UseUnderline = true;
-			this.button3.Label = global::Mono.Unix.Catalog.GetString ("Cancel");
-			this.hbox11.Add (this.button3);
-			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.button3]));
+			this.btn_cancel = new global::Gtk.Button ();
+			this.btn_cancel.CanFocus = true;
+			this.btn_cancel.Name = "btn_cancel";
+			this.btn_cancel.UseUnderline = true;
+			this.btn_cancel.Label = global::Mono.Unix.Catalog.GetString ("Cancel");
+			this.hbox11.Add (this.btn_cancel);
+			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.btn_cancel]));
 			w27.PackType = ((global::Gtk.PackType)(1));
 			w27.Position = 0;
 			w27.Expand = false;
 			w27.Fill = false;
 			// Container child hbox11.Gtk.Box+BoxChild
-			this.button4 = new global::Gtk.Button ();
-			this.button4.CanFocus = true;
-			this.button4.Name = "button4";
-			this.button4.UseUnderline = true;
-			this.button4.Label = global::Mono.Unix.Catalog.GetString ("Validate");
-			this.hbox11.Add (this.button4);
-			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.button4]));
+			this.btn_validate = new global::Gtk.Button ();
+			this.btn_validate.CanFocus = true;
+			this.btn_validate.Name = "btn_validate";
+			this.btn_validate.UseUnderline = true;
+			this.btn_validate.Label = global::Mono.Unix.Catalog.GetString ("Validate");
+			this.hbox11.Add (this.btn_validate);
+			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.btn_validate]));
 			w28.PackType = ((global::Gtk.PackType)(1));
 			w28.Position = 1;
 			w28.Expand = false;
@@ -372,6 +374,8 @@ namespace RFUpdater
 			this.DefaultWidth = 822;
 			this.DefaultHeight = 322;
 			this.Show ();
+			this.btn_validate.Clicked += new global::System.EventHandler (this.OnButtonValidateClicked);
+			this.btn_cancel.Clicked += new global::System.EventHandler (this.OnBtnCancelClicked);
 		}
 	}
 }
