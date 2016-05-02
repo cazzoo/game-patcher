@@ -9,8 +9,7 @@ namespace RFUpdater
 {
 	public partial class ModuleWindow : Gtk.Window
 	{
-		private string Current_module_name;
-		private int Current_module_version;
+		private ModuleCollection module = new ModuleCollection ();
 		private ListStore store;
 
 		public ModuleWindow (string ModuleName = null) :
@@ -93,7 +92,6 @@ namespace RFUpdater
 		private Module ParseModuleInputs ()
 		{
 			Module parsedModule = new Module ();
-			parsedModule.Name = in_name.Text;
 			parsedModule.Version = Convert.ToInt32 (in_version.Text);
 			parsedModule.RealeaseDate = Convert.ToDateTime (in_realeaseDate.Text);
 			parsedModule.Mandatory = chk_mandatory.Active;
@@ -108,7 +106,6 @@ namespace RFUpdater
 
 		private void ParseModuleFile (Module FileModule)
 		{
-			in_name.Text = FileModule.Name;
 			in_version.Text = FileModule.Version.ToString ();
 			in_realeaseDate.Text = FileModule.RealeaseDate.ToString ();
 			chk_mandatory.Active = FileModule.Mandatory;
@@ -124,26 +121,27 @@ namespace RFUpdater
 
 		private void SaveModule ()
 		{
-			Current_module_name = in_name.Text;
-			var serializer = new XmlSerializer (typeof(Module));
+			var serializer = new XmlSerializer (typeof(ModuleCollection));
 			var stream = new FileStream (in_name.Text + ".xml", FileMode.Create);
 			Module Input_module = ParseModuleInputs ();
-			serializer.Serialize (stream, Input_module);
+			module.Name = in_name.Text;
+			module.Modules.Add (Input_module);
+			serializer.Serialize (stream, module);
 			stream.Close ();
 		}
 
 		private Module LoadModule (string ModuleName)
 		{
-			var serializer = new XmlSerializer (typeof(Module));
+			var serializer = new XmlSerializer (typeof(ModuleCollection));
 			var stream = new FileStream (ModuleName + ".xml", FileMode.Open);
-			var container = serializer.Deserialize (stream) as Module;
-			ParseModuleFile (container);
+			var container = serializer.Deserialize (stream) as ModuleCollection;
 			stream.Close ();
 
-			Current_module_name = container.Name;
-			Current_module_version = container.Version;
-
-			return container;
+			module = container;
+			Module last_version_module = module.GetLastModuleVersion ();
+			in_name.Text = module.Name;
+			ParseModuleFile (last_version_module);
+			return last_version_module;
 		}
 
 		#endregion moduleHandlers
@@ -216,7 +214,7 @@ namespace RFUpdater
 			store.Foreach ((model, path, iter) => {
 				bool selected = (bool)store.GetValue (iter, 0);
 				if (selected) {
-					
+					store.Remove(ref iter);
 				}
 				return false;
 			});
@@ -256,7 +254,7 @@ namespace RFUpdater
 
 		protected void OnBtnNewVersionClicked (object sender, EventArgs e)
 		{
-			Module Loaded_module = LoadModule (Current_module_name);
+			Module Loaded_module = LoadModule (module.Name);
 			UpdateDate ();
 			in_version.Text = (Loaded_module.Version + 1).ToString ();
 			FormStateEdit ();

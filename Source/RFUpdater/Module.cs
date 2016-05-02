@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using Cyclic.Redundancy.Check;
 
 
 namespace RFUpdater
 {
 	public class Module
 	{
-		[XmlAttribute("Name")]
-		public string Name { get; set; }
+		[XmlAttribute("Id")]
+		public string Id { get; set; }
 		[XmlAttribute("Version")]
 		public int Version { get; set; }
 		[XmlAttribute("ReleaseDate")]
@@ -19,7 +18,7 @@ namespace RFUpdater
 		public Boolean Mandatory { get; set; }
 		[XmlArray("Files"), XmlArrayItem("File")]
 		public List<String> Files { get; set; }
-		[XmlArray("dependancies"), XmlArrayItem("dependancy")]
+		[XmlArray("Dependancies"), XmlArrayItem("Dependancy")]
 		public List<Module> Dependancies { get; set; }
 		[XmlArray("Conflicts"), XmlArrayItem("Conflict")]
 		public List<Module> Conflicts { get; set; }
@@ -29,7 +28,7 @@ namespace RFUpdater
 		}
 
 		public override string ToString(){
-			return Name;
+			return Id;
 		}
 	}
 }

@@ -75,6 +75,7 @@
     <Compile Include="Widgets\SettingRow.cs" />
     <Compile Include="Forms\ModuleWindow.cs" />
     <Compile Include="gtk-gui\RFUpdater.ModuleWindow.cs" />
+    <Compile Include="ModuleCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
