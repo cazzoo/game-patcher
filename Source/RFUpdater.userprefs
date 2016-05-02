@@ -1,14 +1,15 @@
 ﻿<Properties RefactoringSettings.EnableRefactorings="True" VersionControlDisabled="True">
   <StartupItems>
-    <String>RFUpdater\RFUpdater.csproj</String>
     <String>RFUpdater.Patcher\RFUpdater.Patcher.csproj</String>
     <String>RFUpdater.Lister\RFUpdater.Lister.csproj</String>
+    <String>RFUpdater\RFUpdater.csproj</String>
   </StartupItems>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Forms\ModuleWindow.cs">
     <Files>
-      <File FileName="RFUpdater\Module.cs" Line="17" Column="5" />
-      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="51" Column="16" />
+      <File FileName="RFUpdater\Module.cs" Line="15" Column="35" />
+      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="48" Column="33" />
+      <File FileName="RFUpdater\Forms\MainWindow.cs" Line="67" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

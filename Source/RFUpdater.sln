@@ -195,7 +195,7 @@ Global
 		$33.IncludeStaticEntities = True
 		$0.VersionControlPolicy = $35
 		$35.inheritsSet = Mono
-		description = This is a game module manager that handle
+		description = This is a game module manager that handle automatic updates with remote modules.
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

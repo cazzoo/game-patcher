@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Gtk;
 using RFUpdater.Utils;
 
@@ -60,8 +61,21 @@ namespace RFUpdater
 
 		protected void OnEditModuleActionActivated (object sender, EventArgs e)
 		{
-			ModuleWindow moduleWindow = new ModuleWindow();
+			ModuleWindow moduleWindow = new ModuleWindow("test");
 			moduleWindow.Show();
 		}
+
+		protected void OnCreateModuleActionActivated (object sender, EventArgs e)
+		{
+			ModuleWindow moduleWindow = new ModuleWindow();
+			moduleWindow.Show();
+		}
+
+		protected void OnDeleteModuleActionActivated (object sender, EventArgs e)
+		{
+			if(File.Exists("new" + ".xml")) {
+				File.Delete("new" + ".xml");
+			}
+		}
 	}
 }
