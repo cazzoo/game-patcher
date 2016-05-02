@@ -13,8 +13,6 @@ namespace RFUpdater
 		public string Name { get; set; }
 		[XmlAttribute("Version")]
 		public int Version { get; set; }
-		//[XmlAttribute("Integrity")]
-		//public CRC Integrity { get; set; }
 		[XmlAttribute("ReleaseDate")]
 		public DateTime RealeaseDate { get; set; }
 		[XmlAttribute("Mandatory")]

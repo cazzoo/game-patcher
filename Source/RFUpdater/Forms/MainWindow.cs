@@ -69,13 +69,15 @@ namespace RFUpdater
 		{
 			ModuleWindow moduleWindow = new ModuleWindow();
 			moduleWindow.Show();
-		}
+		}
+
 
 		protected void OnDeleteModuleActionActivated (object sender, EventArgs e)
 		{
 			if(File.Exists("new" + ".xml")) {
 				File.Delete("new" + ".xml");
 			}
-		}
+		}
+
 	}
 }

@@ -4,16 +4,20 @@
     <String>RFUpdater.Lister\RFUpdater.Lister.csproj</String>
     <String>RFUpdater\RFUpdater.csproj</String>
   </StartupItems>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Forms\ModuleWindow.cs">
     <Files>
       <File FileName="RFUpdater\Module.cs" Line="15" Column="35" />
-      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="48" Column="33" />
-      <File FileName="RFUpdater\Forms\MainWindow.cs" Line="67" Column="3" />
+      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="81" Column="28" />
+      <File FileName="RFUpdater\Forms\MainWindow.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Forms\ModuleWindow.cs" line="130" column="1" />
+      <Breakpoint traceExpression="{ParsedModule}" file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Forms\ModuleWindow.cs" line="98" column="1" />
+      <Breakpoint file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Forms\ModuleWindow.cs" line="105" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
