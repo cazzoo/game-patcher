@@ -5,15 +5,22 @@
     <String>RFUpdater\RFUpdater.csproj</String>
   </StartupItems>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Forms\ModuleWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Widgets\SettingRow.cs">
     <Files>
       <File FileName="RFUpdater\Module.cs" Line="9" Column="21" />
-      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="24" Column="11" />
-      <File FileName="RFUpdater\ModuleCollection.cs" Line="18" Column="34" />
+      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="252" Column="18" />
+      <File FileName="RFUpdater\Forms\MainWindow.cs" Line="29" Column="27" />
+      <File FileName="RFUpdater\Forms\SettingsWindow.cs" Line="23" Column="107" />
+      <File FileName="RFUpdater\Texts.cs" Line="56" Column="10" />
+      <File FileName="RFUpdater\Widgets\SettingRow.cs" Line="33" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Widgets\SettingRow.cs" line="17" column="1" />
+      <Breakpoint file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Widgets\SettingRow.cs" line="14" column="1" />
+      <Breakpoint file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Widgets\SettingRow.cs" line="33" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

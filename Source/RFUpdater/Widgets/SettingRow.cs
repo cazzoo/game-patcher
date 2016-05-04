@@ -6,7 +6,6 @@ namespace RFUpdater
 	[System.ComponentModel.ToolboxItem (true)]
 	public partial class SettingRow : Gtk.Bin
 	{
-		string defaultValue;
 		Gtk.Widget widget;
 
 		public SettingRow (string p_Label, string p_DefaultValue, SettingType p_type)
@@ -29,9 +28,9 @@ namespace RFUpdater
 		}
 
 		public string DefaultValue {
-			get { return defaultValue; }
+			get ;
 			set {
-				defaultValue = value;
+				DefaultValue = value;
 				switch (Type) {
 				case SettingType.TEXT:
 					((Entry)widget).Text = value;
