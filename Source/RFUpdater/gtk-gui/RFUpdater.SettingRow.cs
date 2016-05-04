@@ -4,11 +4,9 @@ namespace RFUpdater
 {
 	public partial class SettingRow
 	{
-		private global::Gtk.HBox hbox1;
+		private global::Gtk.HBox hbox;
 		
 		private global::Gtk.Label lbl_setting;
-		
-		private global::Gtk.Entry in_setting;
 		
 		private global::Gtk.Button btn_setting;
 
@@ -19,46 +17,36 @@ namespace RFUpdater
 			global::Stetic.BinContainer.Attach (this);
 			this.Name = "RFUpdater.SettingRow";
 			// Container child RFUpdater.SettingRow.Gtk.Container+ContainerChild
-			this.hbox1 = new global::Gtk.HBox ();
-			this.hbox1.Name = "hbox1";
-			this.hbox1.Spacing = 6;
-			// Container child hbox1.Gtk.Box+BoxChild
+			this.hbox = new global::Gtk.HBox ();
+			this.hbox.Name = "hbox";
+			this.hbox.Spacing = 6;
+			// Container child hbox.Gtk.Box+BoxChild
 			this.lbl_setting = new global::Gtk.Label ();
 			this.lbl_setting.Name = "lbl_setting";
 			this.lbl_setting.LabelProp = global::Mono.Unix.Catalog.GetString ("label");
-			this.hbox1.Add (this.lbl_setting);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.lbl_setting]));
+			this.hbox.Add (this.lbl_setting);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox [this.lbl_setting]));
 			w1.Position = 0;
 			w1.Expand = false;
 			w1.Fill = false;
-			// Container child hbox1.Gtk.Box+BoxChild
-			this.in_setting = new global::Gtk.Entry ();
-			this.in_setting.CanFocus = true;
-			this.in_setting.Name = "in_setting";
-			this.in_setting.IsEditable = true;
-			this.in_setting.InvisibleChar = '•';
-			this.hbox1.Add (this.in_setting);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.in_setting]));
-			w2.Position = 1;
-			// Container child hbox1.Gtk.Box+BoxChild
+			// Container child hbox.Gtk.Box+BoxChild
 			this.btn_setting = new global::Gtk.Button ();
 			this.btn_setting.CanFocus = true;
 			this.btn_setting.Name = "btn_setting";
 			this.btn_setting.UseUnderline = true;
-			global::Gtk.Image w3 = new global::Gtk.Image ();
-			w3.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-undo", global::Gtk.IconSize.Menu);
-			this.btn_setting.Image = w3;
-			this.hbox1.Add (this.btn_setting);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.btn_setting]));
-			w4.Position = 2;
-			w4.Expand = false;
-			w4.Fill = false;
-			this.Add (this.hbox1);
+			global::Gtk.Image w2 = new global::Gtk.Image ();
+			w2.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-undo", global::Gtk.IconSize.Menu);
+			this.btn_setting.Image = w2;
+			this.hbox.Add (this.btn_setting);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox [this.btn_setting]));
+			w3.Position = 2;
+			w3.Expand = false;
+			w3.Fill = false;
+			this.Add (this.hbox);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.Hide ();
-			this.btn_setting.Clicked += new global::System.EventHandler (this.OnBtnSettingClicked);
 		}
 	}
 }

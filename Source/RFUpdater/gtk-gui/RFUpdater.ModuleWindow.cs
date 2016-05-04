@@ -418,9 +418,9 @@ namespace RFUpdater
 			this.btn_select_files.Clicked += new global::System.EventHandler (this.OnBtnSelectFilesClicked);
 			this.btn_selectDependancies.Clicked += new global::System.EventHandler (this.OnBtnSelectDependanciesClicked);
 			this.btn_selectConflicts.Clicked += new global::System.EventHandler (this.OnBtnSelectConflictsClicked);
-			this.btn_newVersion.Clicked += new global::System.EventHandler (this.OnBtnNewVersionClicked);
+			this.btn_newVersion.Clicked += new global::System.EventHandler (this.OnButtonNewVersionClicked);
 			this.btn_validate.Clicked += new global::System.EventHandler (this.OnButtonValidateClicked);
-			this.btn_cancel.Clicked += new global::System.EventHandler (this.OnBtnCancelClicked);
+			this.btn_cancel.Clicked += new global::System.EventHandler (this.OnButtonCancelClicked);
 		}
 	}
 }

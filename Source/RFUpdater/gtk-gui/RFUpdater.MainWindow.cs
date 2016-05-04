@@ -30,7 +30,7 @@ namespace RFUpdater
 		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		
-		private global::Gtk.TreeView tree_Available;
+		private global::Gtk.TreeView treeview_modules;
 		
 		private global::Gtk.VSeparator vseparator1;
 		
@@ -41,10 +41,6 @@ namespace RFUpdater
 		private global::Gtk.Button btn_activate;
 		
 		private global::Gtk.VSeparator vseparator2;
-		
-		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-		
-		private global::Gtk.TreeView tree_Activated;
 		
 		private global::Gtk.Button btn_synch_start;
 		
@@ -111,12 +107,12 @@ namespace RFUpdater
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
 			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-			this.tree_Available = new global::Gtk.TreeView ();
-			this.tree_Available.CanFocus = true;
-			this.tree_Available.Name = "tree_Available";
-			this.tree_Available.EnableSearch = false;
-			this.tree_Available.HeadersVisible = false;
-			this.GtkScrolledWindow.Add (this.tree_Available);
+			this.treeview_modules = new global::Gtk.TreeView ();
+			this.treeview_modules.CanFocus = true;
+			this.treeview_modules.Name = "treeview_modules";
+			this.treeview_modules.EnableSearch = false;
+			this.treeview_modules.HeadersVisible = false;
+			this.GtkScrolledWindow.Add (this.treeview_modules);
 			this.hbox1.Add (this.GtkScrolledWindow);
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.GtkScrolledWindow]));
 			w4.Position = 0;
@@ -172,62 +168,49 @@ namespace RFUpdater
 			w11.Position = 3;
 			w11.Expand = false;
 			w11.Fill = false;
-			// Container child hbox1.Gtk.Box+BoxChild
-			this.GtkScrolledWindow1 = new global::Gtk.ScrolledWindow ();
-			this.GtkScrolledWindow1.Name = "GtkScrolledWindow1";
-			this.GtkScrolledWindow1.ShadowType = ((global::Gtk.ShadowType)(1));
-			// Container child GtkScrolledWindow1.Gtk.Container+ContainerChild
-			this.tree_Activated = new global::Gtk.TreeView ();
-			this.tree_Activated.CanFocus = true;
-			this.tree_Activated.Name = "tree_Activated";
-			this.GtkScrolledWindow1.Add (this.tree_Activated);
-			this.hbox1.Add (this.GtkScrolledWindow1);
-			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.GtkScrolledWindow1]));
-			w13.PackType = ((global::Gtk.PackType)(1));
-			w13.Position = 4;
 			this.vbox3.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox1]));
-			w14.Position = 1;
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox1]));
+			w12.Position = 1;
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.btn_synch_start = new global::Gtk.Button ();
 			this.btn_synch_start.CanFocus = true;
 			this.btn_synch_start.Name = "btn_synch_start";
 			this.btn_synch_start.UseUnderline = true;
 			this.btn_synch_start.Label = global::Mono.Unix.Catalog.GetString ("Synchronize");
-			global::Gtk.Image w15 = new global::Gtk.Image ();
-			w15.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_refresh", global::Gtk.IconSize.Menu);
-			this.btn_synch_start.Image = w15;
+			global::Gtk.Image w13 = new global::Gtk.Image ();
+			w13.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_refresh", global::Gtk.IconSize.Menu);
+			this.btn_synch_start.Image = w13;
 			this.vbox3.Add (this.btn_synch_start);
-			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.btn_synch_start]));
-			w16.Position = 2;
-			w16.Expand = false;
-			w16.Fill = false;
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.btn_synch_start]));
+			w14.Position = 2;
+			w14.Expand = false;
+			w14.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.progress_file = new global::Gtk.ProgressBar ();
 			this.progress_file.Name = "progress_file";
 			this.vbox3.Add (this.progress_file);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.progress_file]));
-			w17.Position = 3;
-			w17.Expand = false;
-			w17.Fill = false;
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.progress_file]));
+			w15.Position = 3;
+			w15.Expand = false;
+			w15.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.progress_overall = new global::Gtk.ProgressBar ();
 			this.progress_overall.Name = "progress_overall";
 			this.vbox3.Add (this.progress_overall);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.progress_overall]));
-			w18.Position = 4;
-			w18.Expand = false;
-			w18.Fill = false;
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.progress_overall]));
+			w16.Position = 4;
+			w16.Expand = false;
+			w16.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.status_main = new global::Gtk.Statusbar ();
 			this.status_main.Name = "status_main";
 			this.status_main.Spacing = 6;
 			this.vbox3.Add (this.status_main);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.status_main]));
-			w19.PackType = ((global::Gtk.PackType)(1));
-			w19.Position = 5;
-			w19.Expand = false;
-			w19.Fill = false;
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.status_main]));
+			w17.PackType = ((global::Gtk.PackType)(1));
+			w17.Position = 5;
+			w17.Expand = false;
+			w17.Fill = false;
 			this.Add (this.vbox3);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();

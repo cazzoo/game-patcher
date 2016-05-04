@@ -122,7 +122,10 @@ namespace RFUpdater
 		private void SaveModule ()
 		{
 			var serializer = new XmlSerializer (typeof(ModuleCollection));
-			var stream = new FileStream (in_name.Text + ".xml", FileMode.Create);
+			if(!Directory.Exists(Globals.LocalModuleDefinitionFolder)) {
+				Directory.CreateDirectory(Globals.LocalModuleDefinitionFolder);
+			}
+			var stream = new FileStream (Globals.LocalModuleDefinitionFolder + System.IO.Path.DirectorySeparatorChar + in_name.Text + ".xml", FileMode.Create);
 			Module Input_module = ParseModuleInputs ();
 			module.Name = in_name.Text;
 			module.Modules.Add (Input_module);
@@ -133,7 +136,10 @@ namespace RFUpdater
 		private Module LoadModule (string ModuleName)
 		{
 			var serializer = new XmlSerializer (typeof(ModuleCollection));
-			var stream = new FileStream (ModuleName + ".xml", FileMode.Open);
+			if(!Directory.Exists(Globals.LocalModuleDefinitionFolder)) {
+				Directory.CreateDirectory(Globals.LocalModuleDefinitionFolder);
+			}
+			var stream = new FileStream (Globals.LocalModuleDefinitionFolder + System.IO.Path.DirectorySeparatorChar + ModuleName + ".xml", FileMode.Open);
 			var container = serializer.Deserialize (stream) as ModuleCollection;
 			stream.Close ();
 
@@ -266,6 +272,16 @@ namespace RFUpdater
 		}
 
 		protected void OnBtnSelectConflictsClicked (object sender, EventArgs e)
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected void OnButtonCancelClicked (object sender, EventArgs e)
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected void OnButtonNewVersionClicked (object sender, EventArgs e)
 		{
 			throw new NotImplementedException ();
 		}

@@ -41,7 +41,7 @@ namespace RFUpdater.Utils
 
             stopWatch.Start();
 
-			webClient.DownloadFileAsync(new Uri(Globals.ServerURL + Globals.ModuleFolder + Globals.OldFiles[curFile]), Globals.GameBasePath + Globals.OldFiles[curFile]);
+			webClient.DownloadFileAsync(new Uri(Globals.ServerURL + Globals.RemoteModuleFolder + Globals.OldFiles[curFile]), Globals.GameBasePath + Globals.OldFiles[curFile]);
         }
 
         private static void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)

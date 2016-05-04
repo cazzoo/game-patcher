@@ -20,7 +20,7 @@ namespace RFUpdater
 			foreach (string PropertyName in MainWindow.settings.getKeys(settingCategory)) {
 				string PropertyValue = MainWindow.settings.GetValue (settingCategory, PropertyName, "default");
 
-				SettingRow SettingRowWidget = new SettingRow (PropertyName, PropertyValue);
+				SettingRow SettingRowWidget = new SettingRow (PropertyName, PropertyValue, SettingRow.SettingType.TEXT);
 				vboxListSettings.PackEnd(SettingRowWidget, true, true, 6);
 			}
 			vboxListSettings.ShowAll ();

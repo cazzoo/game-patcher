@@ -236,7 +236,7 @@
                 <property name="MemberName" />
                 <property name="ShadowType">In</property>
                 <child>
-                  <widget class="Gtk.TreeView" id="tree_Available">
+                  <widget class="Gtk.TreeView" id="treeview_modules">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
@@ -317,24 +317,6 @@
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow1">
-                <property name="MemberName" />
-                <property name="ShadowType">In</property>
-                <child>
-                  <widget class="Gtk.TreeView" id="tree_Activated">
-                    <property name="MemberName" />
-                    <property name="CanFocus">True</property>
-                    <property name="ShowScrollbars">True</property>
-                  </widget>
-                </child>
-              </widget>
-              <packing>
-                <property name="PackType">End</property>
-                <property name="Position">4</property>
-                <property name="AutoSize">True</property>
               </packing>
             </child>
           </widget>
@@ -478,7 +460,7 @@
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
-      <widget class="Gtk.HBox" id="hbox1">
+      <widget class="Gtk.HBox" id="hbox">
         <property name="MemberName" />
         <property name="Spacing">6</property>
         <child>
@@ -494,16 +476,7 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Entry" id="in_setting">
-            <property name="MemberName">Value</property>
-            <property name="CanFocus">True</property>
-            <property name="IsEditable">True</property>
-            <property name="InvisibleChar">•</property>
-          </widget>
-          <packing>
-            <property name="Position">1</property>
-            <property name="AutoSize">True</property>
-          </packing>
+          <placeholder />
         </child>
         <child>
           <widget class="Gtk.Button" id="btn_setting">
@@ -513,7 +486,6 @@
             <property name="Icon">stock:gtk-undo Menu</property>
             <property name="Label" translatable="yes" />
             <property name="UseUnderline">True</property>
-            <signal name="Clicked" handler="OnBtnSettingClicked" />
           </widget>
           <packing>
             <property name="Position">2</property>
@@ -896,7 +868,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Cancel</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnBtnCancelClicked" />
+                <signal name="Clicked" handler="OnButtonCancelClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>
@@ -932,7 +904,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Create new version</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnBtnNewVersionClicked" />
+                <signal name="Clicked" handler="OnButtonNewVersionClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>

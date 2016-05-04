@@ -30,7 +30,7 @@ namespace RFUpdater.Utils
 		private static void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			// Retrieving module definition files
-			WebRequest request = WebRequest.Create(Globals.ServerURL + Globals.ModuleDefinitionFolder);
+			WebRequest request = WebRequest.Create(Globals.ServerURL + Globals.RemoteModuleDefinitionFolder);
 			WebResponse response = request.GetResponse();
 			Regex regex = new Regex("<a href=\"[^\"]+\">(?<name>(?!../).*?)</a>");
 			using (var reader = new StreamReader(response.GetResponseStream()))
