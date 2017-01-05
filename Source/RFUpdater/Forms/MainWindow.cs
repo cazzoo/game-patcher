@@ -7,7 +7,7 @@ namespace RFUpdater
 {
 	public partial class MainWindow : Gtk.Window
 	{
-		public static INIFile settings;
+		public static SettingsList settings;
 		public static Statusbar statusbar;
 		public static ProgressBar progressFile;
 		public static ProgressBar progressOverall;
@@ -22,7 +22,7 @@ namespace RFUpdater
 
 		protected void Init ()
 		{
-			settings = new INIFile ("RFCUpdater.ini", true, false);
+			settings = new SettingsList ();
 			statusbar = status_main;
 			progressFile = progress_file;
 			progressOverall = progress_overall;

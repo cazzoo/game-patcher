@@ -456,7 +456,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="RFUpdater.SettingRow" design-size="300 28">
+  <widget class="Gtk.Bin" id="RFUpdater.SettingRow" design-size="300 34">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -868,7 +868,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Cancel</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnButtonCancelClicked" />
+                <signal name="Clicked" handler="OnBtnCancelClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>
@@ -886,7 +886,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Validate</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnButtonValidateClicked" />
+                <signal name="Clicked" handler="OnBtnValidateClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>
@@ -904,7 +904,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Create new version</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnButtonNewVersionClicked" />
+                <signal name="Clicked" handler="OnBtnNewVersionClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>

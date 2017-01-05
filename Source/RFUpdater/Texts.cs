@@ -30,7 +30,7 @@ namespace RFUpdater
             {Keys.CANNOTSTART,                          "Can't start the game, because the {0} is not accessible."},
             {Keys.NONETWORK,                            "Can't connect to server, please check your network settings and try again."},
             {Keys.CONNECTING,                           "Connecting to the server..."},
-            {Keys.DEFINITIONSDOWNLOAD,                         "Downloading module definitions..."},
+            {Keys.DEFINITIONSDOWNLOAD,                  "Downloading module definitions..."},
             {Keys.CHECKFILE,                            "{0} checking..."},
             {Keys.DOWNLOADFILE,                         "{0} downloading... {1}/ {2}"},
             {Keys.COMPLETEPROGRESS,                     "Full progress: {0}%"},
@@ -39,7 +39,7 @@ namespace RFUpdater
             {Keys.DOWNLOADCOMPLETE,                     "Every required files has been downloaded properly."},
             {Keys.DOWNLOADSPEED,                        "{0} kb/s"},
 			{Keys.DEVELOP,                        		"DEV : {0}"},
-			{Keys.APPLICATION,                        		"{0}"}
+			{Keys.APPLICATION,                        	"{0}"}
         };
 
         public static string GetText(Keys Key, params object[] Arguments)

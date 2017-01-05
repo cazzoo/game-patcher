@@ -5,9 +5,9 @@ namespace RFUpdater
 	public partial class SettingRow
 	{
 		private global::Gtk.HBox hbox;
-		
+
 		private global::Gtk.Label lbl_setting;
-		
+
 		private global::Gtk.Button btn_setting;
 
 		protected virtual void Build ()

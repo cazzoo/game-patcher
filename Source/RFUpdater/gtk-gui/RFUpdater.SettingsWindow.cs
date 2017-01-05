@@ -5,13 +5,13 @@ namespace RFUpdater
 	public partial class SettingsWindow
 	{
 		private global::Gtk.VBox vbox;
-		
+
 		private global::Gtk.VBox vboxListSettings;
-		
+
 		private global::Gtk.HBox hbox4;
-		
+
 		private global::Gtk.Button button4;
-		
+
 		private global::Gtk.Button button3;
 
 		protected virtual void Build ()

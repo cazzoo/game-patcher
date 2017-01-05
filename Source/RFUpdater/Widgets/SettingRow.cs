@@ -7,15 +7,16 @@ namespace RFUpdater
 	public partial class SettingRow : Gtk.Bin
 	{
 		Gtk.Widget widget;
+		private string defaultValue;
 
-		public SettingRow (string p_Label, string p_DefaultValue, SettingType p_type)
+		public SettingRow (string p_Label, string p_DefaultValue, Setting.SettingType p_type)
 		{
 			this.Build ();
 			Type = p_type;
 			Label = p_Label;
 			DefaultValue = p_DefaultValue;
 			switch (Type) {
-			case SettingType.TEXT:
+			case Setting.SettingType.TEXT:
 				widget = new Gtk.Entry ();
 				break;
 			}
@@ -28,11 +29,13 @@ namespace RFUpdater
 		}
 
 		public string DefaultValue {
-			get ;
+			get { 
+				return defaultValue;
+			}
 			set {
-				DefaultValue = value;
+				defaultValue = value;
 				switch (Type) {
-				case SettingType.TEXT:
+				case Setting.SettingType.TEXT:
 					((Entry)widget).Text = value;
 					break;
 				}
@@ -43,7 +46,7 @@ namespace RFUpdater
 			get { 
 				string widget_value = "";
 				switch (Type) {
-				case SettingType.TEXT:
+				case Setting.SettingType.TEXT:
 					widget_value = ((Entry)widget).Text;
 					break;
 				default:
@@ -54,7 +57,7 @@ namespace RFUpdater
 			}
 			set { 
 				switch (Type) {
-				case SettingType.TEXT:
+				case Setting.SettingType.TEXT:
 					((Entry)widget).Text = value;
 					break;
 				}
@@ -66,7 +69,7 @@ namespace RFUpdater
 			return Value != DefaultValue;
 		}
 
-		public SettingType Type {
+		public Setting.SettingType Type {
 			get;
 			set;
 		}
@@ -76,15 +79,6 @@ namespace RFUpdater
 			if (Value != DefaultValue) {
 				Value = DefaultValue;
 			}
-		}
-
-		public enum SettingType
-		{
-			TEXT,
-			PATH,
-			SPINNER,
-			DROPDOWN,
-			TOGGLE
 		}
 	}
 }

@@ -16,6 +16,7 @@ namespace RFUpdater
 		public static string LocalModuleDefinitionFolder = "modules";
         public static string BinaryName     = "binary.bin";
         public static string GameBasePath = "C:/";
+		public static string settingFile = "RFCUpdater.ini";
 
 		public static int ACTION_DOWNLOAD_DEFINITIONS = 0;
 		public static int ACTION_DOWNLOAD_MODULES = 1;

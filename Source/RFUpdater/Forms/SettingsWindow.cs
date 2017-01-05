@@ -5,8 +5,6 @@ namespace RFUpdater
 {
 	public partial class SettingsWindow : Gtk.Window
 	{
-		private string settingCategory = "User Settings";
-
 		public SettingsWindow () :
 			base (Gtk.WindowType.Toplevel)
 		{
@@ -16,11 +14,11 @@ namespace RFUpdater
 
 		protected void Init()
 		{
-			MainWindow.settings.Refresh ();
-			foreach (string PropertyName in MainWindow.settings.getKeys(settingCategory)) {
-				string PropertyValue = MainWindow.settings.GetValue (settingCategory, PropertyName, "default");
+			//MainWindow.settings.Refresh ();
+			foreach (Setting setting in MainWindow.settings.applicationSettings) {
+				string PropertyValue = setting.Value;
 
-				SettingRow SettingRowWidget = new SettingRow (PropertyName, PropertyValue, SettingRow.SettingType.TEXT);
+				SettingRow SettingRowWidget = new SettingRow (setting.Name, setting.Value, Setting.SettingType.TEXT);
 				vboxListSettings.PackEnd(SettingRowWidget, true, true, 6);
 			}
 			vboxListSettings.ShowAll ();
@@ -38,11 +36,11 @@ namespace RFUpdater
 			foreach (SettingRow SettingRowWidget in vboxListSettings.Children) {
 				if (SettingRowWidget.Changed()) {
 					NumberPropertiesChanged++;
-					MainWindow.settings.SetValue (settingCategory, SettingRowWidget.Label, SettingRowWidget.Value);
+					//MainWindow.settings.SetValue (settingCategory, SettingRowWidget.Label, SettingRowWidget.Value);
 				}
 			}
 			if (NumberPropertiesChanged > 0) {
-				MainWindow.settings.Flush ();
+				//MainWindow.settings.Flush ();
 				Common.ChangeStatus (Texts.Keys.APPLICATION, "Settings saved, " + NumberPropertiesChanged + " property(ies) updated");
 			} else {
 				Common.ChangeStatus (Texts.Keys.APPLICATION, "Settings identical, not saved");
@@ -52,7 +50,7 @@ namespace RFUpdater
 
 		private void CloseWindow ()
 		{
-			MainWindow.settings.Refresh ();
+			//MainWindow.settings.Refresh ();
 			this.Destroy ();
 		}
 	}

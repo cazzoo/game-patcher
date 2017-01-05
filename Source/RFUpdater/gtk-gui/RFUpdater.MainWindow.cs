@@ -5,49 +5,49 @@ namespace RFUpdater
 	public partial class MainWindow
 	{
 		private global::Gtk.UIManager UIManager;
-		
+
 		private global::Gtk.Action FileAction;
-		
+
 		private global::Gtk.Action AboutAction;
-		
+
 		private global::Gtk.Action preferencesAction;
-		
+
 		private global::Gtk.Action quitAction;
-		
+
 		private global::Gtk.Action ManageAction;
-		
+
 		private global::Gtk.Action CreateModuleAction;
-		
+
 		private global::Gtk.Action ViewModuleAction;
-		
+
 		private global::Gtk.Action DeleteModuleAction;
-		
+
 		private global::Gtk.VBox vbox3;
-		
+
 		private global::Gtk.MenuBar menubar1;
-		
+
 		private global::Gtk.HBox hbox1;
-		
+
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
-		
+
 		private global::Gtk.TreeView treeview_modules;
-		
+
 		private global::Gtk.VSeparator vseparator1;
-		
+
 		private global::Gtk.VBox vbox4;
-		
+
 		private global::Gtk.Button btn_deactivate;
-		
+
 		private global::Gtk.Button btn_activate;
-		
+
 		private global::Gtk.VSeparator vseparator2;
-		
+
 		private global::Gtk.Button btn_synch_start;
-		
+
 		private global::Gtk.ProgressBar progress_file;
-		
+
 		private global::Gtk.ProgressBar progress_overall;
-		
+
 		private global::Gtk.Statusbar status_main;
 
 		protected virtual void Build ()

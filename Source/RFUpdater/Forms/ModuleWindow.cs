@@ -247,14 +247,9 @@ namespace RFUpdater
 
 		#region buttons
 
-		protected void OnButtonValidateClicked (object sender, EventArgs e)
+		protected void OnBtnValidateClicked (object sender, EventArgs e)
 		{
 			SaveModule ();
-			this.Destroy ();
-		}
-
-		protected void OnBtnCancelClicked (object sender, EventArgs e)
-		{
 			this.Destroy ();
 		}
 
@@ -276,14 +271,9 @@ namespace RFUpdater
 			throw new NotImplementedException ();
 		}
 
-		protected void OnButtonCancelClicked (object sender, EventArgs e)
+		protected void OnBtnCancelClicked (object sender, EventArgs e)
 		{
-			throw new NotImplementedException ();
-		}
-
-		protected void OnButtonNewVersionClicked (object sender, EventArgs e)
-		{
-			throw new NotImplementedException ();
+			this.Destroy ();
 		}
 
 		#endregion buttons
