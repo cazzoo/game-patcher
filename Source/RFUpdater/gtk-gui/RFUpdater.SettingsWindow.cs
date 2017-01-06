@@ -14,69 +14,70 @@ namespace RFUpdater
 
 		private global::Gtk.Button button3;
 
-		protected virtual void Build ()
+		protected virtual void Build()
 		{
-			global::Stetic.Gui.Initialize (this);
+			global::Stetic.Gui.Initialize(this);
 			// Widget RFUpdater.SettingsWindow
 			this.Name = "RFUpdater.SettingsWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("SettingsWindow");
+			this.Title = global::Mono.Unix.Catalog.GetString("SettingsWindow");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			this.Modal = true;
 			this.Resizable = false;
 			this.AllowGrow = false;
 			// Container child RFUpdater.SettingsWindow.Gtk.Container+ContainerChild
-			this.vbox = new global::Gtk.VBox ();
+			this.vbox = new global::Gtk.VBox();
 			this.vbox.Name = "vbox";
 			this.vbox.Spacing = 2;
 			// Container child vbox.Gtk.Box+BoxChild
-			this.vboxListSettings = new global::Gtk.VBox ();
+			this.vboxListSettings = new global::Gtk.VBox();
 			this.vboxListSettings.Name = "vboxListSettings";
 			this.vboxListSettings.Spacing = 6;
-			this.vbox.Add (this.vboxListSettings);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox [this.vboxListSettings]));
+			this.vbox.Add(this.vboxListSettings);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox[this.vboxListSettings]));
 			w1.Position = 0;
 			// Container child vbox.Gtk.Box+BoxChild
-			this.hbox4 = new global::Gtk.HBox ();
+			this.hbox4 = new global::Gtk.HBox();
 			this.hbox4.Name = "hbox4";
 			this.hbox4.Spacing = 4;
 			this.hbox4.BorderWidth = ((uint)(3));
 			// Container child hbox4.Gtk.Box+BoxChild
-			this.button4 = new global::Gtk.Button ();
+			this.button4 = new global::Gtk.Button();
 			this.button4.CanFocus = true;
 			this.button4.Name = "button4";
 			this.button4.UseUnderline = true;
-			this.button4.Label = global::Mono.Unix.Catalog.GetString ("Validate");
-			this.hbox4.Add (this.button4);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.button4]));
+			this.button4.Label = global::Mono.Unix.Catalog.GetString("Validate");
+			this.hbox4.Add(this.button4);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.button4]));
 			w2.Position = 1;
 			w2.Expand = false;
 			w2.Fill = false;
 			// Container child hbox4.Gtk.Box+BoxChild
-			this.button3 = new global::Gtk.Button ();
+			this.button3 = new global::Gtk.Button();
 			this.button3.CanFocus = true;
 			this.button3.Name = "button3";
 			this.button3.UseUnderline = true;
-			this.button3.Label = global::Mono.Unix.Catalog.GetString ("Cancel");
-			this.hbox4.Add (this.button3);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.button3]));
+			this.button3.Label = global::Mono.Unix.Catalog.GetString("Cancel");
+			this.hbox4.Add(this.button3);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.button3]));
 			w3.Position = 2;
 			w3.Expand = false;
 			w3.Fill = false;
-			this.vbox.Add (this.hbox4);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox [this.hbox4]));
+			this.vbox.Add(this.hbox4);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox[this.hbox4]));
 			w4.PackType = ((global::Gtk.PackType)(1));
 			w4.Position = 1;
 			w4.Expand = false;
 			w4.Fill = false;
-			this.Add (this.vbox);
-			if ((this.Child != null)) {
-				this.Child.ShowAll ();
+			this.Add(this.vbox);
+			if ((this.Child != null))
+			{
+				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 372;
 			this.DefaultHeight = 93;
-			this.Show ();
-			this.button4.Clicked += new global::System.EventHandler (this.SaveSettings);
-			this.button3.Clicked += new global::System.EventHandler (this.CancelSettings);
+			this.Show();
+			this.button4.Clicked += new global::System.EventHandler(this.SaveSettings);
+			this.button3.Clicked += new global::System.EventHandler(this.CancelSettings);
 		}
 	}
 }

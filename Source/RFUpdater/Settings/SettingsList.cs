@@ -52,14 +52,36 @@ namespace RFUpdater
 		 */
 		public void initialize (ref List<Setting> applicationSettings)
 		{
-			applicationSettings = getListSettingsEmpty ();
+			if (applicationSettings.Count.Equals (0)) {
+				applicationSettings = getListSettingsEmpty ();
+			}
 			foreach (Setting setting in applicationSettings)
 			{
-				string iniValue = iniSettings.GetValue ("DEFAULT", setting.Name, string.Empty);
+				string iniValue = iniSettings.GetValue ("DEFAULT", setting.Name, setting.DefaultValue);
 				if (!setting.Value.Equals (iniValue)) {
 					setting.Value = iniValue;
 				}
 			}
+		}
+
+		public void updateSetting (Setting setting)
+		{
+			iniSettings.SetValue (setting.Category, setting.Name, setting.Value);
+		}
+
+		public void cancelSettings ()
+		{
+			iniSettings.Refresh ();
+			initialize (ref applicationSettings);
+		}
+
+		/**
+		 * Save settings to file
+		 */
+		public void saveSettings ()
+		{
+			iniSettings.Flush ();
+			initialize (ref applicationSettings);
 		}
 	}
 }

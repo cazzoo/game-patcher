@@ -6,47 +6,22 @@ namespace RFUpdater
 	{
 		private global::Gtk.HBox hbox;
 
-		private global::Gtk.Label lbl_setting;
-
-		private global::Gtk.Button btn_setting;
-
-		protected virtual void Build ()
+		protected virtual void Build()
 		{
-			global::Stetic.Gui.Initialize (this);
+			global::Stetic.Gui.Initialize(this);
 			// Widget RFUpdater.SettingRow
-			global::Stetic.BinContainer.Attach (this);
+			global::Stetic.BinContainer.Attach(this);
 			this.Name = "RFUpdater.SettingRow";
 			// Container child RFUpdater.SettingRow.Gtk.Container+ContainerChild
-			this.hbox = new global::Gtk.HBox ();
+			this.hbox = new global::Gtk.HBox();
 			this.hbox.Name = "hbox";
 			this.hbox.Spacing = 6;
-			// Container child hbox.Gtk.Box+BoxChild
-			this.lbl_setting = new global::Gtk.Label ();
-			this.lbl_setting.Name = "lbl_setting";
-			this.lbl_setting.LabelProp = global::Mono.Unix.Catalog.GetString ("label");
-			this.hbox.Add (this.lbl_setting);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox [this.lbl_setting]));
-			w1.Position = 0;
-			w1.Expand = false;
-			w1.Fill = false;
-			// Container child hbox.Gtk.Box+BoxChild
-			this.btn_setting = new global::Gtk.Button ();
-			this.btn_setting.CanFocus = true;
-			this.btn_setting.Name = "btn_setting";
-			this.btn_setting.UseUnderline = true;
-			global::Gtk.Image w2 = new global::Gtk.Image ();
-			w2.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-undo", global::Gtk.IconSize.Menu);
-			this.btn_setting.Image = w2;
-			this.hbox.Add (this.btn_setting);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox [this.btn_setting]));
-			w3.Position = 2;
-			w3.Expand = false;
-			w3.Fill = false;
-			this.Add (this.hbox);
-			if ((this.Child != null)) {
-				this.Child.ShowAll ();
+			this.Add(this.hbox);
+			if ((this.Child != null))
+			{
+				this.Child.ShowAll();
 			}
-			this.Hide ();
+			this.Hide();
 		}
 	}
 }

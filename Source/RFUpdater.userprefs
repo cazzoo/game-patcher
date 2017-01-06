@@ -2,20 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Widgets\SettingRow.cs" line="17" column="1" />
-      <Breakpoint file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Widgets\SettingRow.cs" line="14" column="1" />
-      <Breakpoint file="C:\Users\Casimir\Documents\personnel\game-patcher\Source\RFUpdater\Widgets\SettingRow.cs" line="33" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Widgets\SettingRow.cs">
-    <Files>
-      <File FileName="RFUpdater\Forms\SettingsWindow.cs" Line="21" Column="104" />
-      <File FileName="RFUpdater\Forms\MainWindow.cs" Line="42" Column="17" />
-      <File FileName="RFUpdater\Settings\SettingsList.cs" Line="44" Column="4" />
-      <File FileName="RFUpdater\Settings\Setting.cs" Line="31" Column="4" />
-      <File FileName="RFUpdater\Widgets\SettingRow.cs" Line="20" Column="31" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.ItemProperties.RFUpdater PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

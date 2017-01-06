@@ -14,11 +14,10 @@ namespace RFUpdater
 
 		protected void Init()
 		{
-			//MainWindow.settings.Refresh ();
+			MainWindow.settings.cancelSettings ();
 			foreach (Setting setting in MainWindow.settings.applicationSettings) {
-				string PropertyValue = setting.Value;
-
-				SettingRow SettingRowWidget = new SettingRow (setting.Name, setting.Value, Setting.SettingType.TEXT);
+				setting.DefaultValue = setting.Value;
+				var SettingRowWidget = new SettingRow (setting);
 				vboxListSettings.PackEnd(SettingRowWidget, true, true, 6);
 			}
 			vboxListSettings.ShowAll ();
@@ -27,6 +26,7 @@ namespace RFUpdater
 		protected void CancelSettings (object sender, EventArgs e)
 		{
 			Common.ChangeStatus (Texts.Keys.APPLICATION, "Settings not saved");
+			MainWindow.settings.cancelSettings ();
 			this.CloseWindow ();
 		}
 
@@ -36,21 +36,21 @@ namespace RFUpdater
 			foreach (SettingRow SettingRowWidget in vboxListSettings.Children) {
 				if (SettingRowWidget.Changed()) {
 					NumberPropertiesChanged++;
-					//MainWindow.settings.SetValue (settingCategory, SettingRowWidget.Label, SettingRowWidget.Value);
+					SettingRowWidget.setting.DefaultValue = SettingRowWidget.setting.Value;
+					MainWindow.settings.updateSetting(SettingRowWidget.setting);
 				}
 			}
 			if (NumberPropertiesChanged > 0) {
-				//MainWindow.settings.Flush ();
 				Common.ChangeStatus (Texts.Keys.APPLICATION, "Settings saved, " + NumberPropertiesChanged + " property(ies) updated");
 			} else {
 				Common.ChangeStatus (Texts.Keys.APPLICATION, "Settings identical, not saved");
 			}
+			MainWindow.settings.saveSettings ();
 			this.CloseWindow ();
 		}
 
 		private void CloseWindow ()
 		{
-			//MainWindow.settings.Refresh ();
 			this.Destroy ();
 		}
 	}

@@ -7,77 +7,67 @@ namespace RFUpdater
 	public partial class SettingRow : Gtk.Bin
 	{
 		Gtk.Widget widget;
-		private string defaultValue;
+		public Setting setting;
 
-		public SettingRow (string p_Label, string p_DefaultValue, Setting.SettingType p_type)
+		public SettingRow (Setting pSetting)
 		{
 			this.Build ();
-			Type = p_type;
-			Label = p_Label;
-			DefaultValue = p_DefaultValue;
-			switch (Type) {
+			setting = pSetting;
+
+			// Label
+			hbox.PackStart (new Label (setting.Name), true, true, 0);
+
+			// Widget
+			switch (setting.Type) {
 			case Setting.SettingType.TEXT:
-				widget = new Gtk.Entry ();
+				widget = new Entry ();
+
+				((Entry)widget).Text = setting.Value;
 				break;
 			}
+			((Entry)widget).KeyReleaseEvent += OnValueChanged;
 			hbox.PackStart (widget, true, true, 1);
-		}
 
-		public string Label {
-			get { return lbl_setting.Text; }
-			set { lbl_setting.Text = value; }
-		}
-
-		public string DefaultValue {
-			get { 
-				return defaultValue;
-			}
-			set {
-				defaultValue = value;
-				switch (Type) {
-				case Setting.SettingType.TEXT:
-					((Entry)widget).Text = value;
-					break;
-				}
-			}
-		}
-
-		public string Value {
-			get { 
-				string widget_value = "";
-				switch (Type) {
-				case Setting.SettingType.TEXT:
-					widget_value = ((Entry)widget).Text;
-					break;
-				default:
-					widget_value = "";
-					break;
-				}
-				return widget_value;
-			}
-			set { 
-				switch (Type) {
-				case Setting.SettingType.TEXT:
-					((Entry)widget).Text = value;
-					break;
-				}
-			}
+			// Reset button
+			var resetButton = new global::Gtk.Button ();
+			resetButton.CanFocus = true;
+			resetButton.Name = "btn_setting";
+			resetButton.UseUnderline = true;
+			var w2 = new Image ();
+			w2.Pixbuf = Stetic.IconLoader.LoadIcon (this, "gtk-undo", IconSize.Menu);
+			resetButton.Image = w2;
+			hbox.PackStart (resetButton, true, true, 2);
+			resetButton.Clicked += OnBtnSettingClicked;
 		}
 
 		public Boolean Changed ()
 		{
-			return Value != DefaultValue;
-		}
-
-		public Setting.SettingType Type {
-			get;
-			set;
+			return setting.Value != setting.DefaultValue;
 		}
 
 		protected void OnBtnSettingClicked (object sender, EventArgs e)
 		{
-			if (Value != DefaultValue) {
-				Value = DefaultValue;
+			if (setting.Value != setting.DefaultValue) {
+				setting.Value = setting.DefaultValue;
+				updateWidgetValue ();
+			}
+		}
+
+		protected void OnValueChanged (object sender, EventArgs e)
+		{
+			switch (setting.Type) {
+			case Setting.SettingType.TEXT:
+				setting.Value = ((Entry)widget).Text;
+				break;
+			}
+		}
+
+		private void updateWidgetValue ()
+		{
+			switch (setting.Type) {
+			case Setting.SettingType.TEXT:
+				((Entry)widget).Text = setting.Value;
+				break;
 			}
 		}
 	}
