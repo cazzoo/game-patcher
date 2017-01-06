@@ -20,7 +20,7 @@ namespace RFUpdater.Utils
 
             if (backgroundWorker.IsBusy)
             {
-				Common.ShowMessageBox(Texts.Keys.UNKNOWNERROR, "DownloadList isBusy");
+				Common.ShowMessageBox(MessageType.Warning, Texts.Keys.UNKNOWNERROR, "DownloadList isBusy");
             }
             else
             {

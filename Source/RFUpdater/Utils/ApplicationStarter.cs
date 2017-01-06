@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-
+using Gtk;
 namespace RFUpdater.Utils
 {
     class ApplicationStarter
@@ -23,7 +23,7 @@ namespace RFUpdater.Utils
             }
             catch
             {
-				Common.ShowMessageBox(Texts.Keys.CANNOTSTART, Globals.BinaryName);
+				Common.ShowMessageBox(MessageType.Warning, Texts.Keys.CANNOTSTART, Globals.BinaryName);
             }
         }
     }

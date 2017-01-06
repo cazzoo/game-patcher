@@ -9,12 +9,14 @@ namespace RFUpdater
 {
     class Common
     {
-		public static void ShowMessageBox(Texts.Keys Key, params string[] Arguments) 
+		public static void ShowMessageBox(MessageType messageType, Texts.Keys Key, params string[] Arguments) 
 		{
-			MessageDialog MessageBox = new MessageDialog (null, DialogFlags.DestroyWithParent, MessageType.Error, ButtonsType.Close, Texts.GetText (Key, Arguments));
+			MessageDialog MessageBox = new MessageDialog (null, DialogFlags.DestroyWithParent, messageType, ButtonsType.Close, Texts.GetText (Key, Arguments));
 			MessageBox.Run ();
 			MessageBox.Destroy ();
-			Application.Quit ();
+			if (messageType.Equals (MessageType.Error)) {
+				Application.Quit ();
+			}
 		}
 
         public static void ChangeStatus(Texts.Keys Key, params string[] Arguments)

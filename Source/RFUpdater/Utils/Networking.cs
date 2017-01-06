@@ -19,7 +19,7 @@ namespace RFUpdater.Utils
 			backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
 
 			if (backgroundWorker.IsBusy) {
-				Common.ShowMessageBox(Texts.Keys.UNKNOWNERROR, "CheckNetwork isBusy");
+				Common.ShowMessageBox(MessageType.Warning, Texts.Keys.UNKNOWNERROR, "CheckNetwork isBusy");
 			} else {
 				backgroundWorker.RunWorkerAsync ();
 			}
@@ -40,7 +40,7 @@ namespace RFUpdater.Utils
 		private static void backgroundWorker_RunWorkerCompleted (object sender, RunWorkerCompletedEventArgs e)
 		{
 			if (!Convert.ToBoolean (e.Result)) {
-				Common.ShowMessageBox(Texts.Keys.NONETWORK);
+				Common.ShowMessageBox(MessageType.Warning, Texts.Keys.NONETWORK);
 			} else {
 				// Launch the next action regarding the action set in parameters
 				if (NetworkAction == Globals.ACTION_DOWNLOAD_DEFINITIONS) {

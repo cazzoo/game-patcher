@@ -178,22 +178,25 @@
         <property name="Label" translatable="yes">Manage</property>
         <property name="ShortLabel" translatable="yes">Manage</property>
       </action>
-      <action id="CreateModuleAction">
+      <action id="addAction">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes">Create module</property>
         <property name="ShortLabel" translatable="yes">Create module</property>
+        <property name="StockId">gtk-add</property>
         <signal name="Activated" handler="OnCreateModuleActionActivated" />
       </action>
-      <action id="ViewModuleAction">
+      <action id="dndAction">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes">View module</property>
         <property name="ShortLabel" translatable="yes">View module</property>
+        <property name="StockId">gtk-dnd</property>
         <signal name="Activated" handler="OnEditModuleActionActivated" />
       </action>
-      <action id="DeleteModuleAction">
+      <action id="deleteAction">
         <property name="Type">Action</property>
         <property name="Label" translatable="yes">Delete module</property>
         <property name="ShortLabel" translatable="yes">Delete module</property>
+        <property name="StockId">gtk-delete</property>
         <signal name="Activated" handler="OnDeleteModuleActionActivated" />
       </action>
     </action-group>
@@ -214,9 +217,9 @@
                 <node type="Menuitem" action="quitAction" />
               </node>
               <node type="Menu" action="ManageAction">
-                <node type="Menuitem" action="CreateModuleAction" />
-                <node type="Menuitem" action="ViewModuleAction" />
-                <node type="Menuitem" action="DeleteModuleAction" />
+                <node type="Menuitem" action="addAction" />
+                <node type="Menuitem" action="dndAction" />
+                <node type="Menuitem" action="deleteAction" />
               </node>
             </node>
           </widget>
@@ -271,7 +274,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
-                    <property name="Icon">stock:stock_left Menu</property>
+                    <property name="Icon">stock:gtk-go-back Menu</property>
                     <property name="Label" translatable="yes" />
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnBtnDeactivateClicked" />
@@ -288,7 +291,7 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
-                    <property name="Icon">stock:stock_right Menu</property>
+                    <property name="Icon">stock:gtk-go-forward Menu</property>
                     <property name="Label" translatable="yes" />
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnBtnActivateClicked" />
@@ -330,7 +333,7 @@
             <property name="MemberName" />
             <property name="CanFocus">True</property>
             <property name="Type">TextAndIcon</property>
-            <property name="Icon">stock:stock_refresh Menu</property>
+            <property name="Icon">stock:gtk-refresh Button</property>
             <property name="Label" translatable="yes">Synchronize</property>
             <property name="UseUnderline">True</property>
             <signal name="Clicked" handler="OnBtnSynchStartClicked" />
@@ -475,7 +478,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="RFUpdater.ModuleWindow" design-size="822 512">
+  <widget class="Gtk.Window" id="RFUpdater.ModuleWindow" design-size="822 594">
     <property name="MemberName" />
     <property name="Title" translatable="yes">ModuleWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -556,6 +559,20 @@
                     <property name="AutoSize">True</property>
                   </packing>
                 </child>
+                <child>
+                  <widget class="Gtk.ComboBox" id="moduleVersionSelector">
+                    <property name="MemberName">moduleVersionSelector</property>
+                    <property name="IsTextCombo">True</property>
+                    <property name="Items" translatable="yes" />
+                  </widget>
+                  <packing>
+                    <property name="PackType">End</property>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
               </widget>
               <packing>
                 <property name="Position">1</property>
@@ -612,6 +629,7 @@
         <child>
           <widget class="Gtk.ScrolledWindow" id="scrolledwindow">
             <property name="MemberName" />
+            <property name="HeightRequest">400</property>
             <property name="CanFocus">True</property>
             <property name="ShadowType">In</property>
             <child>
@@ -678,7 +696,7 @@
                     <property name="Icon">stock:gtk-delete Menu</property>
                     <property name="Label" translatable="yes">Remove selected</property>
                     <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnBtnRemoveFilesClicked" />
+                    <signal name="Clicked" handler="OnBtnRemoveFilesSelected" />
                   </widget>
                   <packing>
                     <property name="Position">2</property>
@@ -698,7 +716,8 @@
               <widget class="Gtk.Button" id="btn_select_files">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="Type">TextOnly</property>
+                <property name="Type">TextAndIcon</property>
+                <property name="Icon">stock:gtk-index Menu</property>
                 <property name="Label" translatable="yes">Select Files...</property>
                 <property name="UseUnderline">True</property>
                 <signal name="Clicked" handler="OnBtnSelectFilesClicked" />

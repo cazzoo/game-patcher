@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.IO;
+using Gtk;
 
 namespace RFUpdater.Utils
 {
@@ -19,7 +20,7 @@ namespace RFUpdater.Utils
 
 			if (backgroundWorker.IsBusy)
 			{
-				Common.ShowMessageBox(Texts.Keys.UNKNOWNERROR, "DownloadList isBusy");
+				Common.ShowMessageBox(MessageType.Warning, Texts.Keys.UNKNOWNERROR, "DownloadList isBusy");
 			}
 			else
 			{

@@ -22,7 +22,18 @@ namespace RFUpdater
 			return Name;
 		}
 
-		public Module GetLastModuleVersion() {
+		public Module GetModuleVersion (int version)
+		{
+			foreach (Module module in Modules) {
+				if (module != null && module.Version.Equals(version)) {
+					return module;
+				}
+			}
+			return null;
+		}
+
+		public Module GetLastModuleVersion()
+		{
 			Module last_module = null;
 			foreach (Module module in Modules) {
 				if (last_module == null || (last_module != null && last_module.Version < module.Version)) {

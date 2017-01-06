@@ -16,11 +16,11 @@ namespace RFUpdater
 
 		private global::Gtk.Action ManageAction;
 
-		private global::Gtk.Action CreateModuleAction;
+		private global::Gtk.Action addAction;
 
-		private global::Gtk.Action ViewModuleAction;
+		private global::Gtk.Action dndAction;
 
-		private global::Gtk.Action DeleteModuleAction;
+		private global::Gtk.Action deleteAction;
 
 		private global::Gtk.VBox vbox3;
 
@@ -71,15 +71,15 @@ namespace RFUpdater
 			this.ManageAction = new global::Gtk.Action ("ManageAction", global::Mono.Unix.Catalog.GetString ("Manage"), null, null);
 			this.ManageAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Manage");
 			w1.Add (this.ManageAction, null);
-			this.CreateModuleAction = new global::Gtk.Action ("CreateModuleAction", global::Mono.Unix.Catalog.GetString ("Create module"), null, null);
-			this.CreateModuleAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Create module");
-			w1.Add (this.CreateModuleAction, null);
-			this.ViewModuleAction = new global::Gtk.Action ("ViewModuleAction", global::Mono.Unix.Catalog.GetString ("View module"), null, null);
-			this.ViewModuleAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("View module");
-			w1.Add (this.ViewModuleAction, null);
-			this.DeleteModuleAction = new global::Gtk.Action ("DeleteModuleAction", global::Mono.Unix.Catalog.GetString ("Delete module"), null, null);
-			this.DeleteModuleAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Delete module");
-			w1.Add (this.DeleteModuleAction, null);
+			this.addAction = new global::Gtk.Action ("addAction", global::Mono.Unix.Catalog.GetString ("Create module"), null, "gtk-add");
+			this.addAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Create module");
+			w1.Add (this.addAction, null);
+			this.dndAction = new global::Gtk.Action ("dndAction", global::Mono.Unix.Catalog.GetString ("View module"), null, "gtk-dnd");
+			this.dndAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("View module");
+			w1.Add (this.dndAction, null);
+			this.deleteAction = new global::Gtk.Action ("deleteAction", global::Mono.Unix.Catalog.GetString ("Delete module"), null, "gtk-delete");
+			this.deleteAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Delete module");
+			w1.Add (this.deleteAction, null);
 			this.UIManager.InsertActionGroup (w1, 0);
 			this.AddAccelGroup (this.UIManager.AccelGroup);
 			this.Name = "RFUpdater.MainWindow";
@@ -90,7 +90,7 @@ namespace RFUpdater
 			this.vbox3.Name = "vbox3";
 			this.vbox3.Spacing = 6;
 			// Container child vbox3.Gtk.Box+BoxChild
-			this.UIManager.AddUiFromString (@"<ui><menubar name='menubar1'><menu name='FileAction' action='FileAction'><menuitem name='preferencesAction' action='preferencesAction'/><menuitem name='quitAction' action='quitAction'/></menu><menu name='ManageAction' action='ManageAction'><menuitem name='CreateModuleAction' action='CreateModuleAction'/><menuitem name='ViewModuleAction' action='ViewModuleAction'/><menuitem name='DeleteModuleAction' action='DeleteModuleAction'/></menu></menubar></ui>");
+			this.UIManager.AddUiFromString (@"<ui><menubar name='menubar1'><menu name='FileAction' action='FileAction'><menuitem name='preferencesAction' action='preferencesAction'/><menuitem name='quitAction' action='quitAction'/></menu><menu name='ManageAction' action='ManageAction'><menuitem name='addAction' action='addAction'/><menuitem name='dndAction' action='dndAction'/><menuitem name='deleteAction' action='deleteAction'/></menu></menubar></ui>");
 			this.menubar1 = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/menubar1")));
 			this.menubar1.Name = "menubar1";
 			this.vbox3.Add (this.menubar1);
@@ -135,7 +135,7 @@ namespace RFUpdater
 			this.btn_deactivate.Name = "btn_deactivate";
 			this.btn_deactivate.UseUnderline = true;
 			global::Gtk.Image w6 = new global::Gtk.Image ();
-			w6.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_left", global::Gtk.IconSize.Menu);
+			w6.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-go-back", global::Gtk.IconSize.Menu);
 			this.btn_deactivate.Image = w6;
 			this.vbox4.Add (this.btn_deactivate);
 			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btn_deactivate]));
@@ -148,7 +148,7 @@ namespace RFUpdater
 			this.btn_activate.Name = "btn_activate";
 			this.btn_activate.UseUnderline = true;
 			global::Gtk.Image w8 = new global::Gtk.Image ();
-			w8.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_right", global::Gtk.IconSize.Menu);
+			w8.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-go-forward", global::Gtk.IconSize.Menu);
 			this.btn_activate.Image = w8;
 			this.vbox4.Add (this.btn_activate);
 			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.btn_activate]));
@@ -178,7 +178,7 @@ namespace RFUpdater
 			this.btn_synch_start.UseUnderline = true;
 			this.btn_synch_start.Label = global::Mono.Unix.Catalog.GetString ("Synchronize");
 			global::Gtk.Image w13 = new global::Gtk.Image ();
-			w13.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_refresh", global::Gtk.IconSize.Menu);
+			w13.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-refresh", global::Gtk.IconSize.Button);
 			this.btn_synch_start.Image = w13;
 			this.vbox3.Add (this.btn_synch_start);
 			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.btn_synch_start]));
@@ -221,9 +221,9 @@ namespace RFUpdater
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 			this.preferencesAction.Activated += new global::System.EventHandler (this.openSettingsWindow);
 			this.quitAction.Activated += new global::System.EventHandler (this.QuitApplication);
-			this.CreateModuleAction.Activated += new global::System.EventHandler (this.OnCreateModuleActionActivated);
-			this.ViewModuleAction.Activated += new global::System.EventHandler (this.OnEditModuleActionActivated);
-			this.DeleteModuleAction.Activated += new global::System.EventHandler (this.OnDeleteModuleActionActivated);
+			this.addAction.Activated += new global::System.EventHandler (this.OnCreateModuleActionActivated);
+			this.dndAction.Activated += new global::System.EventHandler (this.OnEditModuleActionActivated);
+			this.deleteAction.Activated += new global::System.EventHandler (this.OnDeleteModuleActionActivated);
 			this.btn_deactivate.Clicked += new global::System.EventHandler (this.OnBtnDeactivateClicked);
 			this.btn_activate.Clicked += new global::System.EventHandler (this.OnBtnActivateClicked);
 			this.btn_synch_start.Clicked += new global::System.EventHandler (this.OnBtnSynchStartClicked);

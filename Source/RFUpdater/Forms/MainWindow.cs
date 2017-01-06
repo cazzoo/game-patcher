@@ -119,7 +119,7 @@ namespace RFUpdater
 
 		protected void OnBtnSynchStartClicked (object sender, EventArgs e)
 		{
-			Common.ShowMessageBox (Texts.Keys.UNKNOWNERROR, "NOT IMPLEMENTED YET");
+			Common.ShowMessageBox (MessageType.Warning, Texts.Keys.UNKNOWNERROR, "NOT IMPLEMENTED YET");
 		}
 
 		#endregion windowButtons
@@ -139,19 +139,26 @@ namespace RFUpdater
 
 		protected void openSettingsWindow (object sender, EventArgs e)
 		{
-			SettingsWindow sw = new SettingsWindow ();
+			var sw = new SettingsWindow ();
 			sw.Show ();
 		}
 
 		protected void OnEditModuleActionActivated (object sender, EventArgs e)
 		{
-			ModuleWindow moduleWindow = new ModuleWindow ("test");
-			moduleWindow.Show ();
+			if (treeview_modules.Selection.GetSelectedRows ().Length > 0) {
+				TreeIter iter;
+				store.GetIter (out iter, treeview_modules.Selection.GetSelectedRows () [0]);
+				var selectedModule = store.GetValue (iter, 1).ToString ();
+				var moduleWindow = new ModuleWindow (selectedModule);
+				moduleWindow.Show ();
+			} else {
+				Common.ShowMessageBox (MessageType.Info, Texts.Keys.APPLICATION, "Please select a module");
+			}
 		}
 
 		protected void OnCreateModuleActionActivated (object sender, EventArgs e)
 		{
-			ModuleWindow moduleWindow = new ModuleWindow ();
+			var moduleWindow = new ModuleWindow ();
 			moduleWindow.Show ();
 		}
 

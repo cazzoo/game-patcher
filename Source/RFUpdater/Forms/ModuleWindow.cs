@@ -22,6 +22,7 @@ namespace RFUpdater
 			if (ModuleName == null) {
 				FormStateNew ();
 				in_version.Text = "1";
+				moduleVersionSelector.Add (new Label ("1"));
 				UpdateDate ();
 			} else {
 				FormStateView ();
@@ -31,6 +32,13 @@ namespace RFUpdater
 
 			treeview_files.Model = store;
 			AddColumns (treeview_files);
+
+			moduleVersionSelector.Clear ();
+			CellRendererText cell = new CellRendererText ();
+			moduleVersionSelector.PackStart (cell, false);
+			moduleVersionSelector.AddAttribute (cell, "text", 0);
+			var moduleVersionListModel = new ListStore (typeof (string));
+			moduleVersionSelector.Model = moduleVersionListModel;
 
 			ShowAll ();
 		}
@@ -146,6 +154,13 @@ namespace RFUpdater
 			module = container;
 			Module last_version_module = module.GetLastModuleVersion ();
 			in_name.Text = module.Name;
+
+			var lastModuleVersion = last_version_module.Version;
+			for (int i = lastModuleVersion; i > 0; i--) {
+				
+				moduleVersionSelector.AppendText (i.ToString ());
+			}
+
 			ParseModuleFile (last_version_module);
 			return last_version_module;
 		}
@@ -156,7 +171,7 @@ namespace RFUpdater
 
 		private ListStore CreateModel ()
 		{
-			ListStore store = new ListStore (typeof(bool),
+			var store = new ListStore (typeof(bool),
 				                  typeof(string));
 			return store;
 		}
@@ -165,7 +180,7 @@ namespace RFUpdater
 		{
 			TreeIter iter;
 			if (store.GetIterFromString (out iter, args.Path)) {
-				bool val = (bool)store.GetValue (iter, 0);
+				var val = (bool)store.GetValue (iter, 0);
 				store.SetValue (iter, 0, !val);
 			}
 		}
@@ -173,9 +188,9 @@ namespace RFUpdater
 		private void AddColumns (TreeView treeView)
 		{
 			// column for selected toggles
-			CellRendererToggle rendererToggle = new CellRendererToggle ();
+			var rendererToggle = new CellRendererToggle ();
 			rendererToggle.Toggled += new ToggledHandler (SelectedToggled);
-			TreeViewColumn column = new TreeViewColumn ("Selected", rendererToggle, "active", Column.Selected);
+			var column = new TreeViewColumn ("Selected", rendererToggle, "active", Column.Selected);
 
 			// set this column to a fixed sizing (of 50 pixels)
 			column.Sizing = TreeViewColumnSizing.Fixed;
@@ -197,7 +212,7 @@ namespace RFUpdater
 
 		protected void OnBtnSelectFilesClicked (object sender, EventArgs e)
 		{
-			FileChooserDialog filechooser =
+			var filechooser =
 				new FileChooserDialog ("Select files",
 					this,
 					FileChooserAction.SelectFolder,
@@ -205,26 +220,64 @@ namespace RFUpdater
 					"Open", ResponseType.Ok);
 
 			if (filechooser.Run () == (int)ResponseType.Ok) {
-				String[] files = Directory.GetFiles (filechooser.Filename);
-				foreach (string file in files) {
-					store.AppendValues (false,
+				foreach (string file in getFiles(filechooser.Filename, true)) {
+					TreeIter iter;
+					if (!store. GetIter (out iter, new TreePath(file))) {
+						store.AppendValues (false,
 						file);
+					}
 				}
 			}
 
 			filechooser.Destroy ();
 		}
 
-		protected void OnBtnRemoveFilesClicked (object sender, EventArgs e)
+		private List<String> getFiles (string path, bool recursive = false)
 		{
-			store.Foreach ((model, path, iter) => {
-				bool selected = (bool)store.GetValue (iter, 0);
-				if (selected) {
-					store.Remove(ref iter);
+			var listPaths = new List<String>();
+			foreach (string file in Directory.GetFiles (path)) {
+				listPaths.Add(file);
+			}
+			if (recursive) {
+				foreach (string directory in Directory.GetDirectories (path)) {
+					listPaths.AddRange (getFiles(directory, recursive));
 				}
-				return false;
-			});
+			}
+			return listPaths;
+		}
 
+		protected void OnBtnRemoveFilesSelected (object sender, EventArgs e)
+		{
+			TreeIter iter;
+			var paths = new List<string> ();
+			if (store.GetIterFirst (out iter)) {
+				do {
+					if ((bool)store.GetValue (iter, 0)) {
+						paths.Add ((string)store.GetValue (iter, 1));
+					}
+				} while (store.IterNext (ref iter));
+			}
+
+			foreach (string path in paths) {
+				removeRow (path);
+			}
+		}
+
+		/**
+		 * Removes a single row
+		 */
+		private void removeRow (string path)
+		{
+			TreeIter iter;
+
+			if (store.GetIterFirst (out iter)) {
+				do {
+					if (((string)store.GetValue (iter, 1)).Equals(path)) {
+						store.Remove (ref iter);
+						break;
+					}
+				} while (store.IterNext (ref iter));
+			}
 		}
 
 		protected void OnBtnSelectNoneClicked (object sender, EventArgs e)

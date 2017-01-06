@@ -4,6 +4,15 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Forms\MainWindow.cs">
+    <Files>
+      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="108" Column="52" />
+      <File FileName="RFUpdater\Forms\MainWindow.cs" Line="155" Column="44" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <DisabledProjects>
+    <String>RFUpdater.Lister\RFUpdater.Lister.csproj</String>
+    <String>RFUpdater.Patcher\RFUpdater.Patcher.csproj</String>
+  </DisabledProjects>
   <MonoDevelop.Ide.ItemProperties.RFUpdater PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
