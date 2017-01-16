@@ -1,13 +1,12 @@
-﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupConfiguration="{8074DB7F-97EB-406A-A96B-CE5A56548876}|Default" VersionControlDisabled="True">
+﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupConfiguration="{8074DB7F-97EB-406A-A96B-CE5A56548876}|Default" VersionControlDisabled="True" StartupItem="RFUpdater/RFUpdater.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Forms\MainWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater/Forms/ModuleWindow.cs">
     <Files>
-      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="108" Column="52" />
-      <File FileName="RFUpdater\Forms\MainWindow.cs" Line="155" Column="44" />
+      <File FileName="RFUpdater/Forms/ModuleWindow.cs" Line="329" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <DisabledProjects>

@@ -535,7 +535,7 @@
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="Gtk.Label" id="lbl_version">
+                  <widget class="Gtk.Label" id="lblVersion">
                     <property name="MemberName" />
                     <property name="LabelProp" translatable="yes">Version</property>
                   </widget>
@@ -547,37 +547,14 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Entry" id="in_version">
-                    <property name="MemberName" />
-                    <property name="Sensitive">False</property>
-                    <property name="CanFocus">True</property>
-                    <property name="IsEditable">True</property>
-                    <property name="InvisibleChar">●</property>
-                  </widget>
-                  <packing>
-                    <property name="Position">1</property>
-                    <property name="AutoSize">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.ComboBox" id="moduleVersionSelector">
-                    <property name="MemberName">moduleVersionSelector</property>
-                    <property name="IsTextCombo">True</property>
-                    <property name="Items" translatable="yes" />
-                  </widget>
-                  <packing>
-                    <property name="PackType">End</property>
-                    <property name="Position">2</property>
-                    <property name="AutoSize">True</property>
-                    <property name="Expand">False</property>
-                    <property name="Fill">False</property>
-                  </packing>
+                  <placeholder />
                 </child>
               </widget>
               <packing>
                 <property name="Position">1</property>
                 <property name="AutoSize">False</property>
                 <property name="Expand">False</property>
+                <property name="Fill">False</property>
               </packing>
             </child>
             <child>
@@ -662,7 +639,7 @@
                     <property name="Icon">stock:gtk-clear Menu</property>
                     <property name="Label" translatable="yes">Select none</property>
                     <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnBtnSelectNoneClicked" />
+                    <signal name="Released" handler="OnBtnSelectNoneClicked" />
                   </widget>
                   <packing>
                     <property name="Position">0</property>
@@ -679,7 +656,7 @@
                     <property name="Icon">stock:gtk-add Menu</property>
                     <property name="Label" translatable="yes">Select all</property>
                     <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnBtnSelectAllClicked" />
+                    <signal name="Released" handler="OnBtnSelectAllClicked" />
                   </widget>
                   <packing>
                     <property name="Position">1</property>
@@ -696,7 +673,7 @@
                     <property name="Icon">stock:gtk-delete Menu</property>
                     <property name="Label" translatable="yes">Remove selected</property>
                     <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnBtnRemoveFilesSelected" />
+                    <signal name="Released" handler="OnBtnRemoveFilesSelected" />
                   </widget>
                   <packing>
                     <property name="Position">2</property>
@@ -720,7 +697,7 @@
                 <property name="Icon">stock:gtk-index Menu</property>
                 <property name="Label" translatable="yes">Select Files...</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnBtnSelectFilesClicked" />
+                <signal name="Released" handler="OnBtnSelectFilesClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>
@@ -776,7 +753,6 @@
                     <property name="Type">TextOnly</property>
                     <property name="Label" translatable="yes">Select dependancies...</property>
                     <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnBtnSelectDependanciesClicked" />
                   </widget>
                   <packing>
                     <property name="PackType">End</property>
@@ -828,7 +804,6 @@
                     <property name="Type">TextOnly</property>
                     <property name="Label" translatable="yes">Select conflicts modules...</property>
                     <property name="UseUnderline">True</property>
-                    <signal name="Clicked" handler="OnBtnSelectConflictsClicked" />
                   </widget>
                   <packing>
                     <property name="PackType">End</property>
@@ -865,7 +840,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Cancel</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnBtnCancelClicked" />
+                <signal name="Released" handler="OnBtnCancelClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>
@@ -883,7 +858,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Validate</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnBtnValidateClicked" />
+                <signal name="Released" handler="OnBtnValidateClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>
@@ -901,7 +876,7 @@
                 <property name="Type">TextOnly</property>
                 <property name="Label" translatable="yes">Create new version</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnBtnNewVersionClicked" />
+                <signal name="Released" handler="OnBtnNewVersionClicked" />
               </widget>
               <packing>
                 <property name="PackType">End</property>

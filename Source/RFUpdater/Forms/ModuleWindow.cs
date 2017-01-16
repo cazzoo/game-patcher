@@ -11,6 +11,7 @@ namespace RFUpdater
 	{
 		private ModuleCollection module = new ModuleCollection ();
 		private ListStore store;
+		private ComboBox combo;
 
 		public ModuleWindow (string ModuleName = null) :
 			base (Gtk.WindowType.Toplevel)
@@ -19,10 +20,15 @@ namespace RFUpdater
 			store.Clear ();
 
 			this.Build ();
+
+			combo = ComboBox.NewText ();
+			combo.Changed += new EventHandler (OnComboBoxChanged);
+
+			hbox5.PackEnd (combo, true, true, 0);
+
 			if (ModuleName == null) {
 				FormStateNew ();
-				in_version.Text = "1";
-				moduleVersionSelector.Add (new Label ("1"));
+				combo.AppendText ("1");
 				UpdateDate ();
 			} else {
 				FormStateView ();
@@ -30,17 +36,23 @@ namespace RFUpdater
 				btn_newVersion.Sensitive = true;
 			}
 
-			treeview_files.Model = store;
+			combo.Active=0;
+
 			AddColumns (treeview_files);
 
-			moduleVersionSelector.Clear ();
-			CellRendererText cell = new CellRendererText ();
-			moduleVersionSelector.PackStart (cell, false);
-			moduleVersionSelector.AddAttribute (cell, "text", 0);
-			var moduleVersionListModel = new ListStore (typeof (string));
-			moduleVersionSelector.Model = moduleVersionListModel;
-
 			ShowAll ();
+		}
+
+		void OnComboBoxChanged (object o, EventArgs args)
+		{
+			ComboBox combo = o as ComboBox;
+			if (o == null)
+				return;
+
+			TreeIter iter;
+
+			if (combo.GetActiveIter (out iter))
+				Console.WriteLine ((string) combo.Model.GetValue (iter, 0));
 		}
 
 		private void UpdateDate ()
@@ -100,7 +112,8 @@ namespace RFUpdater
 		private Module ParseModuleInputs ()
 		{
 			Module parsedModule = new Module ();
-			parsedModule.Version = Convert.ToInt32 (in_version.Text);
+			var moduleVersion = Convert.ToInt32 ("1");
+			parsedModule.Version = moduleVersion;
 			parsedModule.RealeaseDate = Convert.ToDateTime (in_realeaseDate.Text);
 			parsedModule.Mandatory = chk_mandatory.Active;
 			List<String> files = new List<string> ();
@@ -114,7 +127,8 @@ namespace RFUpdater
 
 		private void ParseModuleFile (Module FileModule)
 		{
-			in_version.Text = FileModule.Version.ToString ();
+			var moduleVersion = FileModule.Version.ToString ();
+			//in_version.Text = moduleVersion;
 			in_realeaseDate.Text = FileModule.RealeaseDate.ToString ();
 			chk_mandatory.Active = FileModule.Mandatory;
 			lbl_moduleDependancies.Text = FileModule.Dependancies.ToString ();
@@ -155,10 +169,11 @@ namespace RFUpdater
 			Module last_version_module = module.GetLastModuleVersion ();
 			in_name.Text = module.Name;
 
-			var lastModuleVersion = last_version_module.Version;
-			for (int i = lastModuleVersion; i > 0; i--) {
-				
-				moduleVersionSelector.AppendText (i.ToString ());
+			int lastModuleVersion = last_version_module.Version;
+
+			//combo.Clear ();
+			for (int i = lastModuleVersion; i >= 1; i--) {
+				combo.AppendText (i.ToString());
 			}
 
 			ParseModuleFile (last_version_module);
@@ -310,7 +325,8 @@ namespace RFUpdater
 		{
 			Module Loaded_module = LoadModule (module.Name);
 			UpdateDate ();
-			in_version.Text = (Loaded_module.Version + 1).ToString ();
+			var nextModuleVersion = (Loaded_module.Version + 1).ToString ();
+			combo.AppendText (nextModuleVersion);
 			FormStateEdit ();
 		}
 
