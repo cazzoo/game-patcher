@@ -9,26 +9,27 @@ namespace RFUpdater
 {
 	public partial class ModuleWindow : Gtk.Window
 	{
-		private ModuleCollection module = new ModuleCollection ();
-		private ListStore store;
-		private ComboBox combo;
+		private ModuleCollection moduleCollection = new ModuleCollection ();
+		private ListStore storePaths;
+		private ComboBox comboVersionSelector;
+		private List<string> listVersions = new List<string> ();
 
 		public ModuleWindow (string ModuleName = null) :
 			base (Gtk.WindowType.Toplevel)
 		{
-			store = CreateModel ();
-			store.Clear ();
-
 			this.Build ();
 
-			combo = ComboBox.NewText ();
-			combo.Changed += new EventHandler (OnComboBoxChanged);
+			storePaths = CreateModel ();
+			storePaths.Clear ();
 
-			hbox5.PackEnd (combo, true, true, 0);
+			comboVersionSelector = ComboBox.NewText ();
+			comboVersionSelector.Changed += new EventHandler (OnComboBoxChanged);
+
+			hbox5.PackEnd (comboVersionSelector, true, true, 0);
 
 			if (ModuleName == null) {
 				FormStateNew ();
-				combo.AppendText ("1");
+				listVersions.Add ("1");
 				UpdateDate ();
 			} else {
 				FormStateView ();
@@ -36,23 +37,12 @@ namespace RFUpdater
 				btn_newVersion.Sensitive = true;
 			}
 
-			combo.Active=0;
+			updateVersionsComboList ();
 
+			treeview_files.Model = storePaths;
 			AddColumns (treeview_files);
 
 			ShowAll ();
-		}
-
-		void OnComboBoxChanged (object o, EventArgs args)
-		{
-			ComboBox combo = o as ComboBox;
-			if (o == null)
-				return;
-
-			TreeIter iter;
-
-			if (combo.GetActiveIter (out iter))
-				Console.WriteLine ((string) combo.Model.GetValue (iter, 0));
 		}
 
 		private void UpdateDate ()
@@ -74,6 +64,7 @@ namespace RFUpdater
 			btn_select_files.Sensitive = true;
 
 			btn_newVersion.Sensitive = false;
+			comboVersionSelector.Sensitive = false;
 		}
 
 		private void FormStateView ()
@@ -105,6 +96,7 @@ namespace RFUpdater
 
 			in_name.Sensitive = false;
 			btn_newVersion.Sensitive = false;
+			comboVersionSelector.Sensitive = false;
 		}
 
 		#region moduleHandlers
@@ -117,8 +109,8 @@ namespace RFUpdater
 			parsedModule.RealeaseDate = Convert.ToDateTime (in_realeaseDate.Text);
 			parsedModule.Mandatory = chk_mandatory.Active;
 			List<String> files = new List<string> ();
-			store.Foreach ((model, path, iter) => {
-				files.Add (store.GetValue (iter, 1).ToString ());
+			storePaths.Foreach ((model, path, iter) => {
+				files.Add (storePaths.GetValue (iter, 1).ToString ());
 				return false;
 			});
 			parsedModule.Files = files;
@@ -127,53 +119,50 @@ namespace RFUpdater
 
 		private void ParseModuleFile (Module FileModule)
 		{
-			var moduleVersion = FileModule.Version.ToString ();
-			//in_version.Text = moduleVersion;
 			in_realeaseDate.Text = FileModule.RealeaseDate.ToString ();
 			chk_mandatory.Active = FileModule.Mandatory;
 			lbl_moduleDependancies.Text = FileModule.Dependancies.ToString ();
 			lbl_moduleConflicts.Text = FileModule.Conflicts.ToString ();
 
-			store.Clear ();
+			storePaths.Clear ();
 			foreach (string file in FileModule.Files) {
-				store.AppendValues (false,
+				storePaths.AppendValues (false,
 					file);
 			}
 		}
 
 		private void SaveModule ()
 		{
-			var serializer = new XmlSerializer (typeof(ModuleCollection));
-			if(!Directory.Exists(Globals.LocalModuleDefinitionFolder)) {
-				Directory.CreateDirectory(Globals.LocalModuleDefinitionFolder);
+			var serializer = new XmlSerializer (typeof (ModuleCollection));
+			if (!Directory.Exists (Globals.LocalModuleDefinitionFolder)) {
+				Directory.CreateDirectory (Globals.LocalModuleDefinitionFolder);
 			}
 			var stream = new FileStream (Globals.LocalModuleDefinitionFolder + System.IO.Path.DirectorySeparatorChar + in_name.Text + ".xml", FileMode.Create);
 			Module Input_module = ParseModuleInputs ();
-			module.Name = in_name.Text;
-			module.Modules.Add (Input_module);
-			serializer.Serialize (stream, module);
+			moduleCollection.Name = in_name.Text;
+			moduleCollection.Modules.Add (Input_module);
+			serializer.Serialize (stream, moduleCollection);
 			stream.Close ();
 		}
 
 		private Module LoadModule (string ModuleName)
 		{
-			var serializer = new XmlSerializer (typeof(ModuleCollection));
-			if(!Directory.Exists(Globals.LocalModuleDefinitionFolder)) {
-				Directory.CreateDirectory(Globals.LocalModuleDefinitionFolder);
+			var serializer = new XmlSerializer (typeof (ModuleCollection));
+			if (!Directory.Exists (Globals.LocalModuleDefinitionFolder)) {
+				Directory.CreateDirectory (Globals.LocalModuleDefinitionFolder);
 			}
 			var stream = new FileStream (Globals.LocalModuleDefinitionFolder + System.IO.Path.DirectorySeparatorChar + ModuleName + ".xml", FileMode.Open);
 			var container = serializer.Deserialize (stream) as ModuleCollection;
 			stream.Close ();
 
-			module = container;
-			Module last_version_module = module.GetLastModuleVersion ();
-			in_name.Text = module.Name;
+			moduleCollection = container;
+			Module last_version_module = moduleCollection.GetLastModuleVersion ();
+			in_name.Text = moduleCollection.Name;
 
 			int lastModuleVersion = last_version_module.Version;
-
-			//combo.Clear ();
-			for (int i = lastModuleVersion; i >= 1; i--) {
-				combo.AppendText (i.ToString());
+			listVersions.Clear ();
+			for (int i = 1; i <= lastModuleVersion; i++) {
+				listVersions.Add (i.ToString ());
 			}
 
 			ParseModuleFile (last_version_module);
@@ -186,17 +175,17 @@ namespace RFUpdater
 
 		private ListStore CreateModel ()
 		{
-			var store = new ListStore (typeof(bool),
-				                  typeof(string));
+			var store = new ListStore (typeof (bool),
+								  typeof (string));
 			return store;
 		}
 
 		private void SelectedToggled (object o, ToggledArgs args)
 		{
 			TreeIter iter;
-			if (store.GetIterFromString (out iter, args.Path)) {
-				var val = (bool)store.GetValue (iter, 0);
-				store.SetValue (iter, 0, !val);
+			if (storePaths.GetIterFromString (out iter, args.Path)) {
+				var val = (bool)storePaths.GetValue (iter, 0);
+				storePaths.SetValue (iter, 0, !val);
 			}
 		}
 
@@ -235,10 +224,10 @@ namespace RFUpdater
 					"Open", ResponseType.Ok);
 
 			if (filechooser.Run () == (int)ResponseType.Ok) {
-				foreach (string file in getFiles(filechooser.Filename, true)) {
+				foreach (string file in getFiles (filechooser.Filename, true)) {
 					TreeIter iter;
-					if (!store. GetIter (out iter, new TreePath(file))) {
-						store.AppendValues (false,
+					if (!storePaths.GetIter (out iter, new TreePath (file))) {
+						storePaths.AppendValues (false,
 						file);
 					}
 				}
@@ -249,13 +238,13 @@ namespace RFUpdater
 
 		private List<String> getFiles (string path, bool recursive = false)
 		{
-			var listPaths = new List<String>();
+			var listPaths = new List<String> ();
 			foreach (string file in Directory.GetFiles (path)) {
-				listPaths.Add(file);
+				listPaths.Add (file);
 			}
 			if (recursive) {
 				foreach (string directory in Directory.GetDirectories (path)) {
-					listPaths.AddRange (getFiles(directory, recursive));
+					listPaths.AddRange (getFiles (directory, recursive));
 				}
 			}
 			return listPaths;
@@ -265,12 +254,12 @@ namespace RFUpdater
 		{
 			TreeIter iter;
 			var paths = new List<string> ();
-			if (store.GetIterFirst (out iter)) {
+			if (storePaths.GetIterFirst (out iter)) {
 				do {
-					if ((bool)store.GetValue (iter, 0)) {
-						paths.Add ((string)store.GetValue (iter, 1));
+					if ((bool)storePaths.GetValue (iter, 0)) {
+						paths.Add ((string)storePaths.GetValue (iter, 1));
 					}
-				} while (store.IterNext (ref iter));
+				} while (storePaths.IterNext (ref iter));
 			}
 
 			foreach (string path in paths) {
@@ -285,36 +274,61 @@ namespace RFUpdater
 		{
 			TreeIter iter;
 
-			if (store.GetIterFirst (out iter)) {
+			if (storePaths.GetIterFirst (out iter)) {
 				do {
-					if (((string)store.GetValue (iter, 1)).Equals(path)) {
-						store.Remove (ref iter);
+					if (((string)storePaths.GetValue (iter, 1)).Equals (path)) {
+						storePaths.Remove (ref iter);
 						break;
 					}
-				} while (store.IterNext (ref iter));
+				} while (storePaths.IterNext (ref iter));
 			}
 		}
 
 		protected void OnBtnSelectNoneClicked (object sender, EventArgs e)
 		{
-			store.Foreach ((model, path, iter) => {
-				store.SetValue (iter, 0, false);
+			storePaths.Foreach ((model, path, iter) => {
+				storePaths.SetValue (iter, 0, false);
 				return false;
 			});
 		}
 
 		protected void OnBtnSelectAllClicked (object sender, EventArgs e)
 		{
-			store.Foreach ((model, path, iter) => {
-				store.SetValue (iter, 0, true);
+			storePaths.Foreach ((model, path, iter) => {
+				storePaths.SetValue (iter, 0, true);
 				return false;
 			});
 		}
 
 		#endregion treeview
 
-		#region buttons
+		#region versionCombo
 
+		private void updateVersionsComboList ()
+		{
+			for (int i = listVersions.Count - 1 ; i >= 0; i--) {
+				comboVersionSelector.AppendText (listVersions[i]);
+			}
+		}
+
+		protected void OnComboBoxChanged (object o, EventArgs args)
+		{
+			ComboBox combo = o as ComboBox;
+			if (o == null)
+				return;
+
+			TreeIter iter;
+
+			if (combo.GetActiveIter (out iter)) {
+				string valueVersion = ((string)combo.Model.GetValue (iter, 0));
+				Common.ChangeStatus(Texts.Keys.DEVELOP, valueVersion);
+				ParseModuleFile (moduleCollection.GetModuleVersion(int.Parse(valueVersion)));
+			}
+		}
+
+		#endregion versionCombo
+
+		#region buttons
 		protected void OnBtnValidateClicked (object sender, EventArgs e)
 		{
 			SaveModule ();
@@ -323,10 +337,11 @@ namespace RFUpdater
 
 		protected void OnBtnNewVersionClicked (object sender, EventArgs e)
 		{
-			Module Loaded_module = LoadModule (module.Name);
+			Module Loaded_module = LoadModule (moduleCollection.Name);
 			UpdateDate ();
 			var nextModuleVersion = (Loaded_module.Version + 1).ToString ();
-			combo.AppendText (nextModuleVersion);
+			listVersions.Add (nextModuleVersion);
+			updateVersionsComboList ();
 			FormStateEdit ();
 		}
 

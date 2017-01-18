@@ -5,75 +5,75 @@ namespace RFUpdater
 	public partial class ModuleWindow
 	{
 		private global::Gtk.VBox window_vbox;
-		
+
 		private global::Gtk.HBox header_btn_hbox;
-		
+
 		private global::Gtk.HBox hbox4;
-		
+
 		private global::Gtk.Label label6;
-		
+
 		private global::Gtk.Entry in_name;
-		
+
 		private global::Gtk.HBox hbox5;
-		
+
 		private global::Gtk.Label lblVersion;
-		
+
 		private global::Gtk.HBox hbox6;
-		
+
 		private global::Gtk.Entry in_realeaseDate;
-		
+
 		private global::Gtk.Label lbl_releaseDate;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow;
-		
+
 		private global::Gtk.TreeView treeview_files;
-		
+
 		private global::Gtk.HBox tree_btn_hbox;
-		
+
 		private global::Gtk.HBox hbox7;
-		
+
 		private global::Gtk.Button btn_select_none;
-		
+
 		private global::Gtk.Button btn_select_all;
-		
+
 		private global::Gtk.Button btn_remove_files;
-		
+
 		private global::Gtk.Button btn_select_files;
-		
+
 		private global::Gtk.VBox module_dep_vbox;
-		
+
 		private global::Gtk.HBox dependancies_hbox;
-		
+
 		private global::Gtk.Label label7;
-		
+
 		private global::Gtk.Label lbl_moduleDependancies;
-		
+
 		private global::Gtk.Button btn_selectDependancies;
-		
+
 		private global::Gtk.HBox conflicts_hbox;
-		
+
 		private global::Gtk.Label label8;
-		
+
 		private global::Gtk.Label lbl_moduleConflicts;
-		
+
 		private global::Gtk.Button btn_selectConflicts;
-		
+
 		private global::Gtk.HBox footer_btn_hbox;
-		
+
 		private global::Gtk.Button btn_cancel;
-		
+
 		private global::Gtk.Button btn_validate;
-		
+
 		private global::Gtk.Button btn_newVersion;
-		
+
 		private global::Gtk.CheckButton chk_mandatory;
 
-		protected virtual void Build ()
+		protected virtual void Build()
 		{
-			global::Stetic.Gui.Initialize (this);
+			global::Stetic.Gui.Initialize(this);
 			// Widget RFUpdater.ModuleWindow
 			this.Name = "RFUpdater.ModuleWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString ("ModuleWindow");
+			this.Title = global::Mono.Unix.Catalog.GetString("ModuleWindow");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			this.Modal = true;
 			this.Resizable = false;
@@ -81,337 +81,338 @@ namespace RFUpdater
 			this.DefaultHeight = 600;
 			this.Gravity = ((global::Gdk.Gravity)(5));
 			// Container child RFUpdater.ModuleWindow.Gtk.Container+ContainerChild
-			this.window_vbox = new global::Gtk.VBox ();
+			this.window_vbox = new global::Gtk.VBox();
 			this.window_vbox.Name = "window_vbox";
 			this.window_vbox.Spacing = 6;
 			// Container child window_vbox.Gtk.Box+BoxChild
-			this.header_btn_hbox = new global::Gtk.HBox ();
+			this.header_btn_hbox = new global::Gtk.HBox();
 			this.header_btn_hbox.Name = "header_btn_hbox";
 			this.header_btn_hbox.Spacing = 6;
 			// Container child header_btn_hbox.Gtk.Box+BoxChild
-			this.hbox4 = new global::Gtk.HBox ();
+			this.hbox4 = new global::Gtk.HBox();
 			this.hbox4.Name = "hbox4";
 			this.hbox4.Spacing = 6;
 			// Container child hbox4.Gtk.Box+BoxChild
-			this.label6 = new global::Gtk.Label ();
+			this.label6 = new global::Gtk.Label();
 			this.label6.Name = "label6";
-			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Name");
-			this.hbox4.Add (this.label6);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.label6]));
+			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString("Name");
+			this.hbox4.Add(this.label6);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.label6]));
 			w1.Position = 0;
 			w1.Expand = false;
 			w1.Fill = false;
 			// Container child hbox4.Gtk.Box+BoxChild
-			this.in_name = new global::Gtk.Entry ();
+			this.in_name = new global::Gtk.Entry();
 			this.in_name.Sensitive = false;
 			this.in_name.CanFocus = true;
 			this.in_name.Name = "in_name";
 			this.in_name.IsEditable = true;
 			this.in_name.InvisibleChar = '●';
-			this.hbox4.Add (this.in_name);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.in_name]));
+			this.hbox4.Add(this.in_name);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.in_name]));
 			w2.Position = 1;
-			this.header_btn_hbox.Add (this.hbox4);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.header_btn_hbox [this.hbox4]));
+			this.header_btn_hbox.Add(this.hbox4);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.header_btn_hbox[this.hbox4]));
 			w3.Position = 0;
 			// Container child header_btn_hbox.Gtk.Box+BoxChild
-			this.hbox5 = new global::Gtk.HBox ();
+			this.hbox5 = new global::Gtk.HBox();
 			this.hbox5.Name = "hbox5";
 			this.hbox5.Spacing = 6;
 			// Container child hbox5.Gtk.Box+BoxChild
-			this.lblVersion = new global::Gtk.Label ();
+			this.lblVersion = new global::Gtk.Label();
 			this.lblVersion.Name = "lblVersion";
-			this.lblVersion.LabelProp = global::Mono.Unix.Catalog.GetString ("Version");
-			this.hbox5.Add (this.lblVersion);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.lblVersion]));
+			this.lblVersion.LabelProp = global::Mono.Unix.Catalog.GetString("Version");
+			this.hbox5.Add(this.lblVersion);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.lblVersion]));
 			w4.Position = 0;
 			w4.Expand = false;
 			w4.Fill = false;
-			this.header_btn_hbox.Add (this.hbox5);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.header_btn_hbox [this.hbox5]));
+			this.header_btn_hbox.Add(this.hbox5);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.header_btn_hbox[this.hbox5]));
 			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;
 			// Container child header_btn_hbox.Gtk.Box+BoxChild
-			this.hbox6 = new global::Gtk.HBox ();
+			this.hbox6 = new global::Gtk.HBox();
 			this.hbox6.Name = "hbox6";
 			this.hbox6.Spacing = 6;
 			// Container child hbox6.Gtk.Box+BoxChild
-			this.in_realeaseDate = new global::Gtk.Entry ();
+			this.in_realeaseDate = new global::Gtk.Entry();
 			this.in_realeaseDate.Sensitive = false;
 			this.in_realeaseDate.CanFocus = true;
 			this.in_realeaseDate.Name = "in_realeaseDate";
 			this.in_realeaseDate.IsEditable = true;
 			this.in_realeaseDate.InvisibleChar = '●';
-			this.hbox6.Add (this.in_realeaseDate);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.in_realeaseDate]));
+			this.hbox6.Add(this.in_realeaseDate);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.in_realeaseDate]));
 			w6.PackType = ((global::Gtk.PackType)(1));
 			w6.Position = 0;
 			// Container child hbox6.Gtk.Box+BoxChild
-			this.lbl_releaseDate = new global::Gtk.Label ();
+			this.lbl_releaseDate = new global::Gtk.Label();
 			this.lbl_releaseDate.Name = "lbl_releaseDate";
-			this.lbl_releaseDate.LabelProp = global::Mono.Unix.Catalog.GetString ("Release");
-			this.hbox6.Add (this.lbl_releaseDate);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.lbl_releaseDate]));
+			this.lbl_releaseDate.LabelProp = global::Mono.Unix.Catalog.GetString("Release");
+			this.hbox6.Add(this.lbl_releaseDate);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.lbl_releaseDate]));
 			w7.PackType = ((global::Gtk.PackType)(1));
 			w7.Position = 1;
 			w7.Expand = false;
 			w7.Fill = false;
-			this.header_btn_hbox.Add (this.hbox6);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.header_btn_hbox [this.hbox6]));
+			this.header_btn_hbox.Add(this.hbox6);
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.header_btn_hbox[this.hbox6]));
 			w8.Position = 2;
 			w8.Expand = false;
-			this.window_vbox.Add (this.header_btn_hbox);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.window_vbox [this.header_btn_hbox]));
+			this.window_vbox.Add(this.header_btn_hbox);
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.window_vbox[this.header_btn_hbox]));
 			w9.Position = 0;
 			w9.Expand = false;
 			w9.Fill = false;
 			// Container child window_vbox.Gtk.Box+BoxChild
-			this.scrolledwindow = new global::Gtk.ScrolledWindow ();
+			this.scrolledwindow = new global::Gtk.ScrolledWindow();
 			this.scrolledwindow.HeightRequest = 400;
 			this.scrolledwindow.CanFocus = true;
 			this.scrolledwindow.Name = "scrolledwindow";
 			this.scrolledwindow.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child scrolledwindow.Gtk.Container+ContainerChild
-			this.treeview_files = new global::Gtk.TreeView ();
+			this.treeview_files = new global::Gtk.TreeView();
 			this.treeview_files.CanFocus = true;
 			this.treeview_files.Name = "treeview_files";
 			this.treeview_files.RulesHint = true;
 			this.treeview_files.SearchColumn = 0;
-			this.scrolledwindow.Add (this.treeview_files);
-			this.window_vbox.Add (this.scrolledwindow);
-			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.window_vbox [this.scrolledwindow]));
+			this.scrolledwindow.Add(this.treeview_files);
+			this.window_vbox.Add(this.scrolledwindow);
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.window_vbox[this.scrolledwindow]));
 			w11.Position = 1;
 			// Container child window_vbox.Gtk.Box+BoxChild
-			this.tree_btn_hbox = new global::Gtk.HBox ();
+			this.tree_btn_hbox = new global::Gtk.HBox();
 			this.tree_btn_hbox.Name = "tree_btn_hbox";
 			this.tree_btn_hbox.Spacing = 6;
 			// Container child tree_btn_hbox.Gtk.Box+BoxChild
-			this.hbox7 = new global::Gtk.HBox ();
+			this.hbox7 = new global::Gtk.HBox();
 			this.hbox7.Name = "hbox7";
 			this.hbox7.Spacing = 6;
 			// Container child hbox7.Gtk.Box+BoxChild
-			this.btn_select_none = new global::Gtk.Button ();
+			this.btn_select_none = new global::Gtk.Button();
 			this.btn_select_none.CanFocus = true;
 			this.btn_select_none.Name = "btn_select_none";
 			this.btn_select_none.UseUnderline = true;
-			this.btn_select_none.Label = global::Mono.Unix.Catalog.GetString ("Select none");
-			global::Gtk.Image w12 = new global::Gtk.Image ();
-			w12.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-clear", global::Gtk.IconSize.Menu);
+			this.btn_select_none.Label = global::Mono.Unix.Catalog.GetString("Select none");
+			global::Gtk.Image w12 = new global::Gtk.Image();
+			w12.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-clear", global::Gtk.IconSize.Menu);
 			this.btn_select_none.Image = w12;
-			this.hbox7.Add (this.btn_select_none);
-			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox7 [this.btn_select_none]));
+			this.hbox7.Add(this.btn_select_none);
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.btn_select_none]));
 			w13.Position = 0;
 			w13.Expand = false;
 			w13.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
-			this.btn_select_all = new global::Gtk.Button ();
+			this.btn_select_all = new global::Gtk.Button();
 			this.btn_select_all.CanFocus = true;
 			this.btn_select_all.Name = "btn_select_all";
 			this.btn_select_all.UseUnderline = true;
-			this.btn_select_all.Label = global::Mono.Unix.Catalog.GetString ("Select all");
-			global::Gtk.Image w14 = new global::Gtk.Image ();
-			w14.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-add", global::Gtk.IconSize.Menu);
+			this.btn_select_all.Label = global::Mono.Unix.Catalog.GetString("Select all");
+			global::Gtk.Image w14 = new global::Gtk.Image();
+			w14.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-add", global::Gtk.IconSize.Menu);
 			this.btn_select_all.Image = w14;
-			this.hbox7.Add (this.btn_select_all);
-			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox7 [this.btn_select_all]));
+			this.hbox7.Add(this.btn_select_all);
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.btn_select_all]));
 			w15.Position = 1;
 			w15.Expand = false;
 			w15.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
-			this.btn_remove_files = new global::Gtk.Button ();
+			this.btn_remove_files = new global::Gtk.Button();
 			this.btn_remove_files.CanFocus = true;
 			this.btn_remove_files.Name = "btn_remove_files";
 			this.btn_remove_files.UseUnderline = true;
-			this.btn_remove_files.Label = global::Mono.Unix.Catalog.GetString ("Remove selected");
-			global::Gtk.Image w16 = new global::Gtk.Image ();
-			w16.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-delete", global::Gtk.IconSize.Menu);
+			this.btn_remove_files.Label = global::Mono.Unix.Catalog.GetString("Remove selected");
+			global::Gtk.Image w16 = new global::Gtk.Image();
+			w16.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-delete", global::Gtk.IconSize.Menu);
 			this.btn_remove_files.Image = w16;
-			this.hbox7.Add (this.btn_remove_files);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox7 [this.btn_remove_files]));
+			this.hbox7.Add(this.btn_remove_files);
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.btn_remove_files]));
 			w17.Position = 2;
 			w17.Expand = false;
 			w17.Fill = false;
-			this.tree_btn_hbox.Add (this.hbox7);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.tree_btn_hbox [this.hbox7]));
+			this.tree_btn_hbox.Add(this.hbox7);
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.tree_btn_hbox[this.hbox7]));
 			w18.Position = 0;
 			w18.Fill = false;
 			// Container child tree_btn_hbox.Gtk.Box+BoxChild
-			this.btn_select_files = new global::Gtk.Button ();
+			this.btn_select_files = new global::Gtk.Button();
 			this.btn_select_files.CanFocus = true;
 			this.btn_select_files.Name = "btn_select_files";
 			this.btn_select_files.UseUnderline = true;
-			this.btn_select_files.Label = global::Mono.Unix.Catalog.GetString ("Select Files...");
-			global::Gtk.Image w19 = new global::Gtk.Image ();
-			w19.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-index", global::Gtk.IconSize.Menu);
+			this.btn_select_files.Label = global::Mono.Unix.Catalog.GetString("Select Files...");
+			global::Gtk.Image w19 = new global::Gtk.Image();
+			w19.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-index", global::Gtk.IconSize.Menu);
 			this.btn_select_files.Image = w19;
-			this.tree_btn_hbox.Add (this.btn_select_files);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.tree_btn_hbox [this.btn_select_files]));
+			this.tree_btn_hbox.Add(this.btn_select_files);
+			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.tree_btn_hbox[this.btn_select_files]));
 			w20.PackType = ((global::Gtk.PackType)(1));
 			w20.Position = 1;
 			w20.Expand = false;
 			w20.Fill = false;
-			this.window_vbox.Add (this.tree_btn_hbox);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.window_vbox [this.tree_btn_hbox]));
+			this.window_vbox.Add(this.tree_btn_hbox);
+			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.window_vbox[this.tree_btn_hbox]));
 			w21.Position = 2;
 			w21.Expand = false;
 			w21.Fill = false;
 			// Container child window_vbox.Gtk.Box+BoxChild
-			this.module_dep_vbox = new global::Gtk.VBox ();
+			this.module_dep_vbox = new global::Gtk.VBox();
 			this.module_dep_vbox.Name = "module_dep_vbox";
 			this.module_dep_vbox.Spacing = 6;
 			// Container child module_dep_vbox.Gtk.Box+BoxChild
-			this.dependancies_hbox = new global::Gtk.HBox ();
+			this.dependancies_hbox = new global::Gtk.HBox();
 			this.dependancies_hbox.Name = "dependancies_hbox";
 			this.dependancies_hbox.Spacing = 6;
 			// Container child dependancies_hbox.Gtk.Box+BoxChild
-			this.label7 = new global::Gtk.Label ();
+			this.label7 = new global::Gtk.Label();
 			this.label7.Name = "label7";
-			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Module dependancies");
-			this.dependancies_hbox.Add (this.label7);
-			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.dependancies_hbox [this.label7]));
+			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString("Module dependancies");
+			this.dependancies_hbox.Add(this.label7);
+			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.dependancies_hbox[this.label7]));
 			w22.Position = 0;
 			w22.Expand = false;
 			w22.Fill = false;
 			// Container child dependancies_hbox.Gtk.Box+BoxChild
-			this.lbl_moduleDependancies = new global::Gtk.Label ();
+			this.lbl_moduleDependancies = new global::Gtk.Label();
 			this.lbl_moduleDependancies.Name = "lbl_moduleDependancies";
-			this.lbl_moduleDependancies.LabelProp = global::Mono.Unix.Catalog.GetString ("list of modules");
-			this.dependancies_hbox.Add (this.lbl_moduleDependancies);
-			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.dependancies_hbox [this.lbl_moduleDependancies]));
+			this.lbl_moduleDependancies.LabelProp = global::Mono.Unix.Catalog.GetString("list of modules");
+			this.dependancies_hbox.Add(this.lbl_moduleDependancies);
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.dependancies_hbox[this.lbl_moduleDependancies]));
 			w23.Position = 1;
 			// Container child dependancies_hbox.Gtk.Box+BoxChild
-			this.btn_selectDependancies = new global::Gtk.Button ();
+			this.btn_selectDependancies = new global::Gtk.Button();
 			this.btn_selectDependancies.Sensitive = false;
 			this.btn_selectDependancies.CanFocus = true;
 			this.btn_selectDependancies.Name = "btn_selectDependancies";
 			this.btn_selectDependancies.UseUnderline = true;
-			this.btn_selectDependancies.Label = global::Mono.Unix.Catalog.GetString ("Select dependancies...");
-			this.dependancies_hbox.Add (this.btn_selectDependancies);
-			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.dependancies_hbox [this.btn_selectDependancies]));
+			this.btn_selectDependancies.Label = global::Mono.Unix.Catalog.GetString("Select dependancies...");
+			this.dependancies_hbox.Add(this.btn_selectDependancies);
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.dependancies_hbox[this.btn_selectDependancies]));
 			w24.PackType = ((global::Gtk.PackType)(1));
 			w24.Position = 2;
 			w24.Expand = false;
 			w24.Fill = false;
-			this.module_dep_vbox.Add (this.dependancies_hbox);
-			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.module_dep_vbox [this.dependancies_hbox]));
+			this.module_dep_vbox.Add(this.dependancies_hbox);
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.module_dep_vbox[this.dependancies_hbox]));
 			w25.Position = 0;
 			w25.Expand = false;
 			w25.Fill = false;
 			// Container child module_dep_vbox.Gtk.Box+BoxChild
-			this.conflicts_hbox = new global::Gtk.HBox ();
+			this.conflicts_hbox = new global::Gtk.HBox();
 			this.conflicts_hbox.Name = "conflicts_hbox";
 			this.conflicts_hbox.Spacing = 6;
 			// Container child conflicts_hbox.Gtk.Box+BoxChild
-			this.label8 = new global::Gtk.Label ();
+			this.label8 = new global::Gtk.Label();
 			this.label8.Name = "label8";
-			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Modules conflicts");
-			this.conflicts_hbox.Add (this.label8);
-			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.conflicts_hbox [this.label8]));
+			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString("Modules conflicts");
+			this.conflicts_hbox.Add(this.label8);
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.conflicts_hbox[this.label8]));
 			w26.Position = 0;
 			w26.Expand = false;
 			w26.Fill = false;
 			// Container child conflicts_hbox.Gtk.Box+BoxChild
-			this.lbl_moduleConflicts = new global::Gtk.Label ();
+			this.lbl_moduleConflicts = new global::Gtk.Label();
 			this.lbl_moduleConflicts.Name = "lbl_moduleConflicts";
-			this.lbl_moduleConflicts.LabelProp = global::Mono.Unix.Catalog.GetString ("list of modules");
-			this.conflicts_hbox.Add (this.lbl_moduleConflicts);
-			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.conflicts_hbox [this.lbl_moduleConflicts]));
+			this.lbl_moduleConflicts.LabelProp = global::Mono.Unix.Catalog.GetString("list of modules");
+			this.conflicts_hbox.Add(this.lbl_moduleConflicts);
+			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.conflicts_hbox[this.lbl_moduleConflicts]));
 			w27.Position = 1;
 			// Container child conflicts_hbox.Gtk.Box+BoxChild
-			this.btn_selectConflicts = new global::Gtk.Button ();
+			this.btn_selectConflicts = new global::Gtk.Button();
 			this.btn_selectConflicts.Sensitive = false;
 			this.btn_selectConflicts.CanFocus = true;
 			this.btn_selectConflicts.Name = "btn_selectConflicts";
 			this.btn_selectConflicts.UseUnderline = true;
-			this.btn_selectConflicts.Label = global::Mono.Unix.Catalog.GetString ("Select conflicts modules...");
-			this.conflicts_hbox.Add (this.btn_selectConflicts);
-			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.conflicts_hbox [this.btn_selectConflicts]));
+			this.btn_selectConflicts.Label = global::Mono.Unix.Catalog.GetString("Select conflicts modules...");
+			this.conflicts_hbox.Add(this.btn_selectConflicts);
+			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.conflicts_hbox[this.btn_selectConflicts]));
 			w28.PackType = ((global::Gtk.PackType)(1));
 			w28.Position = 2;
 			w28.Expand = false;
 			w28.Fill = false;
-			this.module_dep_vbox.Add (this.conflicts_hbox);
-			global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.module_dep_vbox [this.conflicts_hbox]));
+			this.module_dep_vbox.Add(this.conflicts_hbox);
+			global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.module_dep_vbox[this.conflicts_hbox]));
 			w29.Position = 1;
 			w29.Expand = false;
 			w29.Fill = false;
-			this.window_vbox.Add (this.module_dep_vbox);
-			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.window_vbox [this.module_dep_vbox]));
+			this.window_vbox.Add(this.module_dep_vbox);
+			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.window_vbox[this.module_dep_vbox]));
 			w30.Position = 3;
 			w30.Expand = false;
 			w30.Fill = false;
 			// Container child window_vbox.Gtk.Box+BoxChild
-			this.footer_btn_hbox = new global::Gtk.HBox ();
+			this.footer_btn_hbox = new global::Gtk.HBox();
 			this.footer_btn_hbox.Name = "footer_btn_hbox";
 			this.footer_btn_hbox.Spacing = 6;
 			// Container child footer_btn_hbox.Gtk.Box+BoxChild
-			this.btn_cancel = new global::Gtk.Button ();
+			this.btn_cancel = new global::Gtk.Button();
 			this.btn_cancel.CanFocus = true;
 			this.btn_cancel.Name = "btn_cancel";
 			this.btn_cancel.UseUnderline = true;
-			this.btn_cancel.Label = global::Mono.Unix.Catalog.GetString ("Cancel");
-			this.footer_btn_hbox.Add (this.btn_cancel);
-			global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.footer_btn_hbox [this.btn_cancel]));
+			this.btn_cancel.Label = global::Mono.Unix.Catalog.GetString("Cancel");
+			this.footer_btn_hbox.Add(this.btn_cancel);
+			global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.footer_btn_hbox[this.btn_cancel]));
 			w31.PackType = ((global::Gtk.PackType)(1));
 			w31.Position = 0;
 			w31.Expand = false;
 			w31.Fill = false;
 			// Container child footer_btn_hbox.Gtk.Box+BoxChild
-			this.btn_validate = new global::Gtk.Button ();
+			this.btn_validate = new global::Gtk.Button();
 			this.btn_validate.Sensitive = false;
 			this.btn_validate.CanFocus = true;
 			this.btn_validate.Name = "btn_validate";
 			this.btn_validate.UseUnderline = true;
-			this.btn_validate.Label = global::Mono.Unix.Catalog.GetString ("Validate");
-			this.footer_btn_hbox.Add (this.btn_validate);
-			global::Gtk.Box.BoxChild w32 = ((global::Gtk.Box.BoxChild)(this.footer_btn_hbox [this.btn_validate]));
+			this.btn_validate.Label = global::Mono.Unix.Catalog.GetString("Validate");
+			this.footer_btn_hbox.Add(this.btn_validate);
+			global::Gtk.Box.BoxChild w32 = ((global::Gtk.Box.BoxChild)(this.footer_btn_hbox[this.btn_validate]));
 			w32.PackType = ((global::Gtk.PackType)(1));
 			w32.Position = 1;
 			w32.Expand = false;
 			w32.Fill = false;
 			// Container child footer_btn_hbox.Gtk.Box+BoxChild
-			this.btn_newVersion = new global::Gtk.Button ();
+			this.btn_newVersion = new global::Gtk.Button();
 			this.btn_newVersion.Sensitive = false;
 			this.btn_newVersion.CanFocus = true;
 			this.btn_newVersion.Name = "btn_newVersion";
 			this.btn_newVersion.UseUnderline = true;
-			this.btn_newVersion.Label = global::Mono.Unix.Catalog.GetString ("Create new version");
-			this.footer_btn_hbox.Add (this.btn_newVersion);
-			global::Gtk.Box.BoxChild w33 = ((global::Gtk.Box.BoxChild)(this.footer_btn_hbox [this.btn_newVersion]));
+			this.btn_newVersion.Label = global::Mono.Unix.Catalog.GetString("Create new version");
+			this.footer_btn_hbox.Add(this.btn_newVersion);
+			global::Gtk.Box.BoxChild w33 = ((global::Gtk.Box.BoxChild)(this.footer_btn_hbox[this.btn_newVersion]));
 			w33.PackType = ((global::Gtk.PackType)(1));
 			w33.Position = 2;
 			w33.Expand = false;
 			w33.Fill = false;
 			// Container child footer_btn_hbox.Gtk.Box+BoxChild
-			this.chk_mandatory = new global::Gtk.CheckButton ();
+			this.chk_mandatory = new global::Gtk.CheckButton();
 			this.chk_mandatory.Sensitive = false;
 			this.chk_mandatory.CanFocus = true;
 			this.chk_mandatory.Name = "chk_mandatory";
-			this.chk_mandatory.Label = global::Mono.Unix.Catalog.GetString ("Mandatory module");
+			this.chk_mandatory.Label = global::Mono.Unix.Catalog.GetString("Mandatory module");
 			this.chk_mandatory.DrawIndicator = true;
 			this.chk_mandatory.UseUnderline = true;
-			this.footer_btn_hbox.Add (this.chk_mandatory);
-			global::Gtk.Box.BoxChild w34 = ((global::Gtk.Box.BoxChild)(this.footer_btn_hbox [this.chk_mandatory]));
+			this.footer_btn_hbox.Add(this.chk_mandatory);
+			global::Gtk.Box.BoxChild w34 = ((global::Gtk.Box.BoxChild)(this.footer_btn_hbox[this.chk_mandatory]));
 			w34.PackType = ((global::Gtk.PackType)(1));
 			w34.Position = 3;
-			this.window_vbox.Add (this.footer_btn_hbox);
-			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.window_vbox [this.footer_btn_hbox]));
+			this.window_vbox.Add(this.footer_btn_hbox);
+			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.window_vbox[this.footer_btn_hbox]));
 			w35.Position = 4;
 			w35.Expand = false;
 			w35.Fill = false;
-			this.Add (this.window_vbox);
-			if ((this.Child != null)) {
-				this.Child.ShowAll ();
+			this.Add(this.window_vbox);
+			if ((this.Child != null))
+			{
+				this.Child.ShowAll();
 			}
-			this.Show ();
-			this.btn_select_none.Released += new global::System.EventHandler (this.OnBtnSelectNoneClicked);
-			this.btn_select_all.Released += new global::System.EventHandler (this.OnBtnSelectAllClicked);
-			this.btn_remove_files.Released += new global::System.EventHandler (this.OnBtnRemoveFilesSelected);
-			this.btn_select_files.Released += new global::System.EventHandler (this.OnBtnSelectFilesClicked);
-			this.btn_newVersion.Released += new global::System.EventHandler (this.OnBtnNewVersionClicked);
-			this.btn_validate.Released += new global::System.EventHandler (this.OnBtnValidateClicked);
-			this.btn_cancel.Released += new global::System.EventHandler (this.OnBtnCancelClicked);
+			this.Show();
+			this.btn_select_none.Released += new global::System.EventHandler(this.OnBtnSelectNoneClicked);
+			this.btn_select_all.Released += new global::System.EventHandler(this.OnBtnSelectAllClicked);
+			this.btn_remove_files.Released += new global::System.EventHandler(this.OnBtnRemoveFilesSelected);
+			this.btn_select_files.Released += new global::System.EventHandler(this.OnBtnSelectFilesClicked);
+			this.btn_newVersion.Released += new global::System.EventHandler(this.OnBtnNewVersionClicked);
+			this.btn_validate.Released += new global::System.EventHandler(this.OnBtnValidateClicked);
+			this.btn_cancel.Released += new global::System.EventHandler(this.OnBtnCancelClicked);
 		}
 	}
 }
