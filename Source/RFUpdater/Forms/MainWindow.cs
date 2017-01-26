@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml.Serialization;
 using Gtk;
 using RFUpdater.Utils;
 
@@ -40,12 +41,26 @@ namespace RFUpdater
 			if(Directory.Exists(Globals.LocalModuleDefinitionFolder)) {
 				foreach (string FilePath in Directory.GetFiles(Globals.LocalModuleDefinitionFolder)) {
 					if (System.IO.Path.GetExtension (FilePath) == ".xml") {
-						string ModuleName = System.IO.Path.GetFileNameWithoutExtension (FilePath);
-						Globals.ModuleNameList.Add (ModuleName);
-						store.AppendValues (false, ModuleName);
+						var module = LoadModule (FilePath);
+						Globals.ModuleNameList.Add (module.Name);
+						var lastModuleName = module.GetLastModuleVersion();
+						store.AppendValues (false, module.Name, lastModuleName.Version, lastModuleName.Mandatory.ToString());
 					}
 				}
 			}
+		}
+
+		private Module LoadModule (string ModuleName)
+		{
+			var serializer = new XmlSerializer (typeof (Module));
+			if (!Directory.Exists (Globals.LocalModuleDefinitionFolder)) {
+				Directory.CreateDirectory (Globals.LocalModuleDefinitionFolder);
+			}
+			var stream = new FileStream (ModuleName, FileMode.Open);
+			var container = serializer.Deserialize (stream) as Module;
+			stream.Close ();
+
+			return container;
 		}
 
 		#region treeview
@@ -53,7 +68,7 @@ namespace RFUpdater
 		private ListStore CreateModel ()
 		{
 			store = new ListStore (typeof(bool),
-				                  typeof(string));
+				                  typeof(string), typeof (string), typeof (string));
 			return store;
 		}
 
@@ -148,7 +163,7 @@ namespace RFUpdater
 			if (treeview_modules.Selection.GetSelectedRows ().Length > 0) {
 				TreeIter iter;
 				store.GetIter (out iter, treeview_modules.Selection.GetSelectedRows () [0]);
-				var selectedModule = store.GetValue (iter, 1).ToString ();
+				var selectedModule = store.GetValue (iter, (int)Column.Module).ToString ();
 				var moduleWindow = new ModuleWindow (selectedModule);
 				moduleWindow.Show ();
 			} else {

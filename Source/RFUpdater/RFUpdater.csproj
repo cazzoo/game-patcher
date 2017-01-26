@@ -8,7 +8,7 @@
     <RootNamespace>RFUpdater</RootNamespace>
     <AssemblyName>RFUpdater</AssemblyName>
     <StartupObject>RFUpdater.Program</StartupObject>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -67,7 +67,7 @@
     <Compile Include="gtk-gui\RFUpdater.MainWindow.cs" />
     <Compile Include="gtk-gui\RFUpdater.SettingsWindow.cs" />
     <Compile Include="gtk-gui\RFUpdater.SettingRow.cs" />
-    <Compile Include="Module.cs" />
+    <Compile Include="ModuleVersion.cs" />
     <Compile Include="Utils\Computer.cs" />
     <Compile Include="Utils\CRCProcessor.cs" />
     <Compile Include="Utils\FileChecker.cs" />
@@ -86,10 +86,11 @@
     <Compile Include="Widgets\SettingRow.cs" />
     <Compile Include="Forms\ModuleWindow.cs" />
     <Compile Include="gtk-gui\RFUpdater.ModuleWindow.cs" />
-    <Compile Include="ModuleCollection.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Settings\SettingsList.cs" />
     <Compile Include="Settings\Setting.cs" />
     <Compile Include="Settings\INIFile.cs" />
+    <Compile Include="ModuleFile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

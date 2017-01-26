@@ -6,7 +6,8 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="RFUpdater\Forms\ModuleWindow.cs">
     <Files>
-      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="67" Column="43" />
+      <File FileName="RFUpdater\Forms\MainWindow.cs" Line="1" Column="1" />
+      <File FileName="RFUpdater\Forms\ModuleWindow.cs" Line="36" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <DisabledProjects>

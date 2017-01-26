@@ -162,7 +162,7 @@ namespace RFUpdater
 			m_CacheModified = false;
 
 			// *** Check if original file exists ***
-			bool OriginalFileExists = File.Exists (m_FileName);
+			bool OriginalFileExists = System.IO.File.Exists (m_FileName);
 
 			// *** Get temporary file name ***
 			string TmpFileName = Path.ChangeExtension (m_FileName, "$n$");
@@ -285,7 +285,7 @@ namespace RFUpdater
 				sw = null;
 
 				// *** Rename the temporary file ***
-				File.Copy (TmpFileName, m_FileName, true);
+				System.IO.File.Copy (TmpFileName, m_FileName, true);
 
 				// *** Delete the temporary file ***
 				File.Delete (TmpFileName);

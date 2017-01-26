@@ -3,32 +3,44 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
-
 namespace RFUpdater
 {
+	[XmlRoot("Module")]
 	public class Module
 	{
-		[XmlAttribute("Id")]
-		public string Id { get; set; }
-		[XmlAttribute("Version")]
-		public int Version { get; set; }
-		[XmlAttribute("ReleaseDate")]
-		public DateTime RealeaseDate { get; set; }
-		[XmlAttribute("Mandatory")]
-		public Boolean Mandatory { get; set; }
-		[XmlArray("Files"), XmlArrayItem("File")]
-		public List<String> Files { get; set; }
-		[XmlArray("Dependancies"), XmlArrayItem("Dependancy")]
-		public List<Module> Dependancies { get; set; }
-		[XmlArray("Conflicts"), XmlArrayItem("Conflict")]
-		public List<Module> Conflicts { get; set; }
+		[XmlAttribute("Name")]
+		public string Name { get; set; }
+		[XmlArray("Versions"), XmlArrayItem("Version")]
+		public List<ModuleVersion> ModuleVersions { get; set; }
 
 		public Module ()
 		{
+			ModuleVersions = new List<ModuleVersion> ();
 		}
 
 		public override string ToString(){
-			return Id;
+			return Name;
+		}
+
+		public ModuleVersion GetModuleVersion (int version)
+		{
+			foreach (ModuleVersion module in ModuleVersions) {
+				if (module != null && module.Version.Equals(version)) {
+					return module;
+				}
+			}
+			return null;
+		}
+
+		public ModuleVersion GetLastModuleVersion()
+		{
+			ModuleVersion last_module = null;
+			foreach (ModuleVersion module in ModuleVersions) {
+				if (last_module == null || (last_module != null && last_module.Version < module.Version)) {
+					last_module = module;
+				}
+			}
+			return last_module;
 		}
 	}
 }
