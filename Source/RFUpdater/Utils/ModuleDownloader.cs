@@ -49,7 +49,7 @@ namespace RFUpdater.Utils
 
         private static void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            FileChecker.CheckFiles();
+            FileChecker.CheckFiles(Globals.ACTION_DOWNLOAD_MODULES);
         }
     }
 }

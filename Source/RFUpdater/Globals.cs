@@ -10,7 +10,8 @@ namespace RFUpdater
 		 * ModuleDefinitionFolder is the folder on the remote server that holds the modules description files.
 		 * ModuleFolder is the folder on the remote server that will hold the modules.
 		 **/
-        public static string ServerURL      = "http://ams-patches.racing-france.fr/";
+        public static string ServerURL      = "http://localhost/";
+		//public static string ServerURL      = "http://ams-patches.racing-france.fr/";
         public static string RemoteModuleDefinitionFolder = "module_list";
         public static string RemoteModuleFolder = "modules";
 		public static string LocalModuleDefinitionFolder = "modules";

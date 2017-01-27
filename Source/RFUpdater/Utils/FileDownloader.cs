@@ -13,9 +13,21 @@ namespace RFUpdater.Utils
         private static long     currentBytes;
 
         private static Stopwatch stopWatch = new Stopwatch();
+		private static int NetworkAction;
 
-        public static void DownloadFile()
+        public static void DownloadFile(int Action)
         {
+			NetworkAction = Action;
+
+			var basePath = String.Empty;
+			if (Globals.ACTION_DOWNLOAD_DEFINITIONS == NetworkAction)
+			{
+				basePath = Globals.LocalModuleDefinitionFolder;
+			}
+			else {
+				basePath = Globals.GameBasePath;
+			}
+
             if(Globals.OldFiles.Count <= 0)
             {
                 Common.ChangeStatus(Texts.Keys.CHECKCOMPLETE);
@@ -30,7 +42,7 @@ namespace RFUpdater.Utils
 
             if (Globals.OldFiles[curFile].Contains("/"))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(Globals.GameBasePath + Globals.OldFiles[curFile]));
+                Directory.CreateDirectory(Path.GetDirectoryName(basePath + Globals.OldFiles[curFile]));
             }
 
             WebClient webClient = new WebClient();
@@ -41,7 +53,7 @@ namespace RFUpdater.Utils
 
             stopWatch.Start();
 
-			webClient.DownloadFileAsync(new Uri(Globals.ServerURL + Globals.RemoteModuleFolder + Globals.OldFiles[curFile]), Globals.GameBasePath + Globals.OldFiles[curFile]);
+			webClient.DownloadFileAsync(new Uri(Globals.ServerURL + Globals.RemoteModuleFolder + Globals.OldFiles[curFile]), basePath + Globals.OldFiles[curFile]);
         }
 
         private static void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -65,7 +77,7 @@ namespace RFUpdater.Utils
 
             stopWatch.Reset();
 
-            DownloadFile();
+            DownloadFile(NetworkAction);
         }
     }
 }

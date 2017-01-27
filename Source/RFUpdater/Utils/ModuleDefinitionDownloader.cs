@@ -4,6 +4,8 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.IO;
 using Gtk;
+using HtmlAgilityPack;
+using System.Collections.Generic;
 
 namespace RFUpdater.Utils
 {
@@ -31,34 +33,37 @@ namespace RFUpdater.Utils
 		private static void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
 			// Retrieving module definition files
-			WebRequest request = WebRequest.Create(Globals.ServerURL + Globals.RemoteModuleDefinitionFolder);
-			WebResponse response = request.GetResponse();
-			Regex regex = new Regex("<a href=\"[^\"]+\">(?<name>(?!../).*?)</a>");
-			using (var reader = new StreamReader(response.GetResponseStream()))
+			string url = Globals.ServerURL + Globals.RemoteModuleDefinitionFolder;
+			var web = new HtmlWeb();
+			HtmlDocument doc = web.Load(url);
+
+			var links = doc.DocumentNode.Descendants("a");
+			var listModuleNames = new List<string>();
+
+			// Ignoring the first 5 links that are related to apache directory actions
+			int ignoredLinks = 5;
+			foreach(var link in links)
 			{
-				string result = reader.ReadToEnd();
-
-				MatchCollection matches = regex.Matches(result);
-				if (matches.Count == 0)
+				if (ignoredLinks > 0)
 				{
-					Common.ChangeStatus (Texts.Keys.UNKNOWNERROR, "DownloadList isBusy");
-					return;
+					ignoredLinks--;
 				}
-
-				foreach (Match match in matches)
-				{
-					if (!match.Success) { continue; }
-					string name = match.Groups["name"].Value;
-					Globals.ModuleNameList.Add(System.IO.Path.GetFileNameWithoutExtension(name));
+				else {
+					listModuleNames.Add(link.InnerText);
 				}
 			}
+
+			var webClient = new WebClient();
+
+			foreach(string ModuleName in listModuleNames)
+            {
+				ListProcessor.AddFile(ModuleName);
+            }
 		}
 
 		private static void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
-			//Globals.moduleList.chklist_modules.DataSource = Globals.Patchlist;
-			// Adding modules to list
-			// Checking previously selected modules
+			FileChecker.CheckFiles(Globals.ACTION_DOWNLOAD_DEFINITIONS);
 		}
 	}
 }

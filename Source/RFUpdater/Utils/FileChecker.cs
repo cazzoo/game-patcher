@@ -14,10 +14,12 @@ namespace RFUpdater.Utils
         }
 
         private static BackgroundWorker backgroundWorker = new BackgroundWorker();
+		private static int NetworkAction;
 
-        public static void CheckFiles()
+        public static void CheckFiles(int Action)
         {
             backgroundWorker.WorkerReportsProgress = true;
+			NetworkAction = Action;
 
             backgroundWorker.DoWork              += backgroundWorker_DoWork;
             backgroundWorker.ProgressChanged     += backgroundWorker_ProgressChanged;
@@ -41,7 +43,16 @@ namespace RFUpdater.Utils
 
                 backgroundWorker.ReportProgress((int)State.REPORT_NAME, Path.GetFileName(file.Name));
 
-                if (!File.Exists(Globals.GameBasePath + file.Name) || Common.GetHash(Globals.GameBasePath + file.Name) != file.Hash)
+				var basePath = String.Empty;
+				if (Globals.ACTION_DOWNLOAD_DEFINITIONS == NetworkAction)
+				{
+					basePath = Globals.LocalModuleDefinitionFolder;
+				}
+				else {
+					basePath = Globals.GameBasePath;
+				}
+
+                if (!File.Exists(basePath + file.Name) || Common.GetHash(basePath + file.Name) != file.Hash)
                 {
                     Globals.OldFiles.Add(file.Name);
                 }
@@ -67,7 +78,7 @@ namespace RFUpdater.Utils
 
         private static void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            FileDownloader.DownloadFile();
+            FileDownloader.DownloadFile(NetworkAction);
         }
     }
 }

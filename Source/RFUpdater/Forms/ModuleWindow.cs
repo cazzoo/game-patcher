@@ -128,8 +128,7 @@ namespace RFUpdater
 
 			storePaths.Clear ();
 			foreach (ModuleFile file in FileModule.ModuleFiles) {
-				storePaths.AppendValues (false,
-				                         file.FileName, file.FileCRC);
+				storePaths.AppendValues (false, file.FileCRC, file.FileName);
 			}
 		}
 
@@ -154,11 +153,11 @@ namespace RFUpdater
 				Directory.CreateDirectory (Globals.LocalModuleDefinitionFolder);
 			}
 			var stream = new FileStream (Globals.LocalModuleDefinitionFolder + System.IO.Path.DirectorySeparatorChar + ModuleName + ".xml", FileMode.Open);
-			var loadedModule = serializer.Deserialize (stream) as Module;
+			module = serializer.Deserialize (stream) as Module;
 			stream.Close ();
 
-			ModuleVersion last_version_module = loadedModule.GetLastModuleVersion ();
-			in_name.Text = loadedModule.Name;
+			ModuleVersion last_version_module = module.GetLastModuleVersion ();
+			in_name.Text = module.Name;
 
 			int lastModuleVersion = last_version_module.Version;
 			listVersions.Clear ();
@@ -234,11 +233,11 @@ namespace RFUpdater
 					"Open", ResponseType.Ok);
 
 			if (filechooser.Run () == (int)ResponseType.Ok) {
+				labelIgnoredPath.Text = filechooser.Filename;
 				foreach (string file in getFiles (filechooser.Filename, true)) {
 					TreeIter iter;
 					if (!storePaths.GetIter (out iter, new TreePath (file))) {
-						storePaths.AppendValues (false,
-						file, Common.GetHash (file));
+						storePaths.AppendValues (false, Common.GetHash(file), file);
 					}
 				}
 			}

@@ -239,12 +239,11 @@
                 <property name="MemberName" />
                 <property name="ShadowType">In</property>
                 <child>
-                  <widget class="Gtk.TreeView" id="treeview_modules">
+                  <widget class="Gtk.TreeView" id="treeviewAvailablesModules">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
                     <property name="EnableSearch">False</property>
-                    <property name="HeadersVisible">False</property>
                   </widget>
                 </child>
               </widget>
@@ -320,6 +319,24 @@
                 <property name="AutoSize">True</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow1">
+                <property name="MemberName" />
+                <property name="ShadowType">In</property>
+                <child>
+                  <widget class="Gtk.TreeView" id="treeviewInstalledModules">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="ShowScrollbars">True</property>
+                    <property name="EnableSearch">False</property>
+                  </widget>
+                </child>
+              </widget>
+              <packing>
+                <property name="Position">4</property>
+                <property name="AutoSize">True</property>
               </packing>
             </child>
           </widget>
@@ -682,6 +699,7 @@
               <widget class="Gtk.TreeView" id="treeview_files">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
+                <property name="EnableSearch">False</property>
                 <property name="RulesHint">True</property>
                 <property name="SearchColumn">0</property>
               </widget>

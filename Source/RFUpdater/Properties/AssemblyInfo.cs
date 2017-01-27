@@ -9,8 +9,8 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright ("mocaz")]
-[assembly: AssemblyTrademark ("")]
+[assembly: AssemblyCopyright ("Caz")]
+[assembly: AssemblyTrademark ("Racing-France")]
 [assembly: AssemblyCulture ("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".

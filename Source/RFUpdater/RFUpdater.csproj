@@ -53,6 +53,9 @@
     </Reference>
     <Reference Include="System.Xml.Serialization" />
     <Reference Include="System.Xml" />
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -67,7 +70,6 @@
     <Compile Include="gtk-gui\RFUpdater.MainWindow.cs" />
     <Compile Include="gtk-gui\RFUpdater.SettingsWindow.cs" />
     <Compile Include="gtk-gui\RFUpdater.SettingRow.cs" />
-    <Compile Include="ModuleVersion.cs" />
     <Compile Include="Utils\Computer.cs" />
     <Compile Include="Utils\CRCProcessor.cs" />
     <Compile Include="Utils\FileChecker.cs" />
@@ -83,21 +85,26 @@
     <Compile Include="Forms\LoginWindow.cs" />
     <Compile Include="Forms\MainWindow.cs" />
     <Compile Include="Forms\SettingsWindow.cs" />
-    <Compile Include="Widgets\SettingRow.cs" />
     <Compile Include="Forms\ModuleWindow.cs" />
     <Compile Include="gtk-gui\RFUpdater.ModuleWindow.cs" />
-    <Compile Include="Module.cs" />
-    <Compile Include="Settings\SettingsList.cs" />
-    <Compile Include="Settings\Setting.cs" />
-    <Compile Include="Settings\INIFile.cs" />
-    <Compile Include="ModuleFile.cs" />
+    <Compile Include="Model\Settings\INIFile.cs" />
+    <Compile Include="Model\Settings\Setting.cs" />
+    <Compile Include="Model\Settings\SettingsList.cs" />
+    <Compile Include="Model\Widgets\SettingRow.cs" />
+    <Compile Include="Model\Module\Module.cs" />
+    <Compile Include="Model\Module\ModuleFile.cs" />
+    <Compile Include="Model\Module\ModuleVersion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Utils\" />
-    <Folder Include="Forms\" />
-    <Folder Include="Widgets\" />
-    <Folder Include="Settings\" />
+    <Folder Include="Model\" />
+    <Folder Include="Model\Module\" />
+    <Folder Include="Model\Settings\" />
+    <Folder Include="Model\Widgets\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETStandard' And ($(TargetFrameworkVersion) == 'v1.0' Or $(TargetFrameworkVersion) == 'v1.1' Or $(TargetFrameworkVersion) == 'v1.2' Or $(TargetFrameworkVersion) == 'v1.3' Or $(TargetFrameworkVersion) == 'v1.4' Or $(TargetFrameworkVersion) == 'v1.5' Or $(TargetFrameworkVersion) == 'v1.6')">

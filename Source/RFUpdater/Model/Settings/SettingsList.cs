@@ -42,7 +42,7 @@ namespace RFUpdater
 		{
 			var emptySettings = new List<Setting> ();
 
-			emptySettings.Add (new Setting ("Test", "Value", "DEFAULT"));
+			emptySettings.Add (new Setting ("Download path", "C:/", "General"));
 
 			return emptySettings;
 		}
