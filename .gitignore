@@ -172,6 +172,3 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-
-#intellijProject
-*/.idea

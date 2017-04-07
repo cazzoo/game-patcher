@@ -8,9 +8,16 @@ namespace RFUpdater.Patcher.Source_files
         {
             Globals.File file = new Globals.File();
 
-            file.Name = File.Split(' ')[0];
-            file.Hash = File.Split(' ')[1];
-            file.Size = Convert.ToInt64(File.Split(' ')[2]);
+            var currentFileString = File;
+            var lastSpaceIndex = currentFileString.LastIndexOf(' ');
+            file.Size = Convert.ToInt64(currentFileString.Substring(lastSpaceIndex).Trim());
+            currentFileString = currentFileString.Substring(0, lastSpaceIndex);
+            
+            lastSpaceIndex = currentFileString.LastIndexOf(' ');
+            file.Hash = currentFileString.Substring(lastSpaceIndex).Trim();
+            currentFileString = currentFileString.Substring(0, lastSpaceIndex);
+
+            file.Name = currentFileString.Trim();
 
             Globals.Files.Add(file);
         }

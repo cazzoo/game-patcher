@@ -10,7 +10,7 @@ namespace RFUpdater.Patcher.Source_files
     {
         public static void ChangeStatus(Texts.Keys Key, params string[] Arguments)
         {
-            //Globals.pForm.Status.Text = Texts.GetText(Key, Arguments);
+            Globals.toolStrip.Text = Texts.GetText(Key, Arguments);
         }
 
         public static void UpdateCompleteProgress(long Value)
@@ -18,8 +18,8 @@ namespace RFUpdater.Patcher.Source_files
             if (Value < 0 || Value > 100)
                 return;
 
-            Globals.pForm.completeProgress.Value    = Convert.ToInt32(Value);
-            Globals.pForm.completeProgressText.Text = Texts.GetText(Texts.Keys.COMPLETEPROGRESS, Value);
+            Globals.packageDownloader.completeProgress.Value    = Convert.ToInt32(Value);
+            Globals.packageDownloader.completeProgressText.Text = Texts.GetText(Texts.Keys.COMPLETEPROGRESS, Value);
         }
 
         public static void UpdateCurrentProgress(long Value, double Speed)
@@ -27,8 +27,8 @@ namespace RFUpdater.Patcher.Source_files
             if (Value < 0 || Value > 100)
                 return;
 
-            Globals.pForm.currentProgress.Value    = Convert.ToInt32(Value);
-            Globals.pForm.currentProgressText.Text = Texts.GetText(Texts.Keys.CURRENTPROGRESS, Value, Speed.ToString("0.00"));
+            Globals.packageDownloader.currentProgress.Value    = Convert.ToInt32(Value);
+            Globals.packageDownloader.currentProgressText.Text = Texts.GetText(Texts.Keys.CURRENTPROGRESS, Value, Speed.ToString("0.00"));
         }
 
         public static string GetHash(string Name)
@@ -51,9 +51,22 @@ namespace RFUpdater.Patcher.Source_files
             return Hash;
         }
 
+        public static void EnableStart()
+        {
+            Globals.packageDownloader.startAMS.Enabled = true;
+            Globals.packageDownloader.selectMods.Enabled = true;
+            Globals.packageDownloader.quit.Enabled = true;
+        }
+
         public static bool IsGameRunning()
         {
-            return Process.GetProcessesByName(Globals.BinaryName).FirstOrDefault(p => p.MainModule.FileName.StartsWith("")) != default(Process);
+            Process[] pname = Process.GetProcessesByName(Globals.BinaryName);
+            if (pname.Length == 0)
+            {
+                return false;
+            }
+            else
+                return true;
         }
     }
 }

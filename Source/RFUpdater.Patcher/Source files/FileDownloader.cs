@@ -12,25 +12,27 @@ namespace RFUpdater.Patcher.Source_files
         private static long     lastBytes;
         private static long     currentBytes;
 
-        private static Stopwatch stopWatch = new Stopwatch();
+        private Stopwatch stopWatch = new Stopwatch();
 
-        public static void DownloadFile()
+        public void DownloadFile()
         {
             if(Globals.OldFiles.Count <= 0)
             {
                 Common.ChangeStatus(Texts.Keys.CHECKCOMPLETE);
+                Common.EnableStart();
                 return;
             }
 
             if (curFile >= Globals.OldFiles.Count)
             {
                 Common.ChangeStatus(Texts.Keys.DOWNLOADCOMPLETE);
+                Common.EnableStart();
                 return;
             }
 
             if (Globals.OldFiles[curFile].Contains("/"))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(Globals.GameBasePath + Globals.OldFiles[curFile]));
+                Directory.CreateDirectory(Path.GetDirectoryName(Globals.OldFiles[curFile]));
             }
 
             WebClient webClient = new WebClient();
@@ -41,21 +43,23 @@ namespace RFUpdater.Patcher.Source_files
 
             stopWatch.Start();
 
-            webClient.DownloadFileAsync(new Uri(Globals.ServerURL + Globals.ModulesFolder + Globals.OldFiles[curFile]), Globals.GameBasePath + Globals.OldFiles[curFile]);
+            webClient.DownloadFileAsync(new Uri(Globals.SelectedPackageFolder + Globals.OldFiles[curFile]), Globals.OldFiles[curFile]);
         }
 
-        private static void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             currentBytes = lastBytes + e.BytesReceived;
 
-            Common.ChangeStatus(Texts.Keys.DOWNLOADFILE, Globals.OldFiles[curFile], Computer.ComputeDownloadSize(e.BytesReceived).ToString("0.00") + " MB ", Computer.ComputeDownloadSize(e.TotalBytesToReceive).ToString("0.00") + " MB");
+            var fileLength = Globals.OldFiles[curFile].Length;
+            var maxLength = 50;
+            Common.ChangeStatus(Texts.Keys.DOWNLOADFILE, (fileLength <= maxLength) ? Globals.OldFiles[curFile] : "..." + Globals.OldFiles[curFile].Substring(fileLength - maxLength), Computer.ComputeDownloadSize(e.BytesReceived).ToString("0.00"), Computer.ComputeDownloadSize(e.TotalBytesToReceive).ToString("0.00") + " MB");
 
             Common.UpdateCompleteProgress(Computer.Compute(Globals.CompleteSize + currentBytes));
 
             Common.UpdateCurrentProgress(e.ProgressPercentage, Computer.ComputeDownloadSpeed(e.BytesReceived, stopWatch));
         }
 
-        private static void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             lastBytes = currentBytes;
 

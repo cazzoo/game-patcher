@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 
@@ -12,9 +13,9 @@ namespace RFUpdater.Patcher.Source_files
             REPORT_PROGRESS = 1
         }
 
-        private static BackgroundWorker backgroundWorker = new BackgroundWorker();
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
-        public static void CheckFiles()
+        public void CheckFiles()
         {
             backgroundWorker.WorkerReportsProgress = true;
 
@@ -33,15 +34,16 @@ namespace RFUpdater.Patcher.Source_files
             }
         }
 
-        private static void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+
             foreach (Globals.File file in Globals.Files)
             {
                 Globals.FullSize += file.Size;
 
                 backgroundWorker.ReportProgress((int)State.REPORT_NAME, Path.GetFileName(file.Name));
-
-                if (!File.Exists(Globals.GameBasePath + file.Name) || Common.GetHash(Globals.GameBasePath + file.Name) != file.Hash)
+                
+                if (!File.Exists(file.Name) || Common.GetHash(file.Name) != file.Hash)
                 {
                     Globals.OldFiles.Add(file.Name);
                 }
@@ -53,7 +55,7 @@ namespace RFUpdater.Patcher.Source_files
             }
         }
 
-        private static void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             if(e.ProgressPercentage == (int)State.REPORT_NAME)
             {
@@ -65,9 +67,11 @@ namespace RFUpdater.Patcher.Source_files
             }
         }
 
-        private static void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            FileDownloader.DownloadFile();
+            FileDownloader fDownloader = new FileDownloader();
+            fDownloader.DownloadFile();
+            backgroundWorker = null;
         }
     }
 }
