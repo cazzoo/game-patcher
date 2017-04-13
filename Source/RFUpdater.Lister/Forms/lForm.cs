@@ -1,5 +1,6 @@
 ﻿using Cyclic.Redundancy.Check;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
@@ -27,7 +28,7 @@ namespace RFUpdater.Lister
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-            RemoveFromPath(filePath.SelectedText);
+            RemoveFromPath(filePath.Text);
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -58,14 +59,12 @@ namespace RFUpdater.Lister
             Result.Clear();
             saveButton.Enabled   = false;
             removeButton.Enabled = false;
-            browseButton.Enabled = false;
         }
 
         private void EnableButtons()
         {
             saveButton.Enabled   = true;
             removeButton.Enabled = true;
-            browseButton.Enabled = true;
         }
 
         public string[] GetFiles(object Path)
@@ -170,6 +169,24 @@ namespace RFUpdater.Lister
                 {
                     streamWriter.Write(Result.Text);
                 }
+            }
+        }
+
+        private void openList_Click(object sender, EventArgs e)
+        {
+            openFileDialog.FileName = "patchlist.txt";
+            openFileDialog.Filter = "Text file (*.txt)|*.txt";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamReader streamReader = new StreamReader(openFileDialog.FileName))
+                {
+                    Result.Text += streamReader.ReadToEnd();
+                }
+                EnableButtons();
+            } else
+            {
+                DisableButtons();
             }
         }
     }

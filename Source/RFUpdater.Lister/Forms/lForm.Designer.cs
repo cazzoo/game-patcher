@@ -38,6 +38,8 @@
             this.removeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openList = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // Result
@@ -112,11 +114,26 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Select a region to remove it from the list";
             // 
+            // openList
+            // 
+            this.openList.Location = new System.Drawing.Point(538, 96);
+            this.openList.Name = "openList";
+            this.openList.Size = new System.Drawing.Size(110, 23);
+            this.openList.TabIndex = 7;
+            this.openList.Text = "Open list";
+            this.openList.UseVisualStyleBackColor = true;
+            this.openList.Click += new System.EventHandler(this.openList_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
             // lForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(661, 365);
+            this.Controls.Add(this.openList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.filePath);
@@ -146,6 +163,8 @@
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.Button openList;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
 
