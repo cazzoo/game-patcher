@@ -91,9 +91,7 @@
     <Compile Include="Source files\FileChecker.cs" />
     <Compile Include="Source files\FileDownloader.cs" />
     <Compile Include="Source files\Globals.cs" />
-    <Compile Include="Source files\ListDownloader.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Source files\ListDownloader.cs" />
     <Compile Include="Source files\ListProcessor.cs" />
     <Compile Include="Source files\PackageFetch.cs" />
     <Compile Include="Source files\Networking.cs" />
@@ -101,11 +99,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source files\Starter.cs" />
     <Compile Include="Source files\Texts.cs" />
+    <Compile Include="Source files\WebClientWithTimeout.cs" />
     <EmbeddedResource Include="Forms\PackageDowloader.resx">
       <DependentUpon>PackageDowloader.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PackageSelector.en-GB.resx">
-      <DependentUpon>PackageSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PackageSelector.resx">
       <DependentUpon>PackageSelector.cs</DependentUpon>

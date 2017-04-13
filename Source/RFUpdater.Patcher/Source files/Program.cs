@@ -13,10 +13,10 @@ namespace RFUpdater.Patcher
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //if (checkPassword())
+            if (checkPassword())
                 Application.Run(new PackageSelector());
-            //else
-              //  Application.Exit();
+            else
+                Application.Exit();
         }
 
         private static Boolean checkPassword()

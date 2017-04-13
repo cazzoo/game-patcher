@@ -7,15 +7,6 @@ using System.Windows.Forms;
 
 namespace RFUpdater.Patcher.Source_files
 {
-    class WebClientWithTimeout : WebClient
-    {
-        protected override WebRequest GetWebRequest(Uri address)
-        {
-            WebRequest wr = base.GetWebRequest(address);
-            wr.Timeout = 5000;
-            return wr;
-        }
-    }
 
     class ListDownloader
     {
