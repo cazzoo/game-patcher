@@ -8,12 +8,23 @@ namespace RFUpdater.Patcher
     static class Program
     {
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
+            Boolean ignorePassword = false;
+            if (args.Length == 1 && args[0].Equals("ignorePass"))
+            {
+                ignorePassword = true;
+            }
+            else
+            {
+                ignorePassword = checkPassword();
+            }
 
-            if (checkPassword())
+            if (ignorePassword)
                 Application.Run(new PackageSelector());
             else
                 Application.Exit();

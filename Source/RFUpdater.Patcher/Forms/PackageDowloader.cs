@@ -1,8 +1,6 @@
 ﻿using RFUpdater.Patcher.Source_files;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace RFUpdater.Patcher

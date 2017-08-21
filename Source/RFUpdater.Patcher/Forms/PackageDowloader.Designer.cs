@@ -39,7 +39,7 @@
             this.statusStrip.GripMargin = new System.Windows.Forms.Padding(0);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Status});
-            this.statusStrip.Location = new System.Drawing.Point(0, 419);
+            this.statusStrip.Location = new System.Drawing.Point(0, 420);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(624, 22);
             this.statusStrip.SizingGrip = false;
@@ -138,7 +138,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 441);
+            this.ClientSize = new System.Drawing.Size(624, 442);
             this.Controls.Add(this.selectMods);
             this.Controls.Add(this.startAMS);
             this.Controls.Add(this.pictureBox1);
@@ -155,7 +155,7 @@
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "PackageDownloader";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RFUpdater";
+            this.Text = "Racing-France AutoUpdater (v1.3)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PackageDownloader_FormClosed);
             this.Shown += new System.EventHandler(this.pForm_Shown);
             this.statusStrip.ResumeLayout(false);

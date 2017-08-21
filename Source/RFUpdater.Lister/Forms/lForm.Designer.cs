@@ -36,25 +36,25 @@
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.filePath = new System.Windows.Forms.TextBox();
             this.removeButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.openList = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_selectedPath = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Result
             // 
             this.Result.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Result.Location = new System.Drawing.Point(12, 12);
+            this.Result.Location = new System.Drawing.Point(12, 72);
             this.Result.Multiline = true;
             this.Result.Name = "Result";
             this.Result.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Result.Size = new System.Drawing.Size(518, 267);
+            this.Result.Size = new System.Drawing.Size(636, 267);
             this.Result.TabIndex = 0;
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(538, 12);
+            this.browseButton.Location = new System.Drawing.Point(12, 7);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(110, 23);
             this.browseButton.TabIndex = 1;
@@ -72,7 +72,7 @@
             // saveButton
             // 
             this.saveButton.Enabled = false;
-            this.saveButton.Location = new System.Drawing.Point(538, 51);
+            this.saveButton.Location = new System.Drawing.Point(539, 7);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(110, 23);
             this.saveButton.TabIndex = 3;
@@ -89,51 +89,51 @@
             // 
             // filePath
             // 
-            this.filePath.Location = new System.Drawing.Point(12, 317);
+            this.filePath.Location = new System.Drawing.Point(12, 46);
             this.filePath.Name = "filePath";
-            this.filePath.Size = new System.Drawing.Size(518, 20);
+            this.filePath.Size = new System.Drawing.Size(507, 20);
             this.filePath.TabIndex = 4;
             // 
             // removeButton
             // 
             this.removeButton.Enabled = false;
-            this.removeButton.Location = new System.Drawing.Point(209, 290);
+            this.removeButton.Location = new System.Drawing.Point(525, 43);
             this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(100, 23);
+            this.removeButton.Size = new System.Drawing.Size(123, 23);
             this.removeButton.TabIndex = 5;
-            this.removeButton.Text = "Remove";
+            this.removeButton.Text = "Remove entered text";
             this.removeButton.UseVisualStyleBackColor = true;
             this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 295);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(192, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Select a region to remove it from the list";
-            // 
-            // openList
-            // 
-            this.openList.Location = new System.Drawing.Point(538, 96);
-            this.openList.Name = "openList";
-            this.openList.Size = new System.Drawing.Size(110, 23);
-            this.openList.TabIndex = 7;
-            this.openList.Text = "Open list";
-            this.openList.UseVisualStyleBackColor = true;
-            this.openList.Click += new System.EventHandler(this.openList_Click);
             // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Selected path : ";
+            // 
+            // lbl_selectedPath
+            // 
+            this.lbl_selectedPath.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbl_selectedPath.Location = new System.Drawing.Point(91, 30);
+            this.lbl_selectedPath.Name = "lbl_selectedPath";
+            this.lbl_selectedPath.ReadOnly = true;
+            this.lbl_selectedPath.Size = new System.Drawing.Size(425, 13);
+            this.lbl_selectedPath.TabIndex = 7;
+            this.lbl_selectedPath.Text = "NO_PATH_SELECTED";
             // 
             // lForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(661, 365);
-            this.Controls.Add(this.openList);
+            this.Controls.Add(this.lbl_selectedPath);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.filePath);
@@ -161,10 +161,10 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
         private System.Windows.Forms.TextBox filePath;
         private System.Windows.Forms.Button removeButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private System.Windows.Forms.Button openList;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox lbl_selectedPath;
     }
 }
 

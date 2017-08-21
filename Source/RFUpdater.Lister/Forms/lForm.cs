@@ -9,6 +9,8 @@ namespace RFUpdater.Lister
 {
     public partial class lForm : Form
     {
+        private String SelectedFolder = string.Empty;
+
         string[] Files;
 
         public lForm()
@@ -52,7 +54,7 @@ namespace RFUpdater.Lister
         {
             EnableButtons();
         }
-
+        
         private void DisableButtons()
         {
             Progress.Value = 0;
@@ -149,9 +151,13 @@ namespace RFUpdater.Lister
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 DisableButtons();
-                filePath.Text = folderBrowserDialog.SelectedPath.Replace(@"\", "/");
+                var selectedPath = folderBrowserDialog.SelectedPath;
+                DirectoryInfo selectedDirectory = new DirectoryInfo(selectedPath);
+                var parentDirectoryPath = selectedDirectory.Parent.FullName + @"\";
+                lbl_selectedPath.Text = selectedPath.Replace(@"\", "/");
+                filePath.Text = parentDirectoryPath.Replace(@"\", "/");
 
-                if(!backgroundWorker.IsBusy)
+                if (!backgroundWorker.IsBusy)
                 {
                     backgroundWorker.RunWorkerAsync(folderBrowserDialog.SelectedPath);
                 }
