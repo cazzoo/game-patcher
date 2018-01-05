@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace RFUpdater.Lister
+namespace RFUpdater.PatchEditor
 {
     internal static class Program
     {

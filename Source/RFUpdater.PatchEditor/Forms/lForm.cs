@@ -1,11 +1,13 @@
-﻿using Cyclic.Redundancy.Check;
+﻿using Crc32C;
+using Newtonsoft.Json;
+using RFUpdater.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 
-namespace RFUpdater.Lister
+namespace RFUpdater.PatchEditor
 {
     public partial class ListerForm : Form
     {
@@ -89,28 +91,15 @@ namespace RFUpdater.Lister
             if (Name == string.Empty)
                 return null;
 
-            CRC crc = new CRC();
-
-            string Hash = string.Empty;
-
             try
             {
-                using (FileStream fileStream = File.Open(Name, FileMode.Open))
-                {
-                    StringBuilder sb = new StringBuilder();
-                    foreach (byte b in crc.ComputeHash(fileStream))
-                    {
-                        sb.Append(b.ToString("x2").ToLower());
-                    }
-                    Hash = sb.ToString();
-                }
+                return Crc32CAlgorithm.Compute(File.ReadAllBytes(Name)).ToString("x2");
             }
             catch
             {
                 MessageBox.Show(Name + " cannot be opened.");
+                return null;
             }
-
-            return Hash;
         }
 
         private void UpdateResult(object Data)
@@ -175,10 +164,44 @@ namespace RFUpdater.Lister
                 {
                     streamWriter.Write(Result.Text);
                 }
+
+                List<ModFile> modFiles = new List<ModFile>();
+                foreach (var line in Result.Text.Split(new Char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    string[] lineElements = line.Split(' ');
+                    string path = Path.GetDirectoryName(lineElements[0]);
+                    string filename = Path.GetFileName(lineElements[0]);
+                    ModFile file = new ModFile()
+                    {
+                        Deletable = false,
+                        FilePath = path,
+                        FileName = filename,
+                        FileHash = UInt32.Parse(lineElements[1], System.Globalization.NumberStyles.HexNumber),
+                        FileSize = UInt32.Parse(lineElements[2]),
+                    };
+                    modFiles.Add(file);
+                }
+
+                string modName = Path.GetFileNameWithoutExtension(saveFileDialog.FileName);
+
+                Mod mod = new Mod()
+                {
+                    Name = modName,
+                    Files = modFiles,
+                    FolderName = modName
+                };
+
+                string output = JsonConvert.SerializeObject(mod, Formatting.Indented);
+
+                string jsonFile = Path.Combine(Path.GetDirectoryName(saveFileDialog.FileName), string.Format("{0}.json", modName));
+                using (StreamWriter streamWriter = new StreamWriter(jsonFile))
+                {
+                    streamWriter.Write(output);
+                }
             }
         }
 
-        private void openList_Click(object sender, EventArgs e)
+        private void OpenList_Click(object sender, EventArgs e)
         {
             openFileDialog.FileName = "patchlist.txt";
             openFileDialog.Filter = "Text file (*.txt)|*.txt";

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Racing-France")]
 [assembly: AssemblyProduct("RFUpdater")]
-[assembly: AssemblyCopyright("Copyright © Racing-France 2017")]
+[assembly: AssemblyCopyright("Copyright © Racing-France 2018")]
 [assembly: AssemblyTrademark("Racing-France")]
 [assembly: AssemblyCulture("")]
 

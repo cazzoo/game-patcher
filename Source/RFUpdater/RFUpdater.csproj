@@ -148,11 +148,17 @@
     <PackageReference Include="Costura.Fody">
       <Version>1.6.2</Version>
     </PackageReference>
+    <PackageReference Include="Crc32C.NET">
+      <Version>1.0.5</Version>
+    </PackageReference>
     <PackageReference Include="Fody">
       <Version>2.3.15</Version>
     </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.6.11</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

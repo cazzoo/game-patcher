@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RFUpdater PatchEditor")]
-[assembly: AssemblyDescription("This is a patch creator for Racing-France")]
+[assembly: AssemblyTitle("RFUpdater.Models")]
+[assembly: AssemblyDescription("This is Models library for Racing-France Updater")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Racing-France")]
-[assembly: AssemblyProduct("RFUpdater PatchEditor")]
+[assembly: AssemblyProduct("RFUpdater.Models")]
 [assembly: AssemblyCopyright("Copyright © Racing-France 2018")]
 [assembly: AssemblyTrademark("Racing-France")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5af8f43e-6947-4b6d-bea2-87838ea5cc2d")]
+[assembly: Guid("f596acab-c733-4b0f-b2c2-49915c32098f")]
 
 // Version information for an assembly consists of the following four values:
 //

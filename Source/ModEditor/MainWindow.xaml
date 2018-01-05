@@ -1,0 +1,67 @@
+﻿<Window x:Class="ModEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ModEditor"
+        mc:Ignorable="d"
+        Title="RF ModEditor" Height="350" Width="525">
+
+    <DockPanel>
+        <Menu IsMainMenu="True" DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New..." />
+                <Separator />
+                <MenuItem Header="_Open..." />
+                <Separator />
+                <MenuItem Header="_Save" />
+                <MenuItem Header="_Save As..." />
+                <Separator />
+                <MenuItem Header="_Exit" Click="MenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="About" />
+        </Menu>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Cancel" Margin="10px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="MenuItem_Click" />
+            <Button Content="Open mod file" Margin="10px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="Button_Click" />
+            <Button Content="Save mod file" Margin="10px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="Button_Click" />
+        </StackPanel>
+        <TabControl>
+            <TabItem Header="Mod files">
+                <DataGrid x:Name="dataGrid"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="True"
+                  CanUserSortColumns="True"
+                  AlternatingRowBackground="WhiteSmoke"
+                  Grid.Column="0" Grid.Row="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding FilePath}" Header="File path" />
+                        <DataGridTextColumn Binding="{Binding FileName}" Header="File name" />
+                        <DataGridTextColumn Binding="{Binding FileSize}" Header="File size (octet)" />
+                        <DataGridCheckBoxColumn Binding="{Binding Deletable}" Header="Deletable ?" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Mod data">
+                <WrapPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Name" Target="{Binding ElementName=modName}" />
+                        <TextBox Name="modName" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Author" Target="{Binding ElementName=modAuthor}" />
+                        <TextBox Name="modAuthor" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Contact" Target="{Binding ElementName=modContact}" />
+                        <TextBox Name="modContact" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Image Height="50" Width="50" AllowDrop="True" Source="Resources/MissingImage.png" />
+                    </StackPanel>
+                </WrapPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

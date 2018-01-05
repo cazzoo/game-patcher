@@ -1,4 +1,4 @@
-﻿namespace RFUpdater.Lister
+﻿namespace RFUpdater.PatchEditor
 {
     partial class ListerForm
     {
