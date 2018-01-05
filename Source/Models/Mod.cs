@@ -10,6 +10,7 @@ namespace RFUpdater.Models
         public string Author { get; set; }
         public string Contact { get; set; }
         public string Icon { get; set; }
+        public string password { get; set; }
         public List<string> Categories { get; set; }
         public List<string> Tags { get; set; }
         public Version Version { get; set; }

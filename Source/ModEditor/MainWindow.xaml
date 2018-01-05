@@ -27,6 +27,58 @@
             <Button Content="Save mod file" Margin="10px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="75" Click="Button_Click" />
         </StackPanel>
         <TabControl>
+            <TabItem Header="Mod data">
+                <WrapPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Name" Target="{Binding ElementName=modName}" />
+                        <TextBox Name="modName" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Version" Target="{Binding ElementName=modVersion}" />
+                        <TextBox IsReadOnly="True" Name="modVersion" MinWidth="100" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Mandatory ?" Target="{Binding ElementName=modMandatory}" />
+                        <CheckBox Name="modMandatory" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="FolderName" Target="{Binding ElementName=modFolderName}" />
+                        <TextBox Name="modFolderName" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Author" Target="{Binding ElementName=modAuthor}" />
+                        <TextBox Name="modAuthor" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Password" Target="{Binding ElementName=modPassword}" />
+                        <TextBox Name="modPassword" MinWidth="150" ToolTip="Optional field">
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Contact" Target="{Binding ElementName=modContact}" />
+                        <TextBox Name="modContact" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Categories" Target="{Binding ElementName=modCategories}" />
+                        <TextBox Name="modCategories" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="Tags" Target="{Binding ElementName=modTags}" />
+                        <TextBox Name="modTags" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Image Height="50" Width="50" AllowDrop="True" Source="Resources/MissingImage.png" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="CreationDate" Target="{Binding ElementName=modCreationDate}" />
+                        <TextBox IsReadOnly="True" Name="modCreationDate" MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        <Label Content="UpdateDate" Target="{Binding ElementName=modUpdateDate}" />
+                        <TextBox IsReadOnly="True" Name="modUpdateDate" MinWidth="150" />
+                    </StackPanel>
+                </WrapPanel>
+            </TabItem>
             <TabItem Header="Mod files">
                 <DataGrid x:Name="dataGrid"
                   AutoGenerateColumns="False"
@@ -42,25 +94,6 @@
                         <DataGridCheckBoxColumn Binding="{Binding Deletable}" Header="Deletable ?" />
                     </DataGrid.Columns>
                 </DataGrid>
-            </TabItem>
-            <TabItem Header="Mod data">
-                <WrapPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <Label Content="Name" Target="{Binding ElementName=modName}" />
-                        <TextBox Name="modName" MinWidth="150" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <Label Content="Author" Target="{Binding ElementName=modAuthor}" />
-                        <TextBox Name="modAuthor" MinWidth="150" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <Label Content="Contact" Target="{Binding ElementName=modContact}" />
-                        <TextBox Name="modContact" MinWidth="150" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <Image Height="50" Width="50" AllowDrop="True" Source="Resources/MissingImage.png" />
-                    </StackPanel>
-                </WrapPanel>
             </TabItem>
         </TabControl>
     </DockPanel>
