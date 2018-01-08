@@ -134,7 +134,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Models\RFUpdater.Models.csproj">
+    <ProjectReference Include="..\RFUpdater.Models\RFUpdater.Models.csproj">
       <Project>{F596ACAB-C733-4B0F-B2C2-49915C32098F}</Project>
       <Name>RFUpdater.Models</Name>
     </ProjectReference>

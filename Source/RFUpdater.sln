@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater.PatchEditor", "RF
 		{F596ACAB-C733-4B0F-B2C2-49915C32098F} = {F596ACAB-C733-4B0F-B2C2-49915C32098F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater.Models", "Models\RFUpdater.Models.csproj", "{F596ACAB-C733-4B0F-B2C2-49915C32098F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater.Models", "RFUpdater.Models\RFUpdater.Models.csproj", "{F596ACAB-C733-4B0F-B2C2-49915C32098F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModEditor", "ModEditor\ModEditor.csproj", "{5D8225D4-3CBA-4EDA-B777-3D7106A37622}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater.ModEditor", "RFUpdater.ModEditor\RFUpdater.ModEditor.csproj", "{5D8225D4-3CBA-4EDA-B777-3D7106A37622}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F596ACAB-C733-4B0F-B2C2-49915C32098F} = {F596ACAB-C733-4B0F-B2C2-49915C32098F}
 	EndProjectSection
