@@ -18,6 +18,9 @@
                 <Separator />
                 <MenuItem Header="_Exit" Click="MenuItem_Click" />
             </MenuItem>
+            <MenuItem Header="_Utils">
+                <MenuItem Header="_Import from old files format" Click="Import_Old_Format_Button_Click" />
+            </MenuItem>
             <MenuItem Header="About" />
         </Menu>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -53,10 +56,6 @@
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <Label Content="Mandatory ?" Target="{Binding ElementName=modMandatory}" />
                         <CheckBox Name="modMandatory" VerticalAlignment="Center" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <Label Content="FolderName" Target="{Binding ElementName=modFolderName}" />
-                        <TextBox Name="modFolderName" MinWidth="150" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="5">
                         <Label Content="Author" Target="{Binding ElementName=modAuthor}" />

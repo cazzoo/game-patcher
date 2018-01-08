@@ -10,11 +10,10 @@ namespace RFUpdater.Models
         public string Author { get; set; }
         public string Contact { get; set; }
         public string Icon { get; set; }
-        public string password { get; set; }
+        public string Password { get; set; }
         public List<string> Categories { get; set; }
         public List<string> Tags { get; set; }
         public Version Version { get; set; }
-        public String FolderName { get; set; }
         public List<ModFile> Files { get; set; }
         public Boolean Mandatory { get; set; }
         public DateTime CreationDate { get; set; }

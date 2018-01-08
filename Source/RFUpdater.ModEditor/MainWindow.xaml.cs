@@ -5,6 +5,7 @@ using RFUpdater.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -51,6 +52,8 @@ namespace ModEditor
                 Source = Mod
             };
             modCreationDate.SetBinding(TextBox.TextProperty, CreationDateBinding);
+
+            dataGrid.ItemsSource = Mod.Files;
         }
 
         private void InitModObject()
@@ -83,8 +86,6 @@ namespace ModEditor
             new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
             new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521}
             };
-
-            dataGrid.ItemsSource = Mod.Files;
         }
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
@@ -157,6 +158,85 @@ namespace ModEditor
                 try
                 {
                     Mod = JsonConvert.DeserializeObject<Mod>(stringifiedMod);
+                    BindObject();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while parsing the mod file. Content is invalid.");
+                }
+            }
+        }
+
+        private void Import_Old_Format_Button_Click(object sender, RoutedEventArgs e)
+        {
+            CommonOpenFileDialog openModDialog = new CommonOpenFileDialog
+            {
+                EnsurePathExists = true,
+                EnsureFileExists = false,
+                Multiselect = false,
+                IsFolderPicker = false,
+                AllowNonFileSystemItems = false,
+                Title = "Select The Old Mod",
+                DefaultExtension = ".txt"
+            };
+            openModDialog.Filters.Add(new CommonFileDialogFilter("Text file(*.txt)", " *.txt"));
+            var result = openModDialog.ShowDialog();
+
+            if (result != CommonFileDialogResult.Ok)
+            {
+                MessageBox.Show("No file selected");
+                return;
+            }
+
+            if (result == CommonFileDialogResult.Ok)
+            {
+                string selectedFile = openModDialog.FileName;
+                Mod loadedMod;
+                try
+                {
+                    string _modName = Path.GetFileNameWithoutExtension(selectedFile);
+                    List<ModFile> modFiles = new List<ModFile>();
+
+                    using (StreamReader reader = File.OpenText(selectedFile))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            char[] lineArray = line.ToCharArray();
+                            Array.Reverse(lineArray);
+                            string reversedLine = new string(lineArray);
+                            string[] lineElements = reversedLine.Split(new char[] { ' ' }, 3);
+                            for (int i = 0; i < lineElements.Length; i++)
+                            {
+                                char[] reversedElement = lineElements[i].ToCharArray();
+                                Array.Reverse(reversedElement);
+                                lineElements[i] = new string(reversedElement);
+                            }
+
+                            Array.Reverse(lineElements);
+                            string path = Path.GetDirectoryName(lineElements[0]);
+                            string filename = Path.GetFileName(lineElements[0]);
+                            ModFile file = new ModFile()
+                            {
+                                Deletable = false,
+                                FilePath = path,
+                                FileName = filename,
+                                FileHash = UInt32.Parse(lineElements[1], System.Globalization.NumberStyles.HexNumber),
+                                FileSize = UInt32.Parse(lineElements[2]),
+                            };
+                            modFiles.Add(file);
+                        }
+                    }
+
+                    loadedMod = new Mod()
+                    {
+                        Name = _modName,
+                        Version = new Version(1, 0, 0, 0),
+                        Files = modFiles
+                    };
+
+                    Mod = loadedMod;
+
                     BindObject();
                 }
                 catch (Exception ex)

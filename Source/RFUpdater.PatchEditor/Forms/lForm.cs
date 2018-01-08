@@ -187,8 +187,7 @@ namespace RFUpdater.PatchEditor
                 Mod mod = new Mod()
                 {
                     Name = modName,
-                    Files = modFiles,
-                    FolderName = modName
+                    Files = modFiles
                 };
 
                 string output = JsonConvert.SerializeObject(mod, Formatting.Indented);
