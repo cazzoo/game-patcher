@@ -1,14 +1,16 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using ModEditor.Validators;
 using Newtonsoft.Json;
+using RFUpdater.ModEditor.Converters;
 using RFUpdater.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace ModEditor
 {
@@ -17,7 +19,8 @@ namespace ModEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Mod mod = new Mod();
+        private Mod mod;
+        private const string constDateFormat = "dd MM yyyy";
 
         public Mod Mod { get => mod; set => mod = value; }
 
@@ -27,6 +30,8 @@ namespace ModEditor
             InitModObject();
             BindObject();
         }
+
+        #region methods
 
         private void BindObject()
         {
@@ -39,6 +44,20 @@ namespace ModEditor
             NameBinding.ValidationRules.Add(new StringEmptyValidationError());
             modName.SetBinding(TextBox.TextProperty, NameBinding);
 
+            Binding PathBinding = new Binding("Path")
+            {
+                Mode = BindingMode.OneWay,
+                Source = Mod
+            };
+            modPath.SetBinding(TextBox.TextProperty, PathBinding);
+
+            Binding DescriptionBinding = new Binding("Description")
+            {
+                Mode = BindingMode.TwoWay,
+                Source = Mod
+            };
+            modDescription.SetBinding(TextBox.TextProperty, DescriptionBinding);
+
             Binding VersionBinding = new Binding("Version")
             {
                 Mode = BindingMode.OneWay,
@@ -46,49 +65,75 @@ namespace ModEditor
             };
             modVersion.SetBinding(TextBox.TextProperty, VersionBinding);
 
-            Binding CreationDateBinding = new Binding("CreationDate")
+            Binding PasswordBinding = new Binding("Password")
             {
-                Mode = BindingMode.OneWay,
+                Mode = BindingMode.TwoWay,
                 Source = Mod
             };
-            modCreationDate.SetBinding(TextBox.TextProperty, CreationDateBinding);
+            modPassword.SetBinding(TextBox.TextProperty, PasswordBinding);
+
+            Binding MandatoryBinding = new Binding("Mandatory")
+            {
+                Mode = BindingMode.TwoWay,
+                Source = Mod
+            };
+            modMandatory.SetBinding(ToggleButton.IsCheckedProperty, MandatoryBinding);
+
+            Binding CreatedDateBinding = new Binding("CreationDate")
+            {
+                Mode = BindingMode.OneWay,
+                Source = Mod,
+                StringFormat = constDateFormat
+            };
+            modCreationDate.SetBinding(TextBox.TextProperty, CreatedDateBinding);
+
+            Binding UpdatedDateBinding = new Binding("UpdateDate")
+            {
+                Mode = BindingMode.OneWay,
+                Source = Mod,
+                StringFormat = constDateFormat
+            };
+            modUpdateDate.SetBinding(TextBox.TextProperty, UpdatedDateBinding);
+
+            Binding AuthorBinding = new Binding("Author")
+            {
+                Mode = BindingMode.TwoWay,
+                Source = Mod
+            };
+            modAuthor.SetBinding(TextBox.TextProperty, AuthorBinding);
+
+            Binding ContactBinding = new Binding("Contact")
+            {
+                Mode = BindingMode.TwoWay,
+                Source = Mod
+            };
+            modContact.SetBinding(TextBox.TextProperty, ContactBinding);
+
+            Binding CategoriesBinding = new Binding("Categories")
+            {
+                Mode = BindingMode.TwoWay,
+                Source = Mod,
+                Converter = new ListToStringConverter()
+            };
+            modCategories.SetBinding(TextBox.TextProperty, CategoriesBinding);
+
+            Binding TagsBinding = new Binding("Tags")
+            {
+                Mode = BindingMode.TwoWay,
+                Source = Mod,
+                Converter = new ListToStringConverter()
+            };
+            modTags.SetBinding(TextBox.TextProperty, TagsBinding);
 
             dataGrid.ItemsSource = Mod.Files;
         }
 
         private void InitModObject()
         {
-            Mod.Name = "";
-            Mod.CreationDate = DateTime.Now;
-            Mod.Files = new List<ModFile>() {
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521},
-            new ModFile() {FileName = "1", FilePath = "p+/", Deletable = true, FileHash = 216, FileSize= 23 },
-            new ModFile() {FileName = "2", FilePath = "erfdgodf/egsdfg15/ergsdf", Deletable = false, FileHash = 2785716, FileSize= 236521}
-            };
+            Mod = new Mod();
         }
 
-        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        private void SaveModFile()
         {
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
             {
@@ -113,6 +158,7 @@ namespace ModEditor
                 SetVersion();
 
                 string selectedFolder = openFolderDialog.FileName;
+                Mod.Path = selectedFolder;
                 string output = JsonConvert.SerializeObject(Mod, Formatting.Indented);
 
                 string jsonFile = Path.Combine(selectedFolder, string.Format("{0}.json", Mod.Name));
@@ -120,12 +166,13 @@ namespace ModEditor
                 {
                     streamWriter.Write(output);
                 }
+                BindObject();
 
                 MessageBox.Show(String.Format("{0} has been successfully saved.", Mod.Name));
             }
         }
 
-        private void Open_Button_Click(object sender, RoutedEventArgs e)
+        private void OpenModFile()
         {
             CommonOpenFileDialog openModDialog = new CommonOpenFileDialog
             {
@@ -149,7 +196,6 @@ namespace ModEditor
             if (result == CommonFileDialogResult.Ok)
             {
                 string selectedFile = openModDialog.FileName;
-                Mod loadedMod;
                 string stringifiedMod;
                 using (StreamReader file = File.OpenText(selectedFile))
                 {
@@ -167,7 +213,7 @@ namespace ModEditor
             }
         }
 
-        private void Import_Old_Format_Button_Click(object sender, RoutedEventArgs e)
+        private void ImportOldModFileFormat()
         {
             CommonOpenFileDialog openModDialog = new CommonOpenFileDialog
             {
@@ -191,6 +237,8 @@ namespace ModEditor
             if (result == CommonFileDialogResult.Ok)
             {
                 string selectedFile = openModDialog.FileName;
+                string modPath = Path.GetDirectoryName(selectedFile);
+                DateTime creationDate = File.GetCreationTime(selectedFile);
                 Mod loadedMod;
                 try
                 {
@@ -231,7 +279,9 @@ namespace ModEditor
                     loadedMod = new Mod()
                     {
                         Name = _modName,
+                        Path = modPath,
                         Version = new Version(1, 0, 0, 0),
+                        CreationDate = creationDate,
                         Files = modFiles
                     };
 
@@ -256,24 +306,23 @@ namespace ModEditor
 
         private void SetVersion()
         {
-            int nextBuild = 1;
-            int nextMajor = 0;
+            int nextMajor = 1;
+            int nextMinor = 0;
             if (null != Mod.Version)
             {
-                nextBuild = Mod.Version.Build;
                 nextMajor = Mod.Version.Major;
-                if (nextMajor == 9)
+                nextMinor = Mod.Version.Minor;
+                if (nextMinor == 9)
                 {
-                    nextBuild++;
-                    nextMajor = 0;
+                    nextMajor++;
+                    nextMinor = 0;
                 }
                 else
                 {
-                    nextMajor++;
+                    nextMinor++;
                 }
-                Mod.Version = new Version(nextBuild, nextMajor);
             }
-            Mod.Version = new Version(nextBuild, nextMajor, 0, 0);
+            Mod.Version = new Version(nextMajor, nextMinor, 0, 0);
         }
 
         private void QuitApplication()
@@ -285,6 +334,25 @@ namespace ModEditor
             }
         }
 
+        #endregion methods
+
+        #region Events
+
+        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        {
+            SaveModFile();
+        }
+
+        private void Open_Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenModFile();
+        }
+
+        private void Import_Old_Format_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ImportOldModFileFormat();
+        }
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             QuitApplication();
@@ -294,5 +362,48 @@ namespace ModEditor
         {
             QuitApplication();
         }
+
+        private void Image_Drop(object sender, DragEventArgs e)
+        {
+            string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+            if (fileList.Length > 1)
+            {
+                MessageBox.Show("Please select only one image file.");
+                return;
+            }
+            if (!(sender is Image))
+            {
+                MessageBox.Show("Incorrect file type. Please select image file.");
+                return;
+            }
+            if (string.IsNullOrEmpty(Mod.Path) && !File.Exists(Path.Combine(Mod.Path, String.Format("{0}.json", Mod.Name))))
+            {
+                MessageBox.Show("Please set mod path and save it before setting the image.");
+                return;
+            }
+
+            string fileExtension = Path.GetExtension(fileList[0]);
+            string modImagePath = String.Format("{0}.{1}", Mod.Name, fileExtension);
+            try
+            {
+                File.Copy(fileList[0], Path.Combine(Mod.Path, modImagePath));
+
+                //Update UI element
+                modImage.Source = new BitmapImage(new Uri(modImagePath));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to move file to mod directory [{0}]. Please check path and user permissions.", Mod.Path);
+            }
+        }
+
+        private void NewMod_Click(object sender, RoutedEventArgs e)
+        {
+            InitModObject();
+            BindObject();
+        }
+
+        #endregion Events
     }
 }
