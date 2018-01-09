@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Semver;
+using System;
 using System.Collections.Generic;
 
 namespace RFUpdater.Models
@@ -14,12 +15,12 @@ namespace RFUpdater.Models
         public string Password { get; set; }
         public List<string> Categories { get; set; }
         public List<string> Tags { get; set; }
-        public Version Version { get; set; }
-        public List<ModFile> Files { get; set; }
+        public SemVersion Version { get; set; }
         public Boolean Mandatory { get; set; }
+        public List<ModFile> Files { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime? UpdateDate { get; set; }
 
-        public List<Dictionary<string, Version>> Dependencies { get; set; }
+        public List<Dictionary<string, string>> Dependencies { get; set; }
     }
 }

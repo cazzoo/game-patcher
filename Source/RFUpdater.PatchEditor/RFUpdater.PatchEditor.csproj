@@ -133,12 +133,6 @@
       <Version>5.11.3</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RFUpdater.Models\RFUpdater.Models.csproj">
-      <Project>{F596ACAB-C733-4B0F-B2C2-49915C32098F}</Project>
-      <Name>RFUpdater.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

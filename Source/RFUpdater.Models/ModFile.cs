@@ -9,7 +9,7 @@ namespace RFUpdater.Models
         public string FilePath { get; set; }
         public UInt32 FileHash { get; set; }
         public UInt32 FileSize { get; set; }
-        public Boolean Deletable { get; set; }
+        public Boolean Protected { get; set; }
 
         public string GetFullPath()
         {

@@ -3,6 +3,7 @@ using ModEditor.Validators;
 using Newtonsoft.Json;
 using RFUpdater.ModEditor.Converters;
 using RFUpdater.Models;
+using Semver;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -125,7 +126,7 @@ namespace ModEditor
             };
             modTags.SetBinding(TextBox.TextProperty, TagsBinding);
 
-            dataGrid.ItemsSource = Mod.Files;
+            modFilesGrid.ItemsSource = Mod.Files;
         }
 
         private void InitModObject()
@@ -266,7 +267,7 @@ namespace ModEditor
                             string filename = Path.GetFileName(lineElements[0]);
                             ModFile file = new ModFile()
                             {
-                                Deletable = false,
+                                Protected = false,
                                 FilePath = path,
                                 FileName = filename,
                                 FileHash = UInt32.Parse(lineElements[1], System.Globalization.NumberStyles.HexNumber),
@@ -280,7 +281,7 @@ namespace ModEditor
                     {
                         Name = _modName,
                         Path = modPath,
-                        Version = new Version(1, 0, 0, 0),
+                        Version = new SemVersion(1),
                         CreationDate = creationDate,
                         Files = modFiles
                     };
@@ -322,7 +323,7 @@ namespace ModEditor
                     nextMinor++;
                 }
             }
-            Mod.Version = new Version(nextMajor, nextMinor, 0, 0);
+            Mod.Version = new SemVersion(nextMajor, nextMinor);
         }
 
         private void QuitApplication()
@@ -377,17 +378,20 @@ namespace ModEditor
                 MessageBox.Show("Incorrect file type. Please select image file.");
                 return;
             }
-            if (string.IsNullOrEmpty(Mod.Path) && !File.Exists(Path.Combine(Mod.Path, String.Format("{0}.json", Mod.Name))))
+            if (string.IsNullOrEmpty(Mod.Path) || !File.Exists(Path.Combine(Mod.Path, String.Format("{0}.json", Mod.Name))))
             {
                 MessageBox.Show("Please set mod path and save it before setting the image.");
                 return;
             }
 
             string fileExtension = Path.GetExtension(fileList[0]);
-            string modImagePath = String.Format("{0}.{1}", Mod.Name, fileExtension);
+            string modImageFilename = String.Format("{0}{1}", Mod.Name, fileExtension);
             try
             {
-                File.Copy(fileList[0], Path.Combine(Mod.Path, modImagePath));
+                string modImagePath = Path.Combine(Mod.Path, modImageFilename);
+                File.Copy(fileList[0], modImagePath, true);
+
+                Mod.Icon = modImageFilename;
 
                 //Update UI element
                 modImage.Source = new BitmapImage(new Uri(modImagePath));
