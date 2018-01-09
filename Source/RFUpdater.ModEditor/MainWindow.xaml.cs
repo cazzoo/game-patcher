@@ -454,6 +454,17 @@ namespace ModEditor
             if (dlg.ShowDialog().Value)
                 options.Save();
         }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new AboutDialog(this)
+            {
+                Title = "About the application",
+                UpdateStatus = "The application is updated.",
+                Image = new BitmapImage(new Uri(@"pack://application:,,,/Resources/favicon.ico"))
+            };
+            dlg.ShowDialog();
+        }
     }
 
     public class Observable : INotifyPropertyChanged

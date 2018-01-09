@@ -35,7 +35,7 @@
                 <MenuItem Header="_Import from old files format" Click="Import_Old_Format_Button_Click" />
             </MenuItem>
             <MenuItem Header="Settings" Click="Settings_Click" />
-            <MenuItem Header="About" />
+            <MenuItem Header="About" Click="About_Click" />
         </Menu>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Cancel" Margin="10px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Cancel_Button_Click" />
