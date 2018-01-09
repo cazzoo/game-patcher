@@ -22,5 +22,41 @@ namespace RFUpdater.ModEditor.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DefaultValue")]
+        public string RepositoryUrl {
+            get {
+                return ((string)(this["RepositoryUrl"]));
+            }
+            set {
+                this["RepositoryUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RepositoryName {
+            get {
+                return ((string)(this["RepositoryName"]));
+            }
+            set {
+                this["RepositoryName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RepositoryPassword {
+            get {
+                return ((string)(this["RepositoryPassword"]));
+            }
+            set {
+                this["RepositoryPassword"] = value;
+            }
+        }
     }
 }

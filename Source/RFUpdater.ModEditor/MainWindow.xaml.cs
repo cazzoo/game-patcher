@@ -1,11 +1,14 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using ModEditor.Validators;
 using Newtonsoft.Json;
+using PropertyTools.Wpf;
+using RFUpdater.ModEditor;
 using RFUpdater.ModEditor.Converters;
 using RFUpdater.Models;
 using Semver;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -132,10 +135,12 @@ namespace ModEditor
         private void InitModObject()
         {
             Mod = new Mod();
+            modImage.Source = new BitmapImage(new Uri("Resources/MissingImage.png", UriKind.Relative));
         }
 
-        private void SaveModFile()
+        private bool SelectModPath()
         {
+            bool returnStatus = false;
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
             {
                 EnsurePathExists = true,
@@ -147,29 +152,35 @@ namespace ModEditor
             };
             var result = openFolderDialog.ShowDialog();
 
-            if (result != CommonFileDialogResult.Ok)
-            {
-                MessageBox.Show("No folder selected");
-                return;
-            }
-
             if (result == CommonFileDialogResult.Ok)
             {
-                SetUpdatedDate();
-                SetVersion();
+                Mod.Path = openFolderDialog.FileName;
+                returnStatus = true;
+            }
+            return returnStatus;
+        }
 
-                string selectedFolder = openFolderDialog.FileName;
-                Mod.Path = selectedFolder;
-                string output = JsonConvert.SerializeObject(Mod, Formatting.Indented);
+        private void SaveModFile()
+        {
+            SetUpdatedDate();
+            SetVersion();
 
-                string jsonFile = Path.Combine(selectedFolder, string.Format("{0}.json", Mod.Name));
+            string output = JsonConvert.SerializeObject(Mod, Formatting.Indented);
+
+            string jsonFile = Path.Combine(Mod.Path, string.Format("{0}.json", Mod.Name));
+            try
+            {
                 using (StreamWriter streamWriter = new StreamWriter(jsonFile))
                 {
                     streamWriter.Write(output);
                 }
                 BindObject();
 
-                MessageBox.Show(String.Format("{0} has been successfully saved.", Mod.Name));
+                MessageBox.Show(String.Format("[{0}] mod has been successfully saved.", Mod.Name));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(String.Format("Unable to save [{0}] mod on following path : [{1}].", Mod.Name, Mod.Path));
             }
         }
 
@@ -205,6 +216,12 @@ namespace ModEditor
                 try
                 {
                     Mod = JsonConvert.DeserializeObject<Mod>(stringifiedMod);
+
+                    string currentPath = Path.GetDirectoryName(selectedFile);
+                    Mod.Path = currentPath;
+
+                    modImage.Source = new BitmapImage(new Uri(Path.Combine(currentPath, Mod.Icon)));
+
                     BindObject();
                 }
                 catch (Exception ex)
@@ -341,7 +358,24 @@ namespace ModEditor
 
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
-            SaveModFile();
+            bool modPathDefined = !String.IsNullOrEmpty(Mod.Path);
+            if (!modPathDefined)
+            {
+                modPathDefined = SelectModPath();
+            }
+            if (modPathDefined)
+            {
+                SaveModFile();
+            }
+        }
+
+        private void Save_As_Button_Click(object sender, RoutedEventArgs e)
+        {
+            bool modPathDefined = SelectModPath();
+            if (modPathDefined)
+            {
+                SaveModFile();
+            }
         }
 
         private void Open_Button_Click(object sender, RoutedEventArgs e)
@@ -409,5 +443,26 @@ namespace ModEditor
         }
 
         #endregion Events
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new PropertyDialog() { Owner = this };
+            var options = new OptionsViewModel();
+
+            dlg.DataContext = options;
+            dlg.Title = "Options";
+            if (dlg.ShowDialog().Value)
+                options.Save();
+        }
+    }
+
+    public class Observable : INotifyPropertyChanged
+    {
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

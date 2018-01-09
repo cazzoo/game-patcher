@@ -6,20 +6,35 @@
         mc:Ignorable="d"
         Title="RF ModEditor" Height="400" Width="550" MinWidth="550" MinHeight="400">
 
+    <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="NewMod_Click" />
+        <CommandBinding Command="Save" Executed="NewMod_Click" />
+        <CommandBinding Command="SaveAs" Executed="Save_As_Button_Click" />
+        <CommandBinding Command="Open" Executed="Open_Button_Click" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="New" />
+        <KeyBinding Key="S" Modifiers="Shift" Command="Save" />
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="SaveAs" />
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="Open" />
+    </Window.InputBindings>
+
     <DockPanel>
         <Menu IsMainMenu="True" DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_New..." Click="NewMod_Click" />
+                <MenuItem Header="_New..." Click="NewMod_Click" InputGestureText="Ctrl+N" />
                 <Separator />
-                <MenuItem Header="_Open..." Click="Open_Button_Click" />
+                <MenuItem Header="_Open..." Click="Open_Button_Click" InputGestureText="Ctrl+O" />
                 <Separator />
-                <MenuItem Header="_Save" Click="Save_Button_Click" />
+                <MenuItem Header="_Save" Click="Save_Button_Click" InputGestureText="Ctrl+S" />
+                <MenuItem Header="_Save as" Click="Save_As_Button_Click" InputGestureText="Ctrl+Maj+S" />
                 <Separator />
                 <MenuItem Header="_Exit" Click="MenuItem_Click" />
             </MenuItem>
             <MenuItem Header="_Utils">
                 <MenuItem Header="_Import from old files format" Click="Import_Old_Format_Button_Click" />
             </MenuItem>
+            <MenuItem Header="Settings" Click="Settings_Click" />
             <MenuItem Header="About" />
         </Menu>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -64,14 +79,14 @@
                             <Label Grid.Row="0" Grid.Column="2" Content="Path" Target="{Binding ElementName=modPath}" />
                             <TextBox Grid.Row="0" Grid.Column="3" Name="modPath" MinWidth="150" IsEnabled="False" ToolTipService.ShowOnDisabled="True" IsReadOnly="True" ToolTip="{Binding Text, ElementName=modPath}" />
                             <Label Grid.Row="1" Grid.Column="0" Content="Description" Target="{Binding ElementName=modDescription}" />
-                            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="modDescription" AcceptsReturn="True" TextWrapping="Wrap" MinWidth="150" />
+                            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="modDescription" AcceptsReturn="True" TextWrapping="Wrap" MinWidth="150" MinLines="2"  ScrollViewer.VerticalScrollBarVisibility="Auto" />
                             <Label Grid.Row="2" Grid.Column="0" Content="Version" Target="{Binding ElementName=modVersion}" />
                             <TextBox Grid.Row="2" Grid.Column="1" Name="modVersion" MinWidth="150" IsEnabled="False" IsReadOnly="True" />
                             <Label Grid.Row="3" Grid.Column="0" Content="Password" Target="{Binding ElementName=modPassword}" />
                             <TextBox Grid.Row="3" Grid.Column="1" Name="modPassword" MinWidth="150" ToolTip="Optional field" />
                             <Label Grid.Row="4" Grid.Column="0" Content="Mandatory ?" Target="{Binding ElementName=modMandatory}" />
                             <CheckBox Grid.Row="4" Grid.Column="1" Name="modMandatory" VerticalAlignment="Center" />
-                            <Image Grid.Row="2" Grid.Column="2" Name="modImage" AllowDrop="True" Source="Resources/MissingImage.png" MinWidth="50" MinHeight="50" Grid.RowSpan="3" Grid.ColumnSpan="2" Stretch="None" Drop="Image_Drop" ToolTip="Drag image here to add image next to mod files." />
+                            <Image Grid.Row="2" Grid.Column="2" Name="modImage" AllowDrop="True" Source="Resources/MissingImage.png" MinWidth="50" MinHeight="50" Grid.RowSpan="3" Grid.ColumnSpan="2" Stretch="None" Drop="Image_Drop" ToolTip="Drag image here to add image to mod folder." />
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="Metadata">
