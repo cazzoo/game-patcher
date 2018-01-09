@@ -135,7 +135,7 @@ namespace ModEditor
         private void InitModObject()
         {
             Mod = new Mod();
-            modImage.Source = new BitmapImage(new Uri("Resources/MissingImage.png", UriKind.Relative));
+            modImage.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/MissingImage.png"));
         }
 
         private bool SelectModPath()
