@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PropertyTools.Wpf;
 using RFUpdater.ModEditor;
 using RFUpdater.ModEditor.Converters;
+using RFUpdater.ModEditor.Properties;
 using RFUpdater.Models;
 using Semver;
 using System;
@@ -15,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using WinSCP;
 
 namespace ModEditor
 {
@@ -220,7 +222,10 @@ namespace ModEditor
                     string currentPath = Path.GetDirectoryName(selectedFile);
                     Mod.Path = currentPath;
 
-                    modImage.Source = new BitmapImage(new Uri(Path.Combine(currentPath, Mod.Icon)));
+                    if (!String.IsNullOrEmpty(Mod.Icon))
+                    {
+                        modImage.Source = new BitmapImage(new Uri(Path.Combine(currentPath, Mod.Icon)));
+                    }
 
                     BindObject();
                 }
@@ -464,6 +469,12 @@ namespace ModEditor
                 Image = new BitmapImage(new Uri(@"pack://application:,,,/Resources/favicon.ico"))
             };
             dlg.ShowDialog();
+        }
+
+        private void Publish_Mod_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ModSynchronizationWindow synchWindow = new ModSynchronizationWindow(Mod);
+            synchWindow.ShowDialog();
         }
     }
 

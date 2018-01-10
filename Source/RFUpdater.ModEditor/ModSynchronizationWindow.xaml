@@ -1,0 +1,38 @@
+﻿<Window x:Class="RFUpdater.ModEditor.ModSynchronizationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RFUpdater.ModEditor"
+        mc:Ignorable="d"
+        Title="Mod synchronization" Height="250" Width="500">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Margin="10" Content="Local to remote" Click="LocalToRemote_Button_Click" />
+                <Button Margin="10" Content="Remote to local" Click="RemoteToLocal_Button_Click" />
+            </StackPanel>
+            <StatusBar>
+                <StatusBarItem>
+                    <TextBlock Name="statusText" />
+                </StatusBarItem>
+            </StatusBar>
+        </StackPanel>
+        <StackPanel>
+            <Label Content="Current File" />
+            <Label Name="fileName" Content="" BorderThickness="0" Margin="30,0,10,0" />
+            <StackPanel Margin="50,0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="File progress :" />
+                    <Label Name="filePercentage" Content="0%" />
+                </StackPanel>
+                <ProgressBar Name="FileProgress" Height="15" Foreground="#FF01D328" />
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Overall progress :" />
+                    <Label Name="OverallPercentage" Content="0%" />
+                </StackPanel>
+                <ProgressBar Name="OverallProgress" Height="15" Foreground="#FF0160D3" />
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</Window>

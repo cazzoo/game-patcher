@@ -23,6 +23,17 @@ namespace RFUpdater.ModEditor
         }
 
         [Category("Application|Repository")]
+        public string RepositoryStoragePath
+        {
+            get { return Settings.RepositoryStoragePath; }
+            set
+            {
+                Settings.RepositoryStoragePath = value;
+                OnPropertyChanged("RepositoryStoragePath");
+            }
+        }
+
+        [Category("Application|Repository")]
         public string RepositoryName
         {
             get { return Settings.RepositoryName; }
@@ -41,6 +52,17 @@ namespace RFUpdater.ModEditor
             {
                 Settings.RepositoryPassword = value;
                 OnPropertyChanged("RepositoryPassword");
+            }
+        }
+
+        [Category("Application|Repository")]
+        public string RepositoryPrivateKeyPath
+        {
+            get { return Settings.RepositoryPrivateKeyPath; }
+            set
+            {
+                Settings.RepositoryPrivateKeyPath = value;
+                OnPropertyChanged("RepositoryPrivateKeyPath");
             }
         }
 

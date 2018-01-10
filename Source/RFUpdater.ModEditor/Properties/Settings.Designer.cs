@@ -25,7 +25,7 @@ namespace RFUpdater.ModEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("DefaultValue")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string RepositoryUrl {
             get {
                 return ((string)(this["RepositoryUrl"]));
@@ -56,6 +56,30 @@ namespace RFUpdater.ModEditor.Properties {
             }
             set {
                 this["RepositoryPassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/mods/")]
+        public string RepositoryStoragePath {
+            get {
+                return ((string)(this["RepositoryStoragePath"]));
+            }
+            set {
+                this["RepositoryStoragePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RepositoryPrivateKeyPath {
+            get {
+                return ((string)(this["RepositoryPrivateKeyPath"]));
+            }
+            set {
+                this["RepositoryPrivateKeyPath"] = value;
             }
         }
     }

@@ -33,14 +33,16 @@
             </MenuItem>
             <MenuItem Header="_Utils">
                 <MenuItem Header="_Import from old files format" Click="Import_Old_Format_Button_Click" />
+                <Separator />
+                <MenuItem Header="_Publish to repository" Click="Publish_Mod_Button_Click" />
             </MenuItem>
             <MenuItem Header="Settings" Click="Settings_Click" />
             <MenuItem Header="About" Click="About_Click" />
         </Menu>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Cancel" Margin="10px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Cancel_Button_Click" />
-            <Button Content="Open mod file" Margin="10px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Open_Button_Click" />
-            <Button Content="Save mod file" Margin="10px" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Save_Button_Click">
+            <Button Content="Cancel" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Cancel_Button_Click" />
+            <Button Content="Open mod file" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Open_Button_Click" />
+            <Button Content="Save mod file" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Save_Button_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="False" />

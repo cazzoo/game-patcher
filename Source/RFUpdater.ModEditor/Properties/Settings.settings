@@ -3,12 +3,18 @@
   <Profiles />
   <Settings>
     <Setting Name="RepositoryUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">DefaultValue</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="RepositoryName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="RepositoryPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="RepositoryStoragePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/mods/</Value>
+    </Setting>
+    <Setting Name="RepositoryPrivateKeyPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
