@@ -15,6 +15,8 @@ namespace RFUpdater.ModEditor
     {
         private Mod Mod { get; }
         private string _lastFileProcessed;
+        private int _countFilesToSynchronize;
+        private int _countFilesProcessed;
 
         public ModSynchronizationWindow(Mod mod)
         {
@@ -25,6 +27,8 @@ namespace RFUpdater.ModEditor
 
         private void ResetComponents()
         {
+            _countFilesToSynchronize = 0;
+            _countFilesProcessed = 0;
             statusText.Text = null;
             fileName.Content = null;
             filePercentage.Content = "0%";
@@ -46,6 +50,7 @@ namespace RFUpdater.ModEditor
                     Password = Settings.Default.RepositoryPassword,
                     SshPrivateKeyPath = Settings.Default.RepositoryPrivateKeyPath,
                     PrivateKeyPassphrase = "altER3g0$",
+                    GiveUpSecurityAndAcceptAnySshHostKey = true
                 };
 
                 using (Session session = new Session())
@@ -56,9 +61,9 @@ namespace RFUpdater.ModEditor
                     // Will continuously report progress of transfer
                     session.FileTransferProgress += SessionFileTransferProgress;
 
-                    string fingerprint = session.ScanFingerprint(sessionOptions);
-
-                    sessionOptions.SshHostKeyFingerprint = fingerprint;
+                    //string fp = "ssh-rsa 2048 iGUY6ftkfgyHQ+Qcz1ntutaiSed8CETlcVb6elUO/Zk=.";
+                    //string fingerprint = session.ScanFingerprint(sessionOptions, "ssh-rsa");
+                    //sessionOptions.SshHostKeyFingerprint = fp;
 
                     // Connect
                     session.Open(sessionOptions);
@@ -70,6 +75,9 @@ namespace RFUpdater.ModEditor
                     {
                         session.CreateDirectory(remoteModPath);
                     }
+
+                    string[] filesToSynchronize = Directory.GetFiles(localModPath, "*.*", SearchOption.AllDirectories);
+                    _countFilesToSynchronize = filesToSynchronize.Length;
 
                     SynchronizationResult synchronizationResult;
                     synchronizationResult =
@@ -91,6 +99,8 @@ namespace RFUpdater.ModEditor
 
                     if (synchronizationResult.IsSuccess)
                     {
+                        OverallPercentage.Content = string.Format("{0:P0}", 1);
+                        OverallProgress.Value = 100;
                         statusText.Text = "Operation succeeded.";
                     }
                 }
@@ -147,6 +157,16 @@ namespace RFUpdater.ModEditor
             }
             Console.WriteLine(returnMessage);
             statusText.Text = returnMessage;
+
+            UpdateOverallProgress();
+        }
+
+        private void UpdateOverallProgress()
+        {
+            _countFilesProcessed++;
+            double currentOverallPercentage = (double)_countFilesToSynchronize / _countFilesProcessed;
+            OverallPercentage.Content = string.Format("{0:P1}", currentOverallPercentage);
+            OverallProgress.Value = currentOverallPercentage * 100;
         }
 
         private void SessionFileTransferProgress(object sender, FileTransferProgressEventArgs e)

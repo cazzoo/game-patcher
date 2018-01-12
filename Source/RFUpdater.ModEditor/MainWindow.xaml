@@ -124,24 +124,30 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Mod files">
-                <DataGrid x:Name="modFilesGrid"
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+                        <Button Content="Select File(s)" Margin="5,0" />
+                        <Button Content="Select Folder" Margin="5,0" />
+                    </StackPanel>
+                    <DataGrid x:Name="modFilesGrid"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   CanUserDeleteRows="True"
                   CanUserSortColumns="True"
                   AlternatingRowBackground="WhiteSmoke"
                   Grid.Column="0" Grid.Row="0">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding FilePath}" Header="File path" />
-                        <DataGridTextColumn Binding="{Binding FileName}" Header="File name" />
-                        <DataGridTextColumn Binding="{Binding FileSize}" Header="File size (octet)" />
-                        <DataGridCheckBoxColumn Binding="{Binding Deletable}" Header="Protected ?" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding FilePath}" Header="File path" />
+                            <DataGridTextColumn Binding="{Binding FileName}" Header="File name" />
+                            <DataGridTextColumn Binding="{Binding FileSize}" Header="File size (octet)" />
+                            <DataGridCheckBoxColumn Binding="{Binding Deletable}" Header="Protected ?" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Mod dependencies">
-                <StackPanel>
-                    <Grid>
+                <StackPanel Margin="0">
+                    <Grid Margin="0,0,0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="388*" />
                             <ColumnDefinition Width="119*" />
@@ -155,12 +161,16 @@
                         </StackPanel>
                     </Grid>
                     <DataGrid x:Name="dependenciesGrid"
-                  AutoGenerateColumns="True"
-                  CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="True"
                   CanUserDeleteRows="True"
                   CanUserSortColumns="False"
                   AlternatingRowBackground="WhiteSmoke"
                   Grid.Column="0" Grid.Row="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ModVersion}" Header="Version" />
+                            <DataGridTextColumn Binding="{Binding ModName}" Header="Mod name" />
+                        </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
             </TabItem>

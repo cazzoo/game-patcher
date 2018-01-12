@@ -128,7 +128,7 @@
       <Version>1.1.2</Version>
     </PackageReference>
     <PackageReference Include="WinSCP">
-      <Version>5.11.3</Version>
+      <Version>5.12.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -142,11 +142,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="WinSCP.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
