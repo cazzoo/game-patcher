@@ -21,12 +21,33 @@ namespace RFUpdater.ModEditor
             }
         }
 
+        public static Mod CopyModFilesToModPath(Mod mod)
+        {
+            foreach (ModFile modFile in mod.Files)
+            {
+                string selectedModFile = Path.Combine(modFile.FilePath, modFile.FileName);
+                FileInfo selectedFileInfo = new FileInfo(selectedModFile);
+                string newFilePath = Path.Combine(mod.Path, mod.Name, selectedFileInfo.Name);
+                FileInfo newFileInfo = new FileInfo(newFilePath);
+                if (!File.Exists(newFilePath) || (File.Exists(newFilePath) && newFileInfo.LastWriteTimeUtc != selectedFileInfo.LastWriteTimeUtc))
+                {
+                    if (!Directory.Exists(mod.ContentDirectory))
+                    {
+                        Directory.CreateDirectory(mod.ContentDirectory);
+                    }
+                    File.Copy(selectedModFile, newFilePath, true);
+                }
+                modFile.UpdateFromPath(newFilePath);
+            }
+            return mod;
+        }
+
         public static ModFile GetModFile(FileInfo fileInfo)
         {
             return new ModFile
             {
                 FileName = fileInfo.Name,
-                FileHash = ModFileUtility.GetHash(fileInfo.FullName),
+                FileHash = GetHash(fileInfo.FullName),
                 FileSize = fileInfo.Length,
                 FilePath = fileInfo.DirectoryName,
                 Protected = false

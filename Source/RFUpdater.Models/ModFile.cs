@@ -15,5 +15,13 @@ namespace RFUpdater.Models
         {
             return Path.Combine(FilePath, FileName);
         }
+
+        public void UpdateFromPath(string newFilePath)
+        {
+            string fileName = Path.GetFileName(newFilePath);
+            string filePath = Path.GetDirectoryName(newFilePath);
+            FileName = fileName;
+            FilePath = filePath;
+        }
     }
 }

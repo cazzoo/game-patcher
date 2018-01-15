@@ -6,6 +6,8 @@ namespace RFUpdater.Models
 {
     public class Mod
     {
+        public string ContentDirectory => System.IO.Path.Combine(Path, Name);
+
         public Mod()
         {
             Categories = new List<string>();

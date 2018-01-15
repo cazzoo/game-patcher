@@ -1,11 +1,9 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using ModEditor.Validators;
-using Newtonsoft.Json;
 using PropertyTools.Wpf;
 using RFUpdater.ModEditor;
 using RFUpdater.ModEditor.Converters;
 using RFUpdater.Models;
-using Semver;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -181,6 +179,7 @@ namespace ModEditor
         {
             try
             {
+                Mod.Files = ModFileUtility.CopyModFilesToModPath(Mod).Files;
                 Mod = ModUtility.SaveToFile(Mod);
                 BindObject();
             }
@@ -422,7 +421,11 @@ namespace ModEditor
         {
             if (String.IsNullOrEmpty(Mod.Path))
             {
-                SelectModPath();
+                bool modPathDefined = SelectModPath();
+                if (!modPathDefined)
+                {
+                    return;
+                }
             }
 
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
@@ -431,7 +434,6 @@ namespace ModEditor
                 EnsureFileExists = true,
                 Multiselect = true,
                 IsFolderPicker = false,
-                ShowPlacesList = true,
                 AllowNonFileSystemItems = false,
                 Title = "Select Files to add to the list"
             };
@@ -452,19 +454,22 @@ namespace ModEditor
             }
         }
 
-        private void SelectFolder_Click(object sender, RoutedEventArgs e)
+        private void SelectFolders_Click(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrEmpty(Mod.Path))
             {
-                SelectModPath();
+                bool modPathDefined = SelectModPath();
+                if (!modPathDefined)
+                {
+                    return;
+                }
             }
 
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
             {
                 EnsurePathExists = true,
                 EnsureFileExists = false,
-                Multiselect = false,
-                ShowPlacesList = true,
+                Multiselect = true,
                 IsFolderPicker = true,
                 AllowNonFileSystemItems = false,
                 Title = "Select a Folder add to the list"
