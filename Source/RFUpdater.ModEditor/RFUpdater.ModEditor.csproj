@@ -62,9 +62,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\ListToStringConverter.cs" />
+    <Compile Include="FileUtility.cs" />
     <Compile Include="ModSynchronizationWindow.xaml.cs">
       <DependentUpon>ModSynchronizationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModUtility.cs" />
     <Compile Include="OptionsViewModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -112,6 +114,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Crc32C.NET">
+      <Version>1.0.5</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.WindowsAPICodePack-Shell">
       <Version>1.1.0</Version>
     </PackageReference>

@@ -9,8 +9,8 @@
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="NewMod_Click" />
         <CommandBinding Command="Save" Executed="NewMod_Click" />
-        <CommandBinding Command="SaveAs" Executed="Save_As_Button_Click" />
-        <CommandBinding Command="Open" Executed="Open_Button_Click" />
+        <CommandBinding Command="SaveAs" Executed="SaveAs_Click" />
+        <CommandBinding Command="Open" Executed="Open_Click" />
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="New" />
@@ -24,25 +24,25 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_New..." Click="NewMod_Click" InputGestureText="Ctrl+N" />
                 <Separator />
-                <MenuItem Header="_Open..." Click="Open_Button_Click" InputGestureText="Ctrl+O" />
+                <MenuItem Header="_Open..." Click="Open_Click" InputGestureText="Ctrl+O" />
                 <Separator />
-                <MenuItem Header="_Save" Click="Save_Button_Click" InputGestureText="Ctrl+S" />
-                <MenuItem Header="_Save as" Click="Save_As_Button_Click" InputGestureText="Ctrl+Maj+S" />
+                <MenuItem Header="_Save" Click="Save_Click" InputGestureText="Ctrl+S" />
+                <MenuItem Header="_Save as" Click="SaveAs_Click" InputGestureText="Ctrl+Maj+S" />
                 <Separator />
                 <MenuItem Header="_Exit" Click="MenuItem_Click" />
             </MenuItem>
             <MenuItem Header="_Utils">
-                <MenuItem Header="_Import from old files format" Click="Import_Old_Format_Button_Click" />
+                <MenuItem Header="_Import from old files format" Click="ImportOldFormat_Click" />
                 <Separator />
-                <MenuItem Header="_Publish to repository" Click="Publish_Mod_Button_Click" />
+                <MenuItem Header="_Publish to repository" Click="PublishMod_Click" />
             </MenuItem>
             <MenuItem Header="Settings" Click="Settings_Click" />
             <MenuItem Header="About" Click="About_Click" />
         </Menu>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Cancel" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Cancel_Button_Click" />
-            <Button Content="Open mod file" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Open_Button_Click" />
-            <Button Content="Save mod file" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Save_Button_Click">
+            <Button Content="Cancel" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Cancel_Click" />
+            <Button Content="Open mod file" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Open_Click" />
+            <Button Content="Save mod file" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Click="Save_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="IsEnabled" Value="False" />
@@ -124,11 +124,12 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="Mod files">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
-                        <Button Content="Select File(s)" Margin="5,0" />
-                        <Button Content="Select Folder" Margin="5,0" />
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+                        <Button x:Name="SelectFiles" Content="Select File(s)" Margin="5,0" Click="SelectFiles_Click" />
+                        <Button x:Name="SelectFolder" Content="Select Folder" Margin="5,0" Click="SelectFolder_Click" />
                     </StackPanel>
+                    <ProgressBar DockPanel.Dock="Bottom" Name="AddFilesProgress" Height="15" Margin="0,5,0,0" />
                     <DataGrid x:Name="modFilesGrid"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
@@ -139,19 +140,15 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding FilePath}" Header="File path" />
                             <DataGridTextColumn Binding="{Binding FileName}" Header="File name" />
-                            <DataGridTextColumn Binding="{Binding FileSize}" Header="File size (octet)" />
-                            <DataGridCheckBoxColumn Binding="{Binding Deletable}" Header="Protected ?" />
+                            <DataGridTextColumn Binding="{Binding FileSize}" Header="File size (octet)" IsReadOnly="true" />
+                            <DataGridCheckBoxColumn Binding="{Binding Protected}" Header="Protected ?" />
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </DockPanel>
             </TabItem>
             <TabItem Header="Mod dependencies">
-                <StackPanel Margin="0">
-                    <Grid Margin="0,0,0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="388*" />
-                            <ColumnDefinition Width="119*" />
-                        </Grid.ColumnDefinitions>
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" Margin="0,0,0,5">
                         <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
                             <Label Content="Number of fetched mods :" />
                             <Label Content="0" />
@@ -172,7 +169,7 @@
                             <DataGridTextColumn Binding="{Binding ModName}" Header="Mod name" />
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </DockPanel>
             </TabItem>
         </TabControl>
     </DockPanel>

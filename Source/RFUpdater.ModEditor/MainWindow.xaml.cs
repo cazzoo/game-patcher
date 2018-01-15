@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using PropertyTools.Wpf;
 using RFUpdater.ModEditor;
 using RFUpdater.ModEditor.Converters;
-using RFUpdater.ModEditor.Properties;
 using RFUpdater.Models;
 using Semver;
 using System;
@@ -16,7 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-using WinSCP;
+using System.Linq;
 
 namespace ModEditor
 {
@@ -27,14 +26,30 @@ namespace ModEditor
     {
         private Mod mod;
         private const string constDateFormat = "dd MM yyyy";
+        private const string applicationIcon = @"pack://application:,,,/Resources/favicon.ico";
+        private const string missingImageIcon = @"pack://application:,,,/Resources/MissingImage.png";
+        private BackgroundWorker worker;
+        private int addedFiles;
 
         public Mod Mod { get => mod; set => mod = value; }
 
         public MainWindow()
         {
             InitializeComponent();
+            InitializeWorker();
             InitModObject();
             BindObject();
+        }
+
+        private void InitializeWorker()
+        {
+            worker = new BackgroundWorker()
+            {
+                WorkerReportsProgress = true
+            };
+            worker.DoWork += new DoWorkEventHandler(Worker_DoWork);
+            worker.ProgressChanged += new ProgressChangedEventHandler(Worker_ProgressChanged);
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(Worker_RunWorkerCompleted);
         }
 
         #region methods
@@ -137,26 +152,26 @@ namespace ModEditor
         private void InitModObject()
         {
             Mod = new Mod();
-            modImage.Source = new BitmapImage(new Uri(@"pack://application:,,,/Resources/MissingImage.png"));
+            modImage.Source = new BitmapImage(new Uri(missingImageIcon));
         }
 
         private bool SelectModPath()
         {
             bool returnStatus = false;
-            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
+            CommonOpenFileDialog selectPathDialog = new CommonOpenFileDialog
             {
                 EnsurePathExists = true,
                 EnsureFileExists = false,
                 Multiselect = false,
                 IsFolderPicker = true,
                 AllowNonFileSystemItems = false,
-                Title = "Select The Folder To Process"
+                Title = "Select Mod root path"
             };
-            var result = openFolderDialog.ShowDialog();
+            var result = selectPathDialog.ShowDialog();
 
             if (result == CommonFileDialogResult.Ok)
             {
-                Mod.Path = openFolderDialog.FileName;
+                Mod.Path = selectPathDialog.FileName;
                 returnStatus = true;
             }
             return returnStatus;
@@ -164,25 +179,14 @@ namespace ModEditor
 
         private void SaveModFile()
         {
-            SetUpdatedDate();
-            SetVersion();
-
-            string output = JsonConvert.SerializeObject(Mod, Formatting.Indented);
-
-            string jsonFile = Path.Combine(Mod.Path, string.Format("{0}.json", Mod.Name));
             try
             {
-                using (StreamWriter streamWriter = new StreamWriter(jsonFile))
-                {
-                    streamWriter.Write(output);
-                }
+                Mod = ModUtility.SaveToFile(Mod);
                 BindObject();
-
-                MessageBox.Show(String.Format("[{0}] mod has been successfully saved.", Mod.Name));
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(String.Format("Unable to save [{0}] mod on following path : [{1}].", Mod.Name, Mod.Path));
+                throw;
             }
         }
 
@@ -195,7 +199,7 @@ namespace ModEditor
                 Multiselect = false,
                 IsFolderPicker = false,
                 AllowNonFileSystemItems = false,
-                Title = "Select The Mod",
+                Title = "Select Mod file",
                 DefaultExtension = ".json"
             };
             openModDialog.Filters.Add(new CommonFileDialogFilter("Mod file (*.json)", "*.json"));
@@ -210,28 +214,18 @@ namespace ModEditor
             if (result == CommonFileDialogResult.Ok)
             {
                 string selectedFile = openModDialog.FileName;
-                string stringifiedMod;
-                using (StreamReader file = File.OpenText(selectedFile))
-                {
-                    stringifiedMod = file.ReadToEnd();
-                }
                 try
                 {
-                    Mod = JsonConvert.DeserializeObject<Mod>(stringifiedMod);
-
-                    string currentPath = Path.GetDirectoryName(selectedFile);
-                    Mod.Path = currentPath;
-
+                    Mod = ModUtility.LoadFile(selectedFile);
                     if (!String.IsNullOrEmpty(Mod.Icon))
                     {
-                        modImage.Source = new BitmapImage(new Uri(Path.Combine(currentPath, Mod.Icon)));
+                        modImage.Source = new BitmapImage(new Uri(Path.Combine(Mod.Path, Mod.Icon)));
                     }
-
                     BindObject();
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show("Error while parsing the mod file. Content is invalid.");
+                    throw;
                 }
             }
         }
@@ -245,7 +239,7 @@ namespace ModEditor
                 Multiselect = false,
                 IsFolderPicker = false,
                 AllowNonFileSystemItems = false,
-                Title = "Select The Old Mod",
+                Title = "Select old format Mod file",
                 DefaultExtension = ".txt"
             };
             openModDialog.Filters.Add(new CommonFileDialogFilter("Text file(*.txt)", " *.txt"));
@@ -259,93 +253,16 @@ namespace ModEditor
 
             if (result == CommonFileDialogResult.Ok)
             {
-                string selectedFile = openModDialog.FileName;
-                string modPath = Path.GetDirectoryName(selectedFile);
-                DateTime creationDate = File.GetCreationTime(selectedFile);
-                Mod loadedMod;
                 try
                 {
-                    string _modName = Path.GetFileNameWithoutExtension(selectedFile);
-                    List<ModFile> modFiles = new List<ModFile>();
-
-                    using (StreamReader reader = File.OpenText(selectedFile))
-                    {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            char[] lineArray = line.ToCharArray();
-                            Array.Reverse(lineArray);
-                            string reversedLine = new string(lineArray);
-                            string[] lineElements = reversedLine.Split(new char[] { ' ' }, 3);
-                            for (int i = 0; i < lineElements.Length; i++)
-                            {
-                                char[] reversedElement = lineElements[i].ToCharArray();
-                                Array.Reverse(reversedElement);
-                                lineElements[i] = new string(reversedElement);
-                            }
-
-                            Array.Reverse(lineElements);
-                            string path = Path.GetDirectoryName(lineElements[0]);
-                            string filename = Path.GetFileName(lineElements[0]);
-                            ModFile file = new ModFile()
-                            {
-                                Protected = false,
-                                FilePath = path,
-                                FileName = filename,
-                                FileHash = UInt32.Parse(lineElements[1], System.Globalization.NumberStyles.HexNumber),
-                                FileSize = UInt32.Parse(lineElements[2]),
-                            };
-                            modFiles.Add(file);
-                        }
-                    }
-
-                    loadedMod = new Mod()
-                    {
-                        Name = _modName,
-                        Path = modPath,
-                        Version = new SemVersion(1),
-                        CreationDate = creationDate,
-                        Files = modFiles
-                    };
-
-                    Mod = loadedMod;
-
+                    Mod = ModUtility.LoadOldFile(openModDialog.FileName);
                     BindObject();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error while parsing the mod file. Content is invalid.");
+                    throw;
                 }
             }
-        }
-
-        private void SetUpdatedDate()
-        {
-            if (null != Mod.Version)
-            {
-                Mod.UpdateDate = DateTime.Now;
-            }
-        }
-
-        private void SetVersion()
-        {
-            int nextMajor = 1;
-            int nextMinor = 0;
-            if (null != Mod.Version)
-            {
-                nextMajor = Mod.Version.Major;
-                nextMinor = Mod.Version.Minor;
-                if (nextMinor == 9)
-                {
-                    nextMajor++;
-                    nextMinor = 0;
-                }
-                else
-                {
-                    nextMinor++;
-                }
-            }
-            Mod.Version = new SemVersion(nextMajor, nextMinor);
         }
 
         private void QuitApplication()
@@ -357,11 +274,37 @@ namespace ModEditor
             }
         }
 
+        private void AddFileToModFilesList(string fileName)
+        {
+            FileInfo fileInfo = new FileInfo(fileName);
+            if (!ModFileUtility.IsFileLocked(fileInfo))
+            {
+                ModFile currentModFile = ModFileUtility.GetModFile(fileInfo);
+                if (!Mod.Files.Contains(currentModFile, new ModFileComparer()))
+                {
+                    addedFiles++;
+                    Mod.Files.Add(currentModFile);
+                }
+            }
+        }
+
+        private void DisableButtons()
+        {
+            SelectFiles.IsEnabled = false;
+            SelectFolder.IsEnabled = false;
+        }
+
+        private void EnableButtons()
+        {
+            SelectFiles.IsEnabled = true;
+            SelectFolder.IsEnabled = true;
+        }
+
         #endregion methods
 
         #region Events
 
-        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        private void Save_Click(object sender, RoutedEventArgs e)
         {
             bool modPathDefined = !String.IsNullOrEmpty(Mod.Path);
             if (!modPathDefined)
@@ -374,7 +317,7 @@ namespace ModEditor
             }
         }
 
-        private void Save_As_Button_Click(object sender, RoutedEventArgs e)
+        private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
             bool modPathDefined = SelectModPath();
             if (modPathDefined)
@@ -383,12 +326,12 @@ namespace ModEditor
             }
         }
 
-        private void Open_Button_Click(object sender, RoutedEventArgs e)
+        private void Open_Click(object sender, RoutedEventArgs e)
         {
             OpenModFile();
         }
 
-        private void Import_Old_Format_Button_Click(object sender, RoutedEventArgs e)
+        private void ImportOldFormat_Click(object sender, RoutedEventArgs e)
         {
             ImportOldModFileFormat();
         }
@@ -398,7 +341,7 @@ namespace ModEditor
             QuitApplication();
         }
 
-        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             QuitApplication();
         }
@@ -447,8 +390,6 @@ namespace ModEditor
             BindObject();
         }
 
-        #endregion Events
-
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new PropertyDialog() { Owner = this };
@@ -466,16 +407,131 @@ namespace ModEditor
             {
                 Title = "About the application",
                 UpdateStatus = "The application is updated.",
-                Image = new BitmapImage(new Uri(@"pack://application:,,,/Resources/favicon.ico"))
+                Image = new BitmapImage(new Uri(applicationIcon))
             };
             dlg.ShowDialog();
         }
 
-        private void Publish_Mod_Button_Click(object sender, RoutedEventArgs e)
+        private void PublishMod_Click(object sender, RoutedEventArgs e)
         {
             ModSynchronizationWindow synchWindow = new ModSynchronizationWindow(Mod);
             synchWindow.ShowDialog();
         }
+
+        private void SelectFiles_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(Mod.Path))
+            {
+                SelectModPath();
+            }
+
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
+            {
+                EnsurePathExists = true,
+                EnsureFileExists = true,
+                Multiselect = true,
+                IsFolderPicker = false,
+                ShowPlacesList = true,
+                AllowNonFileSystemItems = false,
+                Title = "Select Files to add to the list"
+            };
+            var result = openFolderDialog.ShowDialog();
+
+            if (result == CommonFileDialogResult.Ok)
+            {
+                Dictionary<FileAttributes, List<string>> selectedPaths = new Dictionary<FileAttributes, List<string>>
+                {
+                    { FileAttributes.Normal, openFolderDialog.FileNames.ToList() }
+                };
+
+                if (!worker.IsBusy)
+                {
+                    DisableButtons();
+                    worker.RunWorkerAsync(selectedPaths);
+                }
+            }
+        }
+
+        private void SelectFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(Mod.Path))
+            {
+                SelectModPath();
+            }
+
+            CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
+            {
+                EnsurePathExists = true,
+                EnsureFileExists = false,
+                Multiselect = false,
+                ShowPlacesList = true,
+                IsFolderPicker = true,
+                AllowNonFileSystemItems = false,
+                Title = "Select a Folder add to the list"
+            };
+            var result = openFolderDialog.ShowDialog();
+
+            if (result == CommonFileDialogResult.Ok)
+            {
+                Dictionary<FileAttributes, List<string>> selectedPaths = new Dictionary<FileAttributes, List<string>>
+                {
+                    { FileAttributes.Directory, openFolderDialog.FileNames.ToList() }
+                };
+
+                if (!worker.IsBusy)
+                {
+                    DisableButtons();
+                    worker.RunWorkerAsync(selectedPaths);
+                }
+            }
+        }
+
+        #endregion Events
+
+        #region worker
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            addedFiles = 0;
+            Dictionary<FileAttributes, List<string>> selection = (Dictionary<FileAttributes, List<string>>)e.Argument;
+            List<string> paths = selection.FirstOrDefault().Value;
+            foreach (string path in paths)
+            {
+                if (FileAttributes.Directory.Equals(selection.FirstOrDefault().Key))
+                {
+                    // Importing all files (including sub folders) in case of directories
+                    string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+                    int countFiles = files.Length;
+
+                    for (int i = 0; i < countFiles; i++)
+                    {
+                        AddFileToModFilesList(files[i]);
+                        worker.ReportProgress(100 * (i + 1) / countFiles, files[i]);
+                    }
+                }
+                else
+                {
+                    // Otherwise, import only selected files
+                    int countFiles = paths.Count;
+                    AddFileToModFilesList(path);
+                    worker.ReportProgress(100 * (paths.IndexOf(path) + 1) / countFiles, path);
+                }
+            }
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            AddFilesProgress.Value = e.ProgressPercentage;
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            modFilesGrid.Items.Refresh();
+            EnableButtons();
+            MessageBox.Show(String.Format("{0} new item(s) were added to the list.", addedFiles.ToString()));
+        }
+
+        #endregion worker
     }
 
     public class Observable : INotifyPropertyChanged
