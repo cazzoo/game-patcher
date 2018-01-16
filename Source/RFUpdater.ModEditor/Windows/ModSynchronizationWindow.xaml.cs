@@ -43,9 +43,9 @@ namespace RFUpdater.ModEditor
             statusText.Text = null;
             fileName.Content = null;
             filePercentage.Content = "0%";
-            FileProgress.Value = 0;
-            OverallPercentage.Content = "0%";
-            OverallProgress.Value = 0;
+            fileProgress.Value = 0;
+            overallPercentage.Content = "0%";
+            overallProgress.Value = 0;
         }
 
         private void SynchronizeModToRemote()
@@ -64,6 +64,9 @@ namespace RFUpdater.ModEditor
                     GiveUpSecurityAndAcceptAnySshHostKey = true
                 };
 
+                string localModPath = Path.Combine(Mod.ModDirectory);
+                string remoteModPath = Path.Combine(Settings.Default.RepositoryStoragePath, Mod.Name);
+
                 using (Session session = new Session())
                 {
                     // Will continuously report progress of synchronization
@@ -78,9 +81,6 @@ namespace RFUpdater.ModEditor
 
                     // Connect
                     session.Open(sessionOptions);
-
-                    string localModPath = Path.Combine(Mod.ModDirectory);
-                    string remoteModPath = Path.Combine(Settings.Default.RepositoryStoragePath, Mod.Name);
 
                     if (!session.FileExists(remoteModPath))
                     {
@@ -110,8 +110,8 @@ namespace RFUpdater.ModEditor
 
                     if (synchronizationResult.IsSuccess)
                     {
-                        OverallPercentage.Content = string.Format("{0:P0}", 1);
-                        OverallProgress.Value = 100;
+                        overallPercentage.Content = string.Format("{0:P0}", 1);
+                        overallProgress.Value = 100;
                         statusText.Text = "Operation succeeded.";
                     }
                 }
@@ -189,10 +189,10 @@ namespace RFUpdater.ModEditor
 
                     if (synchronizationResult.IsSuccess)
                     {
-                        OverallPercentage.Content = string.Format("{0:P0}", 1);
-                        OverallProgress.Value = 100;
+                        overallPercentage.Content = string.Format("{0:P0}", 1);
+                        overallProgress.Value = 100;
                         statusText.Text = "Operation succeeded.";
-                        
+
                         string modName = Path.GetFileName(localModPath);
                         Mod synchedMod = ModUtility.LoadFile(Path.Combine(localModPath, string.Format("{0}.json", modName)));
                         foreach (Window window in Application.Current.Windows)
@@ -265,9 +265,9 @@ namespace RFUpdater.ModEditor
         private void UpdateOverallProgress()
         {
             _countFilesProcessed++;
-            double currentOverallPercentage = (double)_countFilesToSynchronize / _countFilesProcessed;
-            OverallPercentage.Content = string.Format("{0:P1}", currentOverallPercentage);
-            OverallProgress.Value = currentOverallPercentage * 100;
+            double currentOverallPercentage = (double)_countFilesProcessed / _countFilesToSynchronize;
+            overallPercentage.Content = string.Format("{0:P0}", currentOverallPercentage);
+            overallProgress.Value = currentOverallPercentage * 100;
         }
 
         private void SessionFileTransferProgress(object sender, FileTransferProgressEventArgs e)
@@ -281,7 +281,7 @@ namespace RFUpdater.ModEditor
             // Print transfer progress
             string percentage = String.Format("{0:P1}", e.FileProgress);
             filePercentage.Content = percentage;
-            FileProgress.Value = e.FileProgress * 100;
+            fileProgress.Value = e.FileProgress * 100;
 
             // Remember a name of the last file reported
             _lastFileProcessed = e.FileName;

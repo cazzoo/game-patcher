@@ -22,12 +22,12 @@
                     <Label Content="File progress :" />
                     <Label Name="filePercentage" Content="0%" />
                 </StackPanel>
-                <ProgressBar Name="FileProgress" Height="15" Foreground="#FF01D328" />
+                <ProgressBar Name="fileProgress" Height="15" Foreground="#FF01D328" />
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Overall progress :" />
-                    <Label Name="OverallPercentage" Content="0%" />
+                    <Label Name="overallPercentage" Content="0%" />
                 </StackPanel>
-                <ProgressBar Name="OverallProgress" Height="15" Foreground="#FF0160D3" />
+                <ProgressBar Name="overallProgress" Height="15" Foreground="#FF0160D3" />
             </StackPanel>
         </StackPanel>
     </DockPanel>
