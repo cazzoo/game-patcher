@@ -62,20 +62,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\ListToStringConverter.cs" />
-    <Compile Include="ModFileUtility.cs" />
-    <Compile Include="ModSynchronizationWindow.xaml.cs">
+    <Compile Include="Utils\ModFileUtility.cs" />
+    <Compile Include="Windows\ModSynchronizationWindow.xaml.cs">
       <DependentUpon>ModSynchronizationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ModUtility.cs" />
+    <Compile Include="Utils\ModUtility.cs" />
     <Compile Include="OptionsViewModel.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Windows\RemoteModSelectionWindow.xaml.cs">
+      <DependentUpon>RemoteModSelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Validators\StringEmptyValidationError.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -83,11 +86,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ModSynchronizationWindow.xaml">
+    <Page Include="Windows\ModSynchronizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RemoteModSelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,6 +129,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.4.12</Version>
     </PackageReference>
     <PackageReference Include="PropertyTools.Wpf">
       <Version>2.0.1</Version>

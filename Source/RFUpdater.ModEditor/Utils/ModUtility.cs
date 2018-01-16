@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Newtonsoft.Json;
 using RFUpdater.Models;
 using Semver;
 using System;
@@ -15,9 +16,11 @@ namespace RFUpdater.ModEditor
             mod.SetUpdatedDate();
             mod.IncrementVersion();
 
+            mod.Files.ForEach(f => f.FilePath = f.FilePath.Replace(mod.ModStorePath, ""));
+
             string output = JsonConvert.SerializeObject(mod, Formatting.Indented);
 
-            string jsonFile = Path.Combine(mod.Path, string.Format("{0}.json", mod.Name));
+            string jsonFile = Path.Combine(mod.ModDirectory, string.Format("{0}.json", mod.Name));
             try
             {
                 using (StreamWriter streamWriter = new StreamWriter(jsonFile))
@@ -30,7 +33,7 @@ namespace RFUpdater.ModEditor
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Unable to save [{0}] mod on following path : [{1}].", mod.Name, mod.Path));
+                MessageBox.Show(String.Format("Unable to save [{0}] mod on following path : [{1}].", mod.Name, mod.ModStorePath));
                 throw;
             }
         }
@@ -46,9 +49,7 @@ namespace RFUpdater.ModEditor
             try
             {
                 mod = JsonConvert.DeserializeObject<Mod>(stringifiedMod);
-
-                string currentPath = Path.GetDirectoryName(fileName);
-                mod.Path = currentPath;
+                mod.ModStorePath = Directory.GetParent(fileName).Parent.FullName;
                 return mod;
             }
             catch (Exception ex)
@@ -102,7 +103,7 @@ namespace RFUpdater.ModEditor
                 loadedMod = new Mod()
                 {
                     Name = _modName,
-                    Path = modPath,
+                    ModStorePath = modPath,
                     Version = new SemVersion(1),
                     CreationDate = creationDate,
                     Files = modFiles
@@ -115,6 +116,26 @@ namespace RFUpdater.ModEditor
                 MessageBox.Show("Error while parsing the mod file. Content is invalid.");
                 throw;
             }
+        }
+
+        public static string SelectModPath()
+        {
+            CommonOpenFileDialog selectPathDialog = new CommonOpenFileDialog
+            {
+                EnsurePathExists = false,
+                EnsureFileExists = false,
+                Multiselect = false,
+                IsFolderPicker = true,
+                AllowNonFileSystemItems = false,
+                Title = "Select Mod root path"
+            };
+            var result = selectPathDialog.ShowDialog();
+
+            if (result == CommonFileDialogResult.Ok)
+            {
+                return selectPathDialog.FileName;
+            }
+            return null;
         }
     }
 }

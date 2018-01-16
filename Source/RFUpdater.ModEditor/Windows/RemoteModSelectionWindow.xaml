@@ -1,0 +1,17 @@
+﻿<Window x:Class="RFUpdater.ModEditor.RemoteModSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RFUpdater.ModEditor"
+        mc:Ignorable="d"
+        Title="RemoteModSelectionWindow" Width="300" WindowStyle="ToolWindow" ResizeMode="NoResize" ShowInTaskbar="False" SizeToContent="Height" WindowStartupLocation="CenterOwner" Margin="0">
+    <StackPanel Margin="5,0">
+        <Label Content="Select mod from remote" Margin="0,0,0,5" />
+        <ComboBox Name="remoteModList" Margin="0,0,0,5" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+            <Button x:Name="Cancel" Content="Cancel" Margin="0,0,5,0" Click="Cancel_Click" IsCancel="True" />
+            <Button x:Name="Import" Content="Import" Margin="0,0,5,0" Click="Import_Click" IsEnabled="False" />
+        </StackPanel>
+    </StackPanel>
+</Window>

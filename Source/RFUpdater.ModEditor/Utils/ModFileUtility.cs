@@ -21,25 +21,26 @@ namespace RFUpdater.ModEditor
             }
         }
 
-        public static Mod CopyModFilesToModPath(Mod mod)
+        public static Mod CopyModFilesToModPath(Mod workingMod, Mod loadedMod)
         {
-            foreach (ModFile modFile in mod.Files)
+            foreach (ModFile modFile in workingMod.Files)
             {
-                string selectedModFile = Path.Combine(modFile.FilePath, modFile.FileName);
+                string contentDirectory = loadedMod != null ? loadedMod.ContentDirectory: modFile.FilePath;
+                string selectedModFile = Path.Combine(contentDirectory, modFile.FileName);
                 FileInfo selectedFileInfo = new FileInfo(selectedModFile);
-                string newFilePath = Path.Combine(mod.Path, mod.Name, selectedFileInfo.Name);
+                string newFilePath = Path.Combine(workingMod.ContentDirectory, selectedFileInfo.Name);
                 FileInfo newFileInfo = new FileInfo(newFilePath);
                 if (!File.Exists(newFilePath) || (File.Exists(newFilePath) && newFileInfo.LastWriteTimeUtc != selectedFileInfo.LastWriteTimeUtc))
                 {
-                    if (!Directory.Exists(mod.ContentDirectory))
+                    if (!Directory.Exists(workingMod.ContentDirectory))
                     {
-                        Directory.CreateDirectory(mod.ContentDirectory);
+                        Directory.CreateDirectory(workingMod.ContentDirectory);
                     }
                     File.Copy(selectedModFile, newFilePath, true);
                 }
                 modFile.UpdateFromPath(newFilePath);
             }
-            return mod;
+            return workingMod;
         }
 
         public static ModFile GetModFile(FileInfo fileInfo)
@@ -49,8 +50,7 @@ namespace RFUpdater.ModEditor
                 FileName = fileInfo.Name,
                 FileHash = GetHash(fileInfo.FullName),
                 FileSize = fileInfo.Length,
-                FilePath = fileInfo.DirectoryName,
-                Protected = false
+                FilePath = fileInfo.DirectoryName
             };
         }
 

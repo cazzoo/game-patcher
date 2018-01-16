@@ -1,4 +1,5 @@
-﻿using Semver;
+﻿using Newtonsoft.Json;
+using Semver;
 using System;
 using System.Collections.Generic;
 
@@ -6,18 +7,32 @@ namespace RFUpdater.Models
 {
     public class Mod
     {
-        public string ContentDirectory => System.IO.Path.Combine(Path, Name);
+        private const string _contentDirectoryName = "content";
+
+        [JsonIgnore]
+        public string ContentDirectory => System.IO.Path.Combine(ModDirectory, _contentDirectoryName);
+
+        [JsonIgnore]
+        public string ModDirectory => System.IO.Path.Combine(ModStorePath, Name);
+
+        [JsonIgnore]
+        public bool IsPathDefined => !string.IsNullOrEmpty(ModStorePath);
+
+        [JsonIgnore]
+        public string ModStorePath { get; set; }
 
         public Mod()
         {
+            ModStorePath = string.Empty;
+            Name = string.Empty;
             Categories = new List<string>();
             Tags = new List<string>();
             Files = new List<ModFile>();
             Dependencies = new List<Dictionary<string, string>>();
+            CreationDate = DateTime.Now;
         }
 
         public string Name { get; set; }
-        public string Path { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
         public string Contact { get; set; }
@@ -60,6 +75,11 @@ namespace RFUpdater.Models
             {
                 UpdateDate = DateTime.Now;
             }
+        }
+
+        public Mod ShallowCopy()
+        {
+            return (Mod)this.MemberwiseClone();
         }
     }
 }

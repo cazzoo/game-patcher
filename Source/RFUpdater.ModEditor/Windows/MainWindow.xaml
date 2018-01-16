@@ -8,14 +8,14 @@
 
     <Window.CommandBindings>
         <CommandBinding Command="New" Executed="NewMod_Click" />
-        <CommandBinding Command="Save" Executed="NewMod_Click" />
+        <CommandBinding Command="Save" Executed="Save_Click" />
         <CommandBinding Command="SaveAs" Executed="SaveAs_Click" />
         <CommandBinding Command="Open" Executed="Open_Click" />
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="New" />
-        <KeyBinding Key="S" Modifiers="Shift" Command="Save" />
-        <KeyBinding Key="S" Modifiers="Ctrl" Command="SaveAs" />
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="Save" />
+        <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="SaveAs" />
         <KeyBinding Key="O" Modifiers="Ctrl" Command="Open" />
     </Window.InputBindings>
 
@@ -27,14 +27,15 @@
                 <MenuItem Header="_Open..." Click="Open_Click" InputGestureText="Ctrl+O" />
                 <Separator />
                 <MenuItem Header="_Save" Click="Save_Click" InputGestureText="Ctrl+S" />
-                <MenuItem Header="_Save as" Click="SaveAs_Click" InputGestureText="Ctrl+Maj+S" />
+                <MenuItem Header="_Save as" Click="SaveAs_Click" InputGestureText="Ctrl+Shift+S" />
                 <Separator />
                 <MenuItem Header="_Exit" Click="MenuItem_Click" />
             </MenuItem>
             <MenuItem Header="_Utils">
                 <MenuItem Header="_Import from old files format" Click="ImportOldFormat_Click" />
                 <Separator />
-                <MenuItem Header="_Publish to repository" Click="PublishMod_Click" />
+                <MenuItem Header="_Import mod from repository" Click="ImportFromRemote_Click" />
+                <MenuItem Header="_Export mod to repository" Click="ExportToRemote_Click" />
             </MenuItem>
             <MenuItem Header="Settings" Click="Settings_Click" />
             <MenuItem Header="About" Click="About_Click" />
@@ -79,7 +80,7 @@
                             <Label Grid.Row="0" Grid.Column="0" Content="Name" Target="{Binding ElementName=modName}" />
                             <TextBox Grid.Row="0" Grid.Column="1" Name="modName" MinWidth="150" />
                             <Label Grid.Row="0" Grid.Column="2" Content="Path" Target="{Binding ElementName=modPath}" />
-                            <TextBox Grid.Row="0" Grid.Column="3" Name="modPath" MinWidth="150" IsEnabled="False" ToolTipService.ShowOnDisabled="True" IsReadOnly="True" ToolTip="{Binding Text, ElementName=modPath}" />
+                            <TextBox Grid.Row="0" Grid.Column="3" Name="modDirectory" MinWidth="150" IsEnabled="False" ToolTipService.ShowOnDisabled="True" IsReadOnly="True" ToolTip="{Binding Text, ElementName=modPath}" />
                             <Label Grid.Row="1" Grid.Column="0" Content="Description" Target="{Binding ElementName=modDescription}" />
                             <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Name="modDescription" AcceptsReturn="True" TextWrapping="Wrap" MinWidth="150" MinLines="2"  ScrollViewer.VerticalScrollBarVisibility="Auto" />
                             <Label Grid.Row="2" Grid.Column="0" Content="Version" Target="{Binding ElementName=modVersion}" />

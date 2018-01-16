@@ -22,14 +22,15 @@ namespace ModEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Mod mod;
+        private Mod loadedMod;
+        private Mod workingMod;
         private const string constDateFormat = "dd MM yyyy";
         private const string applicationIcon = @"pack://application:,,,/Resources/favicon.ico";
         private const string missingImageIcon = @"pack://application:,,,/Resources/MissingImage.png";
         private BackgroundWorker worker;
         private int addedFiles;
 
-        public Mod Mod { get => mod; set => mod = value; }
+        public Mod Mod { get => workingMod; set => workingMod = value; }
 
         public MainWindow()
         {
@@ -52,7 +53,7 @@ namespace ModEditor
 
         #region methods
 
-        private void BindObject()
+        public void BindObject()
         {
             Binding NameBinding = new Binding("Name")
             {
@@ -63,12 +64,12 @@ namespace ModEditor
             NameBinding.ValidationRules.Add(new StringEmptyValidationError());
             modName.SetBinding(TextBox.TextProperty, NameBinding);
 
-            Binding PathBinding = new Binding("Path")
+            Binding ModDirectoryBinding = new Binding("ModDirectory")
             {
                 Mode = BindingMode.OneWay,
                 Source = Mod
             };
-            modPath.SetBinding(TextBox.TextProperty, PathBinding);
+            modDirectory.SetBinding(TextBox.TextProperty, ModDirectoryBinding);
 
             Binding DescriptionBinding = new Binding("Description")
             {
@@ -153,35 +154,14 @@ namespace ModEditor
             modImage.Source = new BitmapImage(new Uri(missingImageIcon));
         }
 
-        private bool SelectModPath()
-        {
-            bool returnStatus = false;
-            CommonOpenFileDialog selectPathDialog = new CommonOpenFileDialog
-            {
-                EnsurePathExists = true,
-                EnsureFileExists = false,
-                Multiselect = false,
-                IsFolderPicker = true,
-                AllowNonFileSystemItems = false,
-                Title = "Select Mod root path"
-            };
-            var result = selectPathDialog.ShowDialog();
-
-            if (result == CommonFileDialogResult.Ok)
-            {
-                Mod.Path = selectPathDialog.FileName;
-                returnStatus = true;
-            }
-            return returnStatus;
-        }
-
         private void SaveModFile()
         {
             try
             {
-                Mod.Files = ModFileUtility.CopyModFilesToModPath(Mod).Files;
+                Mod.Files = ModFileUtility.CopyModFilesToModPath(Mod, loadedMod).Files;
                 Mod = ModUtility.SaveToFile(Mod);
                 BindObject();
+                loadedMod = Mod;
             }
             catch
             {
@@ -218,9 +198,10 @@ namespace ModEditor
                     Mod = ModUtility.LoadFile(selectedFile);
                     if (!String.IsNullOrEmpty(Mod.Icon))
                     {
-                        modImage.Source = new BitmapImage(new Uri(Path.Combine(Mod.Path, Mod.Icon)));
+                        modImage.Source = new BitmapImage(new Uri(Path.Combine(Mod.ModDirectory, Mod.Icon)));
                     }
                     BindObject();
+                    loadedMod = Mod.ShallowCopy();
                 }
                 catch
                 {
@@ -256,6 +237,7 @@ namespace ModEditor
                 {
                     Mod = ModUtility.LoadOldFile(openModDialog.FileName);
                     BindObject();
+                    loadedMod = Mod;
                 }
                 catch (Exception ex)
                 {
@@ -305,12 +287,11 @@ namespace ModEditor
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            bool modPathDefined = !String.IsNullOrEmpty(Mod.Path);
-            if (!modPathDefined)
+            if (!Mod.IsPathDefined)
             {
-                modPathDefined = SelectModPath();
+                Mod.ModStorePath = Path.Combine(ModUtility.SelectModPath(), Mod.Name);
             }
-            if (modPathDefined)
+            if (Mod.IsPathDefined)
             {
                 SaveModFile();
             }
@@ -318,8 +299,8 @@ namespace ModEditor
 
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
-            bool modPathDefined = SelectModPath();
-            if (modPathDefined)
+            Mod.ModStorePath = Path.Combine(ModUtility.SelectModPath(), Mod.Name);
+            if (Mod.IsPathDefined)
             {
                 SaveModFile();
             }
@@ -359,7 +340,7 @@ namespace ModEditor
                 MessageBox.Show("Incorrect file type. Please select image file.");
                 return;
             }
-            if (string.IsNullOrEmpty(Mod.Path) || !File.Exists(Path.Combine(Mod.Path, String.Format("{0}.json", Mod.Name))))
+            if (!Mod.IsPathDefined || !File.Exists(Path.Combine(Mod.ModStorePath, String.Format("{0}.json", Mod.Name))))
             {
                 MessageBox.Show("Please set mod path and save it before setting the image.");
                 return;
@@ -369,7 +350,7 @@ namespace ModEditor
             string modImageFilename = String.Format("{0}{1}", Mod.Name, fileExtension);
             try
             {
-                string modImagePath = Path.Combine(Mod.Path, modImageFilename);
+                string modImagePath = Path.Combine(Mod.ModStorePath, modImageFilename);
                 File.Copy(fileList[0], modImagePath, true);
 
                 Mod.Icon = modImageFilename;
@@ -379,7 +360,7 @@ namespace ModEditor
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to move file to mod directory [{0}]. Please check path and user permissions.", Mod.Path);
+                MessageBox.Show("Unable to move file to mod directory [{0}]. Please check path and user permissions.", Mod.ModStorePath);
             }
         }
 
@@ -411,23 +392,20 @@ namespace ModEditor
             dlg.ShowDialog();
         }
 
-        private void PublishMod_Click(object sender, RoutedEventArgs e)
+        private void ImportFromRemote_Click(object sender, RoutedEventArgs e)
         {
-            ModSynchronizationWindow synchWindow = new ModSynchronizationWindow(Mod);
+            RemoteModSelectionWindow remoteModSelection = new RemoteModSelectionWindow();
+            remoteModSelection.Show();
+        }
+
+        private void ExportToRemote_Click(object sender, RoutedEventArgs e)
+        {
+            ModSynchronizationWindow synchWindow = new ModSynchronizationWindow(ModSynchronizationWindow.Action.UPLOAD, Mod);
             synchWindow.ShowDialog();
         }
 
         private void SelectFiles_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(Mod.Path))
-            {
-                bool modPathDefined = SelectModPath();
-                if (!modPathDefined)
-                {
-                    return;
-                }
-            }
-
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
             {
                 EnsurePathExists = true,
@@ -456,15 +434,6 @@ namespace ModEditor
 
         private void SelectFolders_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(Mod.Path))
-            {
-                bool modPathDefined = SelectModPath();
-                if (!modPathDefined)
-                {
-                    return;
-                }
-            }
-
             CommonOpenFileDialog openFolderDialog = new CommonOpenFileDialog
             {
                 EnsurePathExists = true,

@@ -1,10 +1,13 @@
 ﻿using RFUpdater.ModEditor.Properties;
 using RFUpdater.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
 using WinSCP;
+using System.Linq;
+using ModEditor;
 
 namespace RFUpdater.ModEditor
 {
@@ -17,12 +20,20 @@ namespace RFUpdater.ModEditor
         private string _lastFileProcessed;
         private int _countFilesToSynchronize;
         private int _countFilesProcessed;
+        private Action _selectedAction;
 
-        public ModSynchronizationWindow(Mod mod)
+        public enum Action
+        {
+            DOWNLOAD,
+            UPLOAD
+        }
+
+        public ModSynchronizationWindow(Action selectedAction, Mod mod)
         {
             Mod = mod;
             InitializeComponent();
             ResetComponents();
+            _selectedAction = selectedAction;
         }
 
         private void ResetComponents()
@@ -68,7 +79,7 @@ namespace RFUpdater.ModEditor
                     // Connect
                     session.Open(sessionOptions);
 
-                    string localModPath = Path.Combine(Mod.Path);
+                    string localModPath = Path.Combine(Mod.ModDirectory);
                     string remoteModPath = Path.Combine(Settings.Default.RepositoryStoragePath, Mod.Name);
 
                     if (!session.FileExists(remoteModPath))
@@ -76,8 +87,8 @@ namespace RFUpdater.ModEditor
                         session.CreateDirectory(remoteModPath);
                     }
 
-                    string[] filesToSynchronize = Directory.GetFiles(localModPath, "*.*", SearchOption.AllDirectories);
-                    _countFilesToSynchronize = filesToSynchronize.Length;
+                    HashSet<string> filesToSynchronize = new HashSet<string>(Directory.GetFiles(localModPath, "*.*", SearchOption.AllDirectories).ToList());
+                    _countFilesToSynchronize = filesToSynchronize.Count;
 
                     SynchronizationResult synchronizationResult;
                     synchronizationResult =
@@ -102,6 +113,96 @@ namespace RFUpdater.ModEditor
                         OverallPercentage.Content = string.Format("{0:P0}", 1);
                         OverallProgress.Value = 100;
                         statusText.Text = "Operation succeeded.";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: {0}", ex);
+            }
+        }
+
+        private void SynchronizeModToLocal()
+        {
+            try
+            {
+                // Setup session options
+                SessionOptions sessionOptions = new SessionOptions
+                {
+                    Protocol = Protocol.Sftp,
+                    HostName = Settings.Default.RepositoryUrl,
+                    UserName = Settings.Default.RepositoryName,
+                    Password = Settings.Default.RepositoryPassword,
+                    SshPrivateKeyPath = Settings.Default.RepositoryPrivateKeyPath,
+                    PrivateKeyPassphrase = "altER3g0$",
+                    GiveUpSecurityAndAcceptAnySshHostKey = true
+                };
+
+                using (Session session = new Session())
+                {
+                    // Will continuously report progress of synchronization
+                    session.FileTransferred += FileTransferred;
+
+                    // Will continuously report progress of transfer
+                    session.FileTransferProgress += SessionFileTransferProgress;
+
+                    //string fp = "ssh-rsa 2048 iGUY6ftkfgyHQ+Qcz1ntutaiSed8CETlcVb6elUO/Zk=.";
+                    //string fingerprint = session.ScanFingerprint(sessionOptions, "ssh-rsa");
+                    //sessionOptions.SshHostKeyFingerprint = fp;
+
+                    // Connect
+                    session.Open(sessionOptions);
+
+                    string localModPath = Path.Combine(Mod.ModDirectory);
+                    string remoteModPath = Path.Combine(Settings.Default.RepositoryStoragePath, Mod.Name);
+
+                    if (!session.FileExists(remoteModPath))
+                    {
+                        MessageBox.Show(string.Format("The mod [{0}] doesn't exist in the remote repository [{1}].", Mod.Name, Settings.Default.RepositoryStoragePath));
+                        return;
+                    }
+
+                    if (!Directory.Exists(localModPath))
+                    {
+                        Directory.CreateDirectory(localModPath);
+                    }
+                    RemoteDirectoryInfo remoteDirectoryInfo = session.ListDirectory(remoteModPath);
+                    _countFilesToSynchronize = remoteDirectoryInfo.Files.Count;
+
+                    SynchronizationResult synchronizationResult;
+                    synchronizationResult =
+                        session.SynchronizeDirectories(SynchronizationMode.Local, localModPath, remoteModPath, true);
+
+                    // Throw on any error
+                    synchronizationResult.Check();
+
+                    StringBuilder failedFiles = new StringBuilder();
+                    foreach (TransferEventArgs failedFile in synchronizationResult.Failures)
+                    {
+                        failedFiles.AppendLine(string.Format("{0}", failedFile.FileName));
+                    }
+
+                    if (failedFiles.Length > 0)
+                    {
+                        MessageBox.Show(failedFiles.ToString(), "Error downloading files.");
+                    }
+
+                    if (synchronizationResult.IsSuccess)
+                    {
+                        OverallPercentage.Content = string.Format("{0:P0}", 1);
+                        OverallProgress.Value = 100;
+                        statusText.Text = "Operation succeeded.";
+                        
+                        string modName = Path.GetFileName(localModPath);
+                        Mod synchedMod = ModUtility.LoadFile(Path.Combine(localModPath, string.Format("{0}.json", modName)));
+                        foreach (Window window in Application.Current.Windows)
+                        {
+                            if (window.GetType() == typeof(MainWindow))
+                            {
+                                (window as MainWindow).Mod = synchedMod;
+                                (window as MainWindow).BindObject();
+                            }
+                        }
                     }
                 }
             }
@@ -186,15 +287,18 @@ namespace RFUpdater.ModEditor
             _lastFileProcessed = e.FileName;
         }
 
-        private void RemoteToLocal_Button_Click(object sender, RoutedEventArgs e)
+        private void Window_ContentRendered(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-        }
+            switch (_selectedAction)
+            {
+                case Action.DOWNLOAD:
+                    SynchronizeModToLocal();
+                    break;
 
-        private void LocalToRemote_Button_Click(object sender, RoutedEventArgs e)
-        {
-            ResetComponents();
-            SynchronizeModToRemote();
+                case Action.UPLOAD:
+                    SynchronizeModToRemote();
+                    break;
+            }
         }
     }
 }
