@@ -158,5 +158,31 @@
   <ItemGroup>
     <Resource Include="Resources\favicon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_about.png" />
+    <Resource Include="Resources\icon_download.png" />
+    <Resource Include="Resources\icon_exit.png" />
+    <Resource Include="Resources\icon_import.png" />
+    <Resource Include="Resources\icon_open.png" />
+    <Resource Include="Resources\icon_save.png" />
+    <Resource Include="Resources\icon_saveas.png" />
+    <Resource Include="Resources\icon_settings.png" />
+    <Resource Include="Resources\icon_tools.png" />
+    <Resource Include="Resources\icon_upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_cancel.png" />
+    <Resource Include="Resources\icon_findFiles.png" />
+    <Resource Include="Resources\icon_folderFind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_link.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

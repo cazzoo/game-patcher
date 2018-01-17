@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using WinSCP;
+using System.Linq;
+using RFUpdater.ModEditor.Properties;
 
 namespace RFUpdater.ModEditor
 {
@@ -136,6 +139,51 @@ namespace RFUpdater.ModEditor
                 return selectPathDialog.FileName;
             }
             return null;
+        }
+
+        public static HashSet<RemoteFileInfo> FetchRemoteModList()
+        {
+            try
+            {
+                SessionOptions sessionOptions = new SessionOptions
+                {
+                    Protocol = Protocol.Sftp,
+                    HostName = Settings.Default.RepositoryUrl,
+                    UserName = Settings.Default.RepositoryName,
+                    Password = Settings.Default.RepositoryPassword,
+                    SshPrivateKeyPath = Settings.Default.RepositoryPrivateKeyPath,
+                    PrivateKeyPassphrase = "altER3g0$",
+                    GiveUpSecurityAndAcceptAnySshHostKey = true
+                };
+
+                using (Session session = new Session())
+                {
+                    //string fp = "ssh-rsa 2048 iGUY6ftkfgyHQ+Qcz1ntutaiSed8CETlcVb6elUO/Zk=.";
+                    //string fingerprint = session.ScanFingerprint(sessionOptions, "ssh-rsa");
+                    //sessionOptions.SshHostKeyFingerprint = fp;
+
+                    session.Open(sessionOptions);
+
+                    RemoteDirectoryInfo remoteDirectoryInfo = session.ListDirectory(Settings.Default.RepositoryStoragePath);
+
+                    HashSet<RemoteFileInfo> modList = new HashSet<RemoteFileInfo>(remoteDirectoryInfo.Files.Where(f => f.IsDirectory && !f.IsThisDirectory && !f.IsParentDirectory).ToList());
+
+                    if (modList.Any())
+                    {
+                        return modList;
+                    }
+                    else
+                    {
+                        MessageBox.Show(string.Format("No mods found in remote path [{0}]", Settings.Default.RepositoryStoragePath), "Error fetching remote mods.");
+                        return new HashSet<RemoteFileInfo>();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: {0}", ex);
+                return new HashSet<RemoteFileInfo>();
+            }
         }
     }
 }

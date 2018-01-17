@@ -14,6 +14,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.Linq;
+using WinSCP;
+using Semver;
 
 namespace ModEditor
 {
@@ -30,11 +32,15 @@ namespace ModEditor
         private BackgroundWorker worker;
         private int addedFiles;
 
+        private HashSet<RemoteFileInfo> remoteModFiles = new HashSet<RemoteFileInfo>();
+
         public Mod Mod { get => workingMod; set => workingMod = value; }
 
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+            fetchedModsCount.Content = remoteModFiles.Count;
             InitializeWorker();
             InitModObject();
             BindObject();
@@ -400,8 +406,8 @@ namespace ModEditor
 
         private void ExportToRemote_Click(object sender, RoutedEventArgs e)
         {
-            ModSynchronizationWindow synchWindow = new ModSynchronizationWindow(ModSynchronizationWindow.Action.UPLOAD, Mod);
-            synchWindow.ShowDialog();
+            ModSynchronizationWindow synchWindow = new ModSynchronizationWindow(WinSCP.SynchronizationMode.Remote, Mod);
+            synchWindow.Show();
         }
 
         private void SelectFiles_Click(object sender, RoutedEventArgs e)
@@ -458,6 +464,26 @@ namespace ModEditor
                     worker.RunWorkerAsync(selectedPaths);
                 }
             }
+        }
+
+        private void FetchModList_Click(object sender, RoutedEventArgs e)
+        {
+            remoteModFiles = ModUtility.FetchRemoteModList();
+            fetchedModsCount.Content = remoteModFiles.Count;
+            fetchedModsCount.ToolTip = string.Join(Environment.NewLine, remoteModFiles);
+            fetchedModList.ItemsSource = remoteModFiles.Select(f => f.Name).ToList();
+            fetchedModList.SelectedIndex = 0;
+        }
+
+        private void AddDependency_Click(object sender, RoutedEventArgs e)
+        {
+            dependenciesGrid.Items.Add(new Mod()
+            {
+                Version = new SemVersion(1),
+                Name = fetchedModList.SelectedItem.ToString()
+            });
+            remoteModFiles.RemoveWhere(f => fetchedModList.SelectedIndex.ToString().Equals(f.Name));
+            fetchedModList.ItemsSource = remoteModFiles;
         }
 
         #endregion Events

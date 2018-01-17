@@ -19,6 +19,14 @@ namespace RFUpdater.ModEditor
             FetchRemoteMods();
         }
 
+        private void FetchRemoteMods()
+        {
+            HashSet<RemoteFileInfo> modList = ModUtility.FetchRemoteModList();
+            remoteModList.ItemsSource = modList.Select(f => f.Name).ToList();
+            Import.IsEnabled = true;
+            remoteModList.SelectedIndex = 0;
+        }
+
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -34,56 +42,9 @@ namespace RFUpdater.ModEditor
 
             if (mod.IsPathDefined)
             {
-                ModSynchronizationWindow synchronizationWindow = new ModSynchronizationWindow(ModSynchronizationWindow.Action.DOWNLOAD, mod);
+                ModSynchronizationWindow synchronizationWindow = new ModSynchronizationWindow(SynchronizationMode.Local, mod);
                 synchronizationWindow.Show();
                 Close();
-            }
-        }
-
-        private void FetchRemoteMods()
-        {
-            try
-            {
-                // Setup session options
-                SessionOptions sessionOptions = new SessionOptions
-                {
-                    Protocol = Protocol.Sftp,
-                    HostName = Settings.Default.RepositoryUrl,
-                    UserName = Settings.Default.RepositoryName,
-                    Password = Settings.Default.RepositoryPassword,
-                    SshPrivateKeyPath = Settings.Default.RepositoryPrivateKeyPath,
-                    PrivateKeyPassphrase = "altER3g0$",
-                    GiveUpSecurityAndAcceptAnySshHostKey = true
-                };
-
-                using (Session session = new Session())
-                {
-                    //string fp = "ssh-rsa 2048 iGUY6ftkfgyHQ+Qcz1ntutaiSed8CETlcVb6elUO/Zk=.";
-                    //string fingerprint = session.ScanFingerprint(sessionOptions, "ssh-rsa");
-                    //sessionOptions.SshHostKeyFingerprint = fp;
-
-                    // Connect
-                    session.Open(sessionOptions);
-
-                    RemoteDirectoryInfo remoteDirectoryInfo = session.ListDirectory(Settings.Default.RepositoryStoragePath);
-
-                    List<RemoteFileInfo> modList = remoteDirectoryInfo.Files.Where(f => f.IsDirectory && !f.IsThisDirectory && !f.IsParentDirectory).ToList();
-
-                    if (modList.Any())
-                    {
-                        remoteModList.ItemsSource = modList.Select(f => f.Name).ToList();
-                        Import.IsEnabled = true;
-                        remoteModList.SelectedIndex = 0;
-                    }
-                    else
-                    {
-                        MessageBox.Show(string.Format("No mods found in remote path [{0}]", Settings.Default.RepositoryStoragePath), "Error fetching remote mods.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: {0}", ex);
             }
         }
     }

@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RFUpdater.ModEditor"
         mc:Ignorable="d"
-        Title="Mod synchronization" Width="500" WindowStyle="ToolWindow" SizeToContent="Height" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False" ContentRendered="Window_ContentRendered">
+        Title="Mod synchronization" Width="500" WindowStyle="ToolWindow" SizeToContent="Height" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ContentRendered="Window_ContentRendered">
     <DockPanel>
         <StackPanel DockPanel.Dock="Bottom">
             <StatusBar>
@@ -17,7 +16,7 @@
         <StackPanel Margin="0,0,0,5">
             <Label Content="Current File" />
             <Label Name="fileName" Content="" BorderThickness="0" Margin="30,0,10,0" />
-            <StackPanel Margin="50,0">
+            <StackPanel Name="sp" Margin="50,0">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="File progress :" />
                     <Label Name="filePercentage" Content="0%" />
