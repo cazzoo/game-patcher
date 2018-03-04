@@ -293,9 +293,15 @@ namespace ModEditor
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            if (string.Empty.Equals(Mod.Name))
+            {
+                MessageBox.Show("Please enter a name before saving.", "No mod name", MessageBoxButton.OK);
+                return;
+            }
             if (!Mod.IsPathDefined)
             {
-                Mod.ModStorePath = Path.Combine(ModUtility.SelectModPath(), Mod.Name);
+                string selectedPath = ModUtility.SelectModPath();
+                Mod.ModStorePath = null != selectedPath ? Path.Combine(selectedPath, Mod.Name) : null;
             }
             if (Mod.IsPathDefined)
             {
@@ -305,7 +311,8 @@ namespace ModEditor
 
         private void SaveAs_Click(object sender, RoutedEventArgs e)
         {
-            Mod.ModStorePath = Path.Combine(ModUtility.SelectModPath(), Mod.Name);
+            string selectedPath = ModUtility.SelectModPath();
+            Mod.ModStorePath = null != selectedPath ? Path.Combine(selectedPath, Mod.Name) : null;
             if (Mod.IsPathDefined)
             {
                 SaveModFile();

@@ -22,9 +22,11 @@ namespace RFUpdater.ModEditor
         private void FetchRemoteMods()
         {
             HashSet<RemoteFileInfo> modList = ModUtility.FetchRemoteModList();
-            remoteModList.ItemsSource = modList.Select(f => f.Name).ToList();
-            Import.IsEnabled = true;
-            remoteModList.SelectedIndex = 0;
+            if(modList.Any()) { 
+                remoteModList.ItemsSource = modList.Select(f => f.Name).ToList();
+                Import.IsEnabled = true;
+                remoteModList.SelectedIndex = 0;
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)

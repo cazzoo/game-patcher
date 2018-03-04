@@ -173,7 +173,7 @@ namespace RFUpdater.PatchEditor
                     string filename = Path.GetFileName(lineElements[0]);
                     ModFile file = new ModFile()
                     {
-                        Deletable = false,
+                        Protected = false,
                         FilePath = path,
                         FileName = filename,
                         FileHash = UInt32.Parse(lineElements[1], System.Globalization.NumberStyles.HexNumber),
