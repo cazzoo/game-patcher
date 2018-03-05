@@ -225,7 +225,7 @@
                             <Label Name="fetchedModsCount" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <ComboBox Name="fetchedModList" />
+                            <ComboBox Name="availableDependenciesList" />
                             <Button x:Name="AddDependency" Click="AddDependency_Click">
                                 <StackPanel Orientation="Horizontal" Margin="5,0">
                                     <Image Height="20" Source="/RFUpdater.ModEditor;component/Resources/icon_link.png" Stretch="Fill" Width="20" />
@@ -241,14 +241,14 @@
                     </Grid>
                     <DataGrid x:Name="dependenciesGrid"
                   AutoGenerateColumns="False"
-                  CanUserAddRows="True"
+                  CanUserAddRows="False"
                   CanUserDeleteRows="True"
                   CanUserSortColumns="False"
                   AlternatingRowBackground="WhiteSmoke"
                   Grid.Column="0" Grid.Row="0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Version}" Header="Version" />
-                            <DataGridTextColumn Binding="{Binding Name}" Header="Mod name" />
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Mod name" IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>

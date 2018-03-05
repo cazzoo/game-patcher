@@ -141,7 +141,7 @@ namespace RFUpdater.ModEditor
             return null;
         }
 
-        public static HashSet<RemoteFileInfo> FetchRemoteModList()
+        public static HashSet<Mod> FetchRemoteModList()
         {
             try
             {
@@ -164,25 +164,32 @@ namespace RFUpdater.ModEditor
 
                     session.Open(sessionOptions);
 
-                    RemoteDirectoryInfo remoteDirectoryInfo = session.ListDirectory(Settings.Default.RepositoryStoragePath);
-
-                    HashSet<RemoteFileInfo> modList = new HashSet<RemoteFileInfo>(remoteDirectoryInfo.Files.Where(f => f.IsDirectory && !f.IsThisDirectory && !f.IsParentDirectory).ToList());
-
-                    if (modList.Any())
+                    TransferOptions transferOptions = new TransferOptions()
                     {
-                        return modList;
-                    }
-                    else
+                        FileMask = "*.json",
+                    };
+                    TransferOperationResult transferResult;
+                    transferResult = session.GetFiles(Settings.Default.RepositoryStoragePath, Path.GetTempPath(), false, transferOptions);
+                    transferResult.Check();
+
+                    if (!transferResult.Transfers.Any())
                     {
                         MessageBox.Show(string.Format("No mods found in remote path [{0}]", Settings.Default.RepositoryStoragePath), "Error fetching remote mods.");
-                        return new HashSet<RemoteFileInfo>();
+                        return new HashSet<Mod>();
                     }
+                    HashSet<Mod> mods = new HashSet<Mod>();
+                    foreach (TransferEventArgs transferedFile in transferResult.Transfers)
+                    {
+                        var mod = LoadFile(transferedFile.Destination);
+                        mods.Add(mod);
+                    }
+                    return mods;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: {0}", ex);
-                return new HashSet<RemoteFileInfo>();
+                return new HashSet<Mod>();
             }
         }
     }

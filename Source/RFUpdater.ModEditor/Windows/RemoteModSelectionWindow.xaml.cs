@@ -1,6 +1,4 @@
-﻿using RFUpdater.ModEditor.Properties;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using WinSCP;
 using System.Linq;
@@ -21,8 +19,9 @@ namespace RFUpdater.ModEditor
 
         private void FetchRemoteMods()
         {
-            HashSet<RemoteFileInfo> modList = ModUtility.FetchRemoteModList();
-            if(modList.Any()) { 
+            HashSet<Mod> modList = ModUtility.FetchRemoteModList();
+            if (modList.Any())
+            {
                 remoteModList.ItemsSource = modList.Select(f => f.Name).ToList();
                 Import.IsEnabled = true;
                 remoteModList.SelectedIndex = 0;

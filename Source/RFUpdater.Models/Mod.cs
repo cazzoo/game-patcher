@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RFUpdater.Models
 {
-    public class Mod
+    public class Mod : IEquatable<Mod>
     {
         private const string _contentDirectoryName = "content";
 
@@ -28,7 +28,7 @@ namespace RFUpdater.Models
             Categories = new List<string>();
             Tags = new List<string>();
             Files = new List<ModFile>();
-            Dependencies = new List<Dictionary<string, string>>();
+            Dependencies = new HashSet<ModDependency>();
             CreationDate = DateTime.Now;
         }
 
@@ -46,7 +46,7 @@ namespace RFUpdater.Models
         public DateTime CreationDate { get; set; }
         public DateTime? UpdateDate { get; set; }
 
-        public List<Dictionary<string, string>> Dependencies { get; set; }
+        public HashSet<ModDependency> Dependencies { get; set; }
 
         public void IncrementVersion()
         {
@@ -80,6 +80,21 @@ namespace RFUpdater.Models
         public Mod ShallowCopy()
         {
             return (Mod)this.MemberwiseClone();
+        }
+
+        public bool Equals(Mod other)
+        {
+            return Name.Equals(other.Name, StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

@@ -14,8 +14,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 using System.Linq;
-using WinSCP;
-using Semver;
 
 namespace ModEditor
 {
@@ -32,7 +30,8 @@ namespace ModEditor
         private BackgroundWorker worker;
         private int addedFiles;
 
-        private HashSet<RemoteFileInfo> remoteModFiles = new HashSet<RemoteFileInfo>();
+        private HashSet<Mod> remoteMods = new HashSet<Mod>();
+        private HashSet<Mod> availableDependencies = new HashSet<Mod>();
 
         public Mod Mod { get => workingMod; set => workingMod = value; }
 
@@ -40,7 +39,7 @@ namespace ModEditor
         {
             InitializeComponent();
             DataContext = this;
-            fetchedModsCount.Content = remoteModFiles.Count;
+            fetchedModsCount.Content = remoteMods.Count;
             InitializeWorker();
             InitModObject();
             BindObject();
@@ -475,22 +474,28 @@ namespace ModEditor
 
         private void FetchModList_Click(object sender, RoutedEventArgs e)
         {
-            remoteModFiles = ModUtility.FetchRemoteModList();
-            fetchedModsCount.Content = remoteModFiles.Count;
-            fetchedModsCount.ToolTip = string.Join(Environment.NewLine, remoteModFiles);
-            fetchedModList.ItemsSource = remoteModFiles.Select(f => f.Name).ToList();
-            fetchedModList.SelectedIndex = 0;
+            HashSet<Mod> fetchedMods = ModUtility.FetchRemoteModList();
+            remoteMods.UnionWith(fetchedMods);
+            HashSet<ModDependency> currentDependencies = new HashSet<ModDependency>(dependenciesGrid.Items.OfType<ModDependency>());
+            availableDependencies = new HashSet<Mod>(remoteMods.Where(m => currentDependencies.Select(cd => cd.Name).Contains(m.Name)).ToList());
+            fetchedModsCount.Content = remoteMods.Count;
+            fetchedModsCount.ToolTip = string.Join(Environment.NewLine, remoteMods.Select(m => m.Name));
+            availableDependenciesList.ItemsSource = availableDependencies;
+            availableDependenciesList.SelectedIndex = 0;
         }
 
         private void AddDependency_Click(object sender, RoutedEventArgs e)
         {
-            dependenciesGrid.Items.Add(new Mod()
+            Mod selectedItem = (Mod)availableDependenciesList.SelectedItem;
+            dependenciesGrid.Items.Add(new ModDependency()
             {
-                Version = new SemVersion(1),
-                Name = fetchedModList.SelectedItem.ToString()
+                Name = selectedItem.ToString(),
+                Version = (selectedItem).Version.ToString()
             });
-            remoteModFiles.RemoveWhere(f => fetchedModList.SelectedIndex.ToString().Equals(f.Name));
-            fetchedModList.ItemsSource = remoteModFiles;
+
+            availableDependencies.Remove(selectedItem);
+            availableDependenciesList.Items.Refresh();
+            availableDependenciesList.SelectedIndex = 0;
         }
 
         #endregion Events
