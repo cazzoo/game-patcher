@@ -185,5 +185,14 @@
   <ItemGroup>
     <Resource Include="Resources\icon_link.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_synchronize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_delete.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

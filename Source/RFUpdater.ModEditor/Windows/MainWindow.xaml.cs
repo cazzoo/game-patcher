@@ -24,7 +24,7 @@ namespace ModEditor
     {
         private Mod loadedMod;
         private Mod workingMod;
-        private const string constDateFormat = "dd MM yyyy";
+        private const string constDateFormat = "dd MM yyyy HH:mm";
         private const string applicationIcon = @"pack://application:,,,/Resources/favicon.ico";
         private const string missingImageIcon = @"pack://application:,,,/Resources/MissingImage.png";
         private BackgroundWorker worker;
@@ -39,7 +39,6 @@ namespace ModEditor
         {
             InitializeComponent();
             DataContext = this;
-            fetchedModsCount.Content = remoteMods.Count;
             InitializeWorker();
             InitModObject();
             BindObject();
@@ -476,25 +475,35 @@ namespace ModEditor
         {
             HashSet<Mod> fetchedMods = ModUtility.FetchRemoteModList();
             remoteMods.UnionWith(fetchedMods);
-            HashSet<ModDependency> currentDependencies = new HashSet<ModDependency>(dependenciesGrid.Items.OfType<ModDependency>());
-            availableDependencies = new HashSet<Mod>(remoteMods.Where(m => currentDependencies.Select(cd => cd.Name).Contains(m.Name)).ToList());
-            fetchedModsCount.Content = remoteMods.Count;
-            fetchedModsCount.ToolTip = string.Join(Environment.NewLine, remoteMods.Select(m => m.Name));
-            availableDependenciesList.ItemsSource = availableDependencies;
-            availableDependenciesList.SelectedIndex = 0;
+            UpdateAvailableMods();
         }
 
         private void AddDependency_Click(object sender, RoutedEventArgs e)
         {
             Mod selectedItem = (Mod)availableDependenciesList.SelectedItem;
+            if (selectedItem == null) return;
             dependenciesGrid.Items.Add(new ModDependency()
             {
                 Name = selectedItem.ToString(),
                 Version = (selectedItem).Version.ToString()
             });
 
-            availableDependencies.Remove(selectedItem);
-            availableDependenciesList.Items.Refresh();
+            UpdateAvailableMods();
+        }
+
+        private void RemoveDependency_Click(object sender, RoutedEventArgs e)
+        {
+            ModDependency deletedItem = (ModDependency)(((Button)sender).Tag);
+            dependenciesGrid.Items.Remove(deletedItem);
+
+            UpdateAvailableMods();
+        }
+
+        private void UpdateAvailableMods()
+        {
+            HashSet<ModDependency> modDependencies = new HashSet<ModDependency>(dependenciesGrid.Items.OfType<ModDependency>());
+            availableDependencies = new HashSet<Mod>(remoteMods.Where(m => !modDependencies.Select(cd => cd.Name).Contains(m.Name)).ToList());
+            availableDependenciesList.ItemsSource = availableDependencies;
             availableDependenciesList.SelectedIndex = 0;
         }
 

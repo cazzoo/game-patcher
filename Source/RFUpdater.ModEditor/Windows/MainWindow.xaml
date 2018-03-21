@@ -220,22 +220,15 @@
             <TabItem Header="Mod dependencies">
                 <DockPanel>
                     <Grid DockPanel.Dock="Top" Margin="0,0,0,5">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Number of fetched mods :" />
-                            <Label Name="fetchedModsCount" />
-                        </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <ComboBox Name="availableDependenciesList" />
-                            <Button x:Name="AddDependency" Click="AddDependency_Click">
+                            <ComboBox Name="availableDependenciesList" Margin="0,0,5,0" />
+                            <Button x:Name="AddDependency" Click="AddDependency_Click" Margin="0,0,5,0" IsEnabled="{Binding ElementName=availableDependenciesList}">
                                 <StackPanel Orientation="Horizontal" Margin="5,0">
-                                    <Image Height="20" Source="/RFUpdater.ModEditor;component/Resources/icon_link.png" Stretch="Fill" Width="20" />
+                                    <Image Height="20" Source="/RFUpdater.ModEditor;component/Resources/icon_add.png" Stretch="Fill" Width="20" />
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="fetchModList" Click="FetchModList_Click">
-                                <StackPanel Orientation="Horizontal" Margin="5,0">
-                                    <Image Height="20" Source="/RFUpdater.ModEditor;component/Resources/icon_save.png" Stretch="Fill" Width="20" Margin="0,0,10,0" />
-                                    <TextBlock Text="Fetch mod list" VerticalAlignment="Center" />
-                                </StackPanel>
+                            <Button x:Name="fetchModList" Click="FetchModList_Click" ToolTip="Fetch remote mod list" Margin="0,0,5,0">
+                                <Image Height="20" Source="/RFUpdater.ModEditor;component/Resources/icon_synchronize.png" Stretch="Fill" Width="20" Margin="0" />
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -247,6 +240,15 @@
                   AlternatingRowBackground="WhiteSmoke"
                   Grid.Column="0" Grid.Row="0">
                         <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Tag="{Binding}" Click="RemoveDependency_Click" BorderThickness="0" Padding="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                                            <Image Height="20" Source="/RFUpdater.ModEditor;component/Resources/icon_delete.png" Stretch="Fill" Width="20" Margin="0" />
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Binding="{Binding Version}" Header="Version" />
                             <DataGridTextColumn Binding="{Binding Name}" Header="Mod name" IsReadOnly="True" />
                         </DataGrid.Columns>
