@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater", "RFUpdater\RFUpdater.csproj", "{27551191-2443-4262-BAF1-A29D411E2ED6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater.old", "RFUpdater.old\RFUpdater.old.csproj", "{27551191-2443-4262-BAF1-A29D411E2ED6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater.ModEditor", "RFUpdater.ModEditor\RFUpdater.ModEditor.csproj", "{5D8225D4-3CBA-4EDA-B777-3D7106A37622}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater.ModEditor", "RFUp
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RFUpdater.Models", "RFUpdater.Models\RFUpdater.Models.csproj", "{EBBA92A2-0AA9-42D3-9063-8409BEF0D1CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFUpdater", "RFUpdater\RFUpdater.csproj", "{B370EBEA-AD9A-43B0-8ED9-A8F6A56BFEFA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EBBA92A2-0AA9-42D3-9063-8409BEF0D1CC} = {EBBA92A2-0AA9-42D3-9063-8409BEF0D1CC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +35,10 @@ Global
 		{EBBA92A2-0AA9-42D3-9063-8409BEF0D1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBBA92A2-0AA9-42D3-9063-8409BEF0D1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBBA92A2-0AA9-42D3-9063-8409BEF0D1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B370EBEA-AD9A-43B0-8ED9-A8F6A56BFEFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B370EBEA-AD9A-43B0-8ED9-A8F6A56BFEFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B370EBEA-AD9A-43B0-8ED9-A8F6A56BFEFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B370EBEA-AD9A-43B0-8ED9-A8F6A56BFEFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
