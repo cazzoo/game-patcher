@@ -1,18 +1,19 @@
 ﻿using HtmlAgilityPack;
+using MahApps.Metro.Controls;
+using NLog;
 using RFUpdater.Converters;
 using RFUpdater.Models;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Linq;
-using System.Collections.Generic;
-using System.Net;
-using System.IO;
-using System.Diagnostics;
-using NLog;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace RFUpdater
@@ -20,7 +21,7 @@ namespace RFUpdater
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private Mod workingMod;
         private const string constDateFormat = "dd MM yyyy HH:mm";
@@ -67,7 +68,7 @@ namespace RFUpdater
             {
                 // Load mod from temp file
                 applicationActionName.Text = $"selectedMod : {selectedMod}";
-                Mod = Utils.ParseModFile(Path.Combine(applicationTempPath, $"{selectedMod}.json"));
+                Mod = Models.Utils.ParseModFile(Path.Combine(applicationTempPath, $"{selectedMod}.json"));
                 if (Mod.Icon != null)
                 {
                     string modIcon = $"{remoteRepositoryUrl}{Mod.Name}/{Mod.Icon}";
@@ -247,6 +248,12 @@ namespace RFUpdater
             {
                 modImage.Source = new BitmapImage(new Uri(missingImageIcon));
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 window1 = new Window1();
+            window1.Show();
         }
     }
 }
