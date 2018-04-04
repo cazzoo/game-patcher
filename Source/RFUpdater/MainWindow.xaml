@@ -5,20 +5,111 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RFUpdater"
         mc:Ignorable="d"
-        Title="RF Updater" Height="450" Width="800" Icon="Resources/favicon.ico">
+        Title="RF Updater" Width="717" Icon="Resources/favicon.ico" Height="555" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <Style x:Key="CommonStyle" TargetType="FrameworkElement">
+            <Setter Property="Margin" Value="0,10,0,0" />
+        </Style>
+        <Style TargetType="Label" BasedOn="{StaticResource CommonStyle}" />
+        <Style TargetType="TextBox" BasedOn="{StaticResource CommonStyle}" />
+        <Style TargetType="CheckBox" BasedOn="{StaticResource CommonStyle}" />
+    </Window.Resources>
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
             <Label Content="Please select a mod in the list a click on Synchronize" />
+            <Button x:Name="synchronizeMods" Content="Get list of available mods" Click="SynchronizeMods_Click" HorizontalAlignment="Right" Padding="5" />
         </StackPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Button Content="Cancel" Margin="5" Padding="5" />
-            <Button Content="Synchronize" Margin="5" Padding="5" />
+        <StackPanel DockPanel.Dock="Bottom">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <Button Content="Cancel" Margin="5" Padding="5" />
+                <Button Content="Synchronize" Margin="5" Padding="5" />
+            </StackPanel>
+            <StatusBar>
+                <StatusBarItem>
+                    <ProgressBar Name="applicationActionProgress" Width="200" Height="20" />
+                </StatusBarItem>
+                <StatusBarItem>
+                    <TextBlock Name="applicationActionName" />
+                </StatusBarItem>
+            </StatusBar>
         </StackPanel>
-        <StackPanel>
-            <ListView Margin="20, 20, 20, 20" Padding="10, 10, 10, 10" />
-            <Grid>
-                <Label Content="test"></Label>
-            </Grid>
-        </StackPanel>
+        <Grid x:Name="availableMods">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <DataGrid Height="100" Width="100" />
+            <ListView x:Name="AvailableMods" Grid.Row="0" Margin="5" Padding="10" />
+            <TabControl Grid.Row="1">
+                <TabItem Header="Mod information">
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Margin" Value="0,10,0,0" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Name" Target="{Binding ElementName=modName}" Width="100" />
+                                <TextBox IsReadOnly="True" IsEnabled="False" Name="modName" Width="150" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Version" Target="{Binding ElementName=modVersion}" Width="100" />
+                                <TextBox Name="modVersion" IsEnabled="False" IsReadOnly="True" Width="150" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Mandatory ?" Target="{Binding ElementName=modMandatory}" Width="100" />
+                                <CheckBox Name="modMandatory" VerticalAlignment="Center" IsEnabled="False" Width="100" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Description" Target="{Binding ElementName=modDescription}" Width="100" />
+                            <TextBox Name="modDescription" IsReadOnly="True" IsEnabled="False" TextWrapping="Wrap" MinLines="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Width="600" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Metadata">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="Margin" Value="0,10,0,0" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Author" Target="{Binding ElementName=modAuthor}" Width="100" />
+                                <TextBox IsReadOnly="True" IsEnabled="False" Name="modAuthor" Width="300" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Contact" Target="{Binding ElementName=modContact}" Width="100" />
+                                <TextBox IsReadOnly="True" IsEnabled="False" Name="modContact" Width="300" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Categories" Target="{Binding ElementName=modCategories}" Width="100" />
+                                <TextBox IsReadOnly="True" IsEnabled="False" Name="modCategories" Width="300" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label  Content="Tags" Target="{Binding ElementName=modTags}" Width="100" />
+                                <TextBox  IsReadOnly="True" IsEnabled="False" Name="modTags" Width="300" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Creation Date" Target="{Binding ElementName=modCreationDate}" Width="100" />
+                                    <TextBox IsReadOnly="True" IsEnabled="False" Name="modCreationDate" Width="100" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Update Date" Target="{Binding ElementName=modUpdateDate}" Width="100" />
+                                    <TextBox IsReadOnly="True" IsEnabled="False" Name="modUpdateDate" Width="100" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Width="300" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Image Name="modImage" Source="/RFUpdater;component/Resources/MissingImage.png" Width="233" Height="144" MaxWidth="233" MaxHeight="144" Stretch="None" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </DockPanel>
 </Window>
